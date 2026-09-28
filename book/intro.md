@@ -10,7 +10,7 @@ Il flusso di lavoro è:
 VS Code -> Markdown / Notebook / Python -> test -> preview locale -> Git -> GitHub Actions -> GitHub Pages
 ```
 
-## Separazione delle responsabilità
+## Separazione 
 
 - `book/`: narrazione didattica, teoria, formule, risultati e riferimenti.
 - `notebooks/`: esperimenti, simulazioni, visualizzazioni e analisi esplorative.
@@ -18,3 +18,58 @@ VS Code -> Markdown / Notebook / Python -> test -> preview locale -> Git -> GitH
 - `tests/`: test automatici del codice Python.
 
 Il capitolo sul [metodo di Newton](02_root_finding/newton.md) mostra il pattern completo.
+
+## Programma del corso
+
+Il materiale seguirà principalmente questi argomenti:
+
+1. **Classical Statistical Mechanics**
+   - ensemble canonico e microcanonico
+   - medie temporali e microcanoniche
+   - teorema ergodico
+   - limite termodinamico ed equivalenza degli ensemble
+
+2. **Adiabatic approximation e moto nucleare**
+   - scale temporali elettroniche e nucleari
+   - Hamiltoniana elettronica
+   - approssimazione classica del moto dei nuclei
+   - dinamica molecolare *ab initio* e classica
+
+3. **Interatomic potentials**
+   - potenziali a coppie e many-body
+   - packing fraction
+   - potenziale Lennard-Jones
+   - cutoff radius e dipendenza delle quantità fisiche dal cutoff
+   - neighbor lists
+
+4. **Scientific coding**
+   - implementazione numerica degli algoritmi del corso
+   - esempi in MATLAB
+   - calcolo dell'energia di un cristallo
+   - costruzione delle liste dei vicini
+
+5. **Molecular Dynamics**
+   - Verlet configurazionale e velocity Verlet
+   - velocità iniziali e scelta del timestep
+   - calcolo delle forze
+   - codice Molecular Dynamics completo con Lennard-Jones
+   - termostati e velocity rescaling
+   - thermal cycles / simulated annealing
+   - cenni ai codici linear-scaling
+   - esercizio d'esame 1/3
+
+6. **Kinetic Monte Carlo**
+   - problema delle scale temporali
+   - transition state theory
+   - first-escape times
+   - catene di Markov, Master equation e detailed balance
+   - algoritmo Bortz-Kalos-Lebowitz
+   - simulazione della crescita cristallina
+   - esercizio d'esame 2/3
+
+7. **Metropolis Monte Carlo**
+   - importance sampling
+   - proprietà di equilibrio
+   - algoritmo Metropolis
+   - implementazione di un codice Monte Carlo
+   - esercizio d'esame 3/3
