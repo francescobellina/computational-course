@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "computational-course"
+version = "0.1.0"
+description = "Reusable numerical methods and computational course material."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = "MIT"
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "numpy==2.5.3",
+  "scipy==1.18.1",
+  "matplotlib==3.11.2",
+  "pandas==3.0.6",
+  "sympy==1.14.0",
+  "jupyter==1.1.1",
+  "jupyter-book==2.1.7",
+  "pytest==9.1.1",
+  "ruff==0.16.8",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

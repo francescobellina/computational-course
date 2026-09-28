@@ -1,0 +1,45 @@
+# Python environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Jupyter Book / MyST generated files
+_build/
+cache/
+.cache/
+node_modules/
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+
+# VS Code local state (shared project settings remain versioned)
+.vscode/*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
