@@ -1,0 +1,88 @@
+/* ==========================================
+   Computational Methods in Statistical Mechanics
+   Custom Book Theme
+   ========================================== */
+
+:root {
+  --course-accent: #2563eb;
+  --course-border: rgba(100, 116, 139, 0.25);
+}
+
+/* Titoli */
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.015em;
+}
+
+h1 {
+  font-weight: 750;
+}
+
+h2 {
+  margin-top: 2.3rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--course-border);
+}
+
+/* Link */
+
+main a {
+  color: var(--course-accent);
+  text-underline-offset: 0.15em;
+}
+
+main a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Pagina attiva nella navigazione */
+
+a[aria-current="page"] {
+  font-weight: 700;
+}
+
+/* Codice */
+
+pre {
+  border: 1px solid var(--course-border);
+  border-radius: 0.6rem;
+}
+
+code {
+  border-radius: 0.25rem;
+}
+
+/* Tabelle */
+
+table {
+  width: 100%;
+}
+
+th {
+  font-weight: 650;
+}
+
+/* Citazioni / note */
+
+blockquote {
+  border-left: 3px solid var(--course-accent);
+  padding-left: 1rem;
+}
+
+/* Dark mode */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --course-accent: #60a5fa;
+    --course-border: rgba(148, 163, 184, 0.3);
+  }
+}
+
+html.dark,
+.dark,
+html[data-theme="dark"] {
+  --course-accent: #60a5fa;
+  --course-border: rgba(148, 163, 184, 0.3);
+}

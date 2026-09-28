@@ -1,21 +1,26 @@
 version: 1
 
 project:
-  title: Computational Course
-  description: Appunti, esperimenti numerici e codice riutilizzabile per un corso computazionale.
+  title: Computational Methods in Statistical Mechanics
+  description: Notes, numerical experiments and simulations in statistical mechanics.
   github: francescobellina/computational-course
   license: MIT
+
   bibliography:
     - book/references.bib
+
   toc:
     - file: book/intro.md
+
     - title: Workflow del progetto
       children:
         - file: book/01_workflow.md
+
     - title: Metodi per equazioni non lineari
       children:
         - file: book/02_root_finding/newton.md
         - file: notebooks/02_root_finding/newton_experiment.ipynb
+
   exclude:
     - README.md
     - tests/**
@@ -27,7 +32,25 @@ project:
 
 site:
   template: book-theme
-  title: Computational Course
+  title: Computational Methods in Statistical Mechanics
+
+  options:
+    hide_toc: false
+    hide_outline: false
+    hide_footer_links: false
+    hide_title_block: false
+    hide_authors: true
+    hide_search: false
+
+    outline_maxdepth: 3
+    numbered_references: true
+    folders: true
+
+    style: ./style.css
+
   actions:
     - title: Repository GitHub
       url: https://github.com/francescobellina/computational-course
+
+  parts:
+    primary_sidebar_footer: _site/primary_sidebar_footer.md
