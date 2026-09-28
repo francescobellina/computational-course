@@ -193,3 +193,33 @@ git push
 ```
 
 Il `push` su `main` avvia GitHub Actions e aggiorna automaticamente il sito su GitHub Pages.
+
+
+
+
+## Comandi utili per aggiungere materiale
+
+```bash
+# nuovo capitolo
+mkdir -p book/08_nuovo_argomento
+touch book/08_nuovo_argomento/intro.md
+
+# nuovo esercizio
+touch book/08_nuovo_argomento/exercise_01.md
+
+# cartella notebook
+mkdir -p notebooks/08_nuovo_argomento
+
+# nuovo modulo Python
+touch src/computational_course/nuovo_argomento.py
+
+# nuovo test
+touch tests/test_nuovo_argomento.py
+
+# dati
+mkdir -p data/raw/nuovo_argomento
+mkdir -p data/processed/nuovo_argomento
+
+# figure
+mkdir -p figures/08_nuovo_argomento
+```
