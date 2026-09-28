@@ -35,22 +35,18 @@ site:
   title: Computational Methods in Statistical Mechanics
 
   options:
+    logo_text: Computational Methods in Statistical Mechanics
     hide_toc: false
     hide_outline: false
     hide_footer_links: false
     hide_title_block: false
     hide_authors: true
     hide_search: false
-
     outline_maxdepth: 3
     numbered_references: true
     folders: true
-
     style: ./style.css
 
   actions:
     - title: Repository GitHub
       url: https://github.com/francescobellina/computational-course
-
-  parts:
-    primary_sidebar_footer: _site/primary_sidebar_footer.md
