@@ -36,7 +36,7 @@ Interrompi il server con `Ctrl+C`.
 
 ## SCHEMI 
 
-```{figure} ../../figures/schema1.png
+```{figure} ../figures/schema1.png
 :label: schema1
 :width: 80%
 :align: center
@@ -44,7 +44,7 @@ Interrompi il server con `Ctrl+C`.
 schema operativo
 ```
 
-```{figure} ../../figures/schema1.png
+```{figure} ../figures/schema2.png
 :label: schema2
 :width: 80%
 :align: center
