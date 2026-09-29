@@ -1,49 +1,125 @@
+/* =========================================
+   Academic / Jupyter Book-like layout
+   ========================================= */
+
 :root {
-  --course-accent: #2563eb;
-  --course-border: rgba(100, 116, 139, 0.25);
+  --course-blue: #3b82b6;
+  --course-text: #2f2f2f;
+  --course-muted: #666;
+  --course-border: #e5e7eb;
 }
 
-/* Titoli */
-
-h1,
-h2,
-h3 {
-  letter-spacing: -0.015em;
+/* Font generale */
+html,
+body {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Helvetica,
+    Arial,
+    sans-serif;
+  color: var(--course-text);
+  font-size: 16px;
+  line-height: 1.6;
 }
 
-h1 {
-  font-weight: 750;
+/* Contenuto centrale */
+main {
+  font-size: 1rem;
 }
 
-h2 {
-  margin-top: 2.2rem;
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--course-border);
+/* Titolo pagina */
+main h1 {
+  font-size: 2.15rem;
+  font-weight: 650;
+  line-height: 1.2;
+  margin-bottom: 1.4rem;
+  letter-spacing: -0.02em;
+}
+
+/* Sezioni */
+main h2 {
+  font-size: 1.65rem;
+  font-weight: 600;
+  margin-top: 2.4rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+main h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+/* Paragrafi */
+main p {
+  margin-top: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+
+/* Liste più compatte */
+main li {
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
 }
 
 /* Link */
-
 main a {
-  color: var(--course-accent);
-  text-underline-offset: 0.15em;
+  color: var(--course-blue);
+  text-decoration: none;
 }
 
-/* Codice */
+main a:hover {
+  text-decoration: underline;
+}
 
+/* Sidebar sinistra */
+nav {
+  font-size: 0.95rem;
+}
+
+/* Pagina corrente */
+nav a[aria-current="page"] {
+  color: var(--course-blue);
+  font-weight: 600;
+}
+
+/* Outline destro */
+aside {
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* Blocchi codice */
 pre {
   border: 1px solid var(--course-border);
-  border-radius: 0.6rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* Inline code */
+code {
+  font-size: 0.92em;
 }
 
 /* Tabelle */
-
 table {
   width: 100%;
+  font-size: 0.95rem;
 }
 
-/* Citazioni */
+/* Admonition / warning */
+.admonition {
+  border-radius: 4px;
+}
 
-blockquote {
-  border-left: 3px solid var(--course-accent);
-  padding-left: 1rem;
+/* Separatore leggero */
+hr {
+  border: 0;
+  border-top: 1px solid var(--course-border);
+  margin: 2rem 0;
 }

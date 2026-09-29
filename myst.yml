@@ -32,10 +32,11 @@ project:
 
 site:
   template: book-theme
-  title: Computational Methods in Statistical Mechanics
+  title: Computational Material Science
+  description: Notes, numerical experiments and simulations in CMS.
 
   options:
-    logo_text: Computational Methods in Statistical Mechanics
+    logo_text: CMS
     hide_toc: false
     hide_outline: false
     hide_footer_links: false
