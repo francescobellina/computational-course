@@ -1,7 +1,7 @@
 version: 1
 
 project:
-  title: Computational Methods in Statistical Mechanics
+  title: Computational Material Science
   description: Notes, numerical experiments and simulations in statistical mechanics.
   github: francescobellina/computational-course
   license: MIT

@@ -1,4 +1,5 @@
 # Introduzione al corso
+# 1:CLASSICAL STATISTICAL MECHANICS
 
 ## NVE ensemble e sua rappresentazione
 
@@ -17,3 +18,11 @@ Superficie di energia nello spazio delle fasi per un sistema a energia totale fi
 ## NVT ensemble
 
 ### Distribuzione canonica
+
+
+
+# 2:ADIABATIC APPROXIMATION AND NUCLEAR MOTION
+
+
+
+# 3: INTERATOMIC POTENTIALS

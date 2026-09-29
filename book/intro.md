@@ -36,19 +36,20 @@ Il materiale seguirà principalmente questi argomenti:
    - dinamica molecolare *ab initio* e classica
 
 3. **Interatomic potentials**
+   - numenclatura cristallina e simmetria
    - potenziali a coppie e many-body
    - packing fraction
    - potenziale Lennard-Jones
    - cutoff radius e dipendenza delle quantità fisiche dal cutoff
    - neighbor lists
-
-4. **Scientific coding**
+---------------------------------------------------------------------------
+1. **Scientific coding**
    - implementazione numerica degli algoritmi del corso
-   - esempi in MATLAB
+   - esempi in MATLAB(no matlab quest'anno)
    - calcolo dell'energia di un cristallo
    - costruzione delle liste dei vicini
 
-5. **Molecular Dynamics**
+2. **Molecular Dynamics**
    - Verlet configurazionale e velocity Verlet
    - velocità iniziali e scelta del timestep
    - calcolo delle forze
@@ -58,7 +59,7 @@ Il materiale seguirà principalmente questi argomenti:
    - cenni ai codici linear-scaling
    - esercizio d'esame 1/3
 
-6. **Kinetic Monte Carlo**
+3. **Kinetic Monte Carlo**
    - problema delle scale temporali
    - transition state theory
    - first-escape times
@@ -67,7 +68,7 @@ Il materiale seguirà principalmente questi argomenti:
    - simulazione della crescita cristallina
    - esercizio d'esame 2/3
 
-7. **Metropolis Monte Carlo**
+4. **Metropolis Monte Carlo** (da discutersi durante esame)
    - importance sampling
    - proprietà di equilibrio
    - algoritmo Metropolis

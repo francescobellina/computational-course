@@ -50,4 +50,13 @@ schema operativo
 :align: center
 
 schema operativo 2 (git/pull/push)  working in progress
+
+```
+
+```{figure} ../figures/schema3.png
+:label: schema3
+:width: 100%
+:align: center
+
+schema operativo creazione sezioni complete
 ```
