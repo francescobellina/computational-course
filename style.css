@@ -1,125 +1,60 @@
-/* =========================================
-   Academic / Jupyter Book-like layout
-   ========================================= */
-
 :root {
-  --course-blue: #3b82b6;
-  --course-text: #2f2f2f;
-  --course-muted: #666;
-  --course-border: #e5e7eb;
+  --text-main: #2f3742;
+  --text-heading: #303844;
+  --accent: #4c8fbd;
+  --border: #e2e6ea;
 }
 
-/* Font generale */
 html,
 body {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Helvetica,
-    Arial,
-    sans-serif;
-  color: var(--course-text);
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-main);
   font-size: 16px;
   line-height: 1.6;
 }
 
-/* Contenuto centrale */
-main {
-  font-size: 1rem;
-}
-
-/* Titolo pagina */
+/* Titoli più simili al vecchio Jupyter Book */
 main h1 {
   font-size: 2.15rem;
-  font-weight: 650;
-  line-height: 1.2;
-  margin-bottom: 1.4rem;
+  font-weight: 400;
+  color: var(--text-heading);
   letter-spacing: -0.02em;
 }
 
-/* Sezioni */
 main h2 {
-  font-size: 1.65rem;
-  font-weight: 600;
-  margin-top: 2.4rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0;
-  border-bottom: none;
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--text-heading);
+  margin-top: 2.2rem;
+  border: 0;
 }
 
 main h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-top: 2rem;
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--text-heading);
 }
 
-/* Paragrafi */
-main p {
-  margin-top: 0.7rem;
-  margin-bottom: 0.9rem;
-}
-
-/* Liste più compatte */
+/* Testo */
+main p,
 main li {
-  margin-top: 0.2rem;
-  margin-bottom: 0.2rem;
+  font-weight: 400;
 }
 
-/* Link */
+/* Link azzurri */
 main a {
-  color: var(--course-blue);
-  text-decoration: none;
+  color: var(--accent);
 }
 
-main a:hover {
-  text-decoration: underline;
-}
-
-/* Sidebar sinistra */
-nav {
-  font-size: 0.95rem;
-}
-
-/* Pagina corrente */
-nav a[aria-current="page"] {
-  color: var(--course-blue);
-  font-weight: 600;
-}
-
-/* Outline destro */
-aside {
-  font-size: 0.9rem;
-  line-height: 1.45;
-}
-
-/* Blocchi codice */
+/* Codice */
 pre {
-  border: 1px solid var(--course-border);
-  border-radius: 4px;
-  font-size: 0.9rem;
-  line-height: 1.45;
-}
-
-/* Inline code */
-code {
-  font-size: 0.92em;
-}
-
-/* Tabelle */
-table {
-  width: 100%;
-  font-size: 0.95rem;
-}
-
-/* Admonition / warning */
-.admonition {
+  background: #f4f5f6;
+  border: 1px solid var(--border);
   border-radius: 4px;
 }
 
-/* Separatore leggero */
-hr {
-  border: 0;
-  border-top: 1px solid var(--course-border);
-  margin: 2rem 0;
+/* Nasconde il simbolo ¶ / anchor accanto ai titoli */
+.headerlink,
+.heading-anchor {
+  display: none !important;
 }

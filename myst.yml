@@ -11,15 +11,8 @@ project:
 
   toc:
     - file: book/intro.md
-
-    - title: Workflow del progetto
-      children:
-        - file: book/01_workflow.md
-
-    - title: Metodi per equazioni non lineari
-      children:
-        - file: book/02_root_finding/newton.md
-        - file: notebooks/02_root_finding/newton_experiment.ipynb
+    - pattern: book/**/*.md
+    - pattern: notebooks/**/*.ipynb
 
   exclude:
     - README.md

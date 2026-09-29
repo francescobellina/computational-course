@@ -32,3 +32,22 @@ uv run jupyter book start --execute
 Per impostazione predefinita la preview viene servita su `http://localhost:3000`; se la
 porta è occupata, Jupyter Book sceglie una porta libera e la stampa nel terminale.
 Interrompi il server con `Ctrl+C`.
+
+
+## SCHEMI 
+
+```{figure} ../../figures/schema1.png
+:label: schema1
+:width: 80%
+:align: center
+
+schema operativo
+```
+
+```{figure} ../../figures/schema1.png
+:label: schema2
+:width: 80%
+:align: center
+
+schema operativo 2 (git/pull/push)  working in progress
+```
