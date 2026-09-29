@@ -38,7 +38,7 @@ Interrompi il server con `Ctrl+C`.
 
 ```{figure} ../figures/schema1.png
 :label: schema1
-:width: 80%
+:width: 100%
 :align: center
 
 schema operativo
@@ -46,7 +46,7 @@ schema operativo
 
 ```{figure} ../figures/schema2.png
 :label: schema2
-:width: 80%
+:width: 100%
 :align: center
 
 schema operativo 2 (git/pull/push)  working in progress
