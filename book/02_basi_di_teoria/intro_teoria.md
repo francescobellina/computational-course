@@ -231,7 +231,7 @@ $$
 W \le H(Q,P) \le W+\delta W.
 $$
 
-![Regione accessibile nello spazio delle fasi per l'ensemble microcanonico](images/microcanonical_phase_space.png)
+METTERE IMMAGINE
 
 Per il postulato di equiprobabilità, tutti i microstati accessibili hanno lo stesso peso. La media microcanonica di un'osservabile $A(Q,P)$ è quindi
 
@@ -261,7 +261,7 @@ e^{-\beta H(Q,P)},
 \beta=\frac{1}{k_B T}.
 $$
 
-![Microstati dello spazio delle fasi pesati con il fattore di Boltzmann](images/canonical_phase_space.png)
+METTERE IMMAGINE
 
 La media canonica di $A$ è
 
