@@ -9,7 +9,12 @@ description = "Reusable numerical methods and computational course material."
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 license = "MIT"
-dependencies = []
+dependencies = [
+    "ipykernel>=7.3.0",
+    "ipywidgets>=8.1.9",
+    "ovito>=3.16.1.post1",
+    "py3dmol>=2.5.5",
+]
 
 [dependency-groups]
 dev = [

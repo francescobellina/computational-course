@@ -12,6 +12,7 @@ project:
   toc:
     - file: book/intro.md
     - pattern: book/**/*.md
+    - pattern: book/**/*.ipynb
     - pattern: notebooks/**/*.ipynb
 
   exclude:

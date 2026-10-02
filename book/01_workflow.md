@@ -29,6 +29,11 @@ uv run jupyter book build --html --execute --strict
 uv run jupyter book start --execute
 ```
 
+
+```bash
+jupyter book start 
+```
+
 Per impostazione predefinita la preview viene servita su `http://localhost:3000`; se la
 porta è occupata, Jupyter Book sceglie una porta libera e la stampa nel terminale.
 Interrompi il server con `Ctrl+C`.

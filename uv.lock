@@ -236,6 +236,12 @@ wheels = [
 name = "computational-course"
 version = "0.1.0"
 source = { editable = "." }
+dependencies = [
+    { name = "ipykernel" },
+    { name = "ipywidgets" },
+    { name = "ovito" },
+    { name = "py3dmol" },
+]
 
 [package.dev-dependencies]
 dev = [
@@ -251,6 +257,12 @@ dev = [
 ]
 
 [package.metadata]
+requires-dist = [
+    { name = "ipykernel", specifier = ">=7.3.0" },
+    { name = "ipywidgets", specifier = ">=8.1.9" },
+    { name = "ovito", specifier = ">=3.16.1.post1" },
+    { name = "py3dmol", specifier = ">=2.5.5" },
+]
 
 [package.metadata.requires-dev]
 dev = [
@@ -1044,6 +1056,19 @@ wheels = [
 ]
 
 [[package]]
+name = "ovito"
+version = "3.16.1.post1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "pyside6-essentials" },
+    { name = "traits" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/77/8c/30d9d5d8244a27368737ab3f748c1eb0cc9d241c903c6b7590c0f973557d/ovito-3.16.1.post1-cp312-cp312-macosx_12_0_arm64.whl", hash = "sha256:e357e60e429bbf7a5c7cd065f803803c875001b7fea3b0f28aab65d7ee06b30e", size = 71657772, upload-time = "2026-09-25T15:18:16.032Z" },
+]
+
+[[package]]
 name = "packaging"
 version = "26.3"
 source = { registry = "https://pypi.org/simple" }
@@ -1195,6 +1220,15 @@ wheels = [
 ]
 
 [[package]]
+name = "py3dmol"
+version = "2.5.5"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/8f/ce/8fa27aa0fcf37a99df16f72d59300040dec61f3a5126c28d6b625bcb7f9e/py3dmol-2.5.5.tar.gz", hash = "sha256:cb102cc3370800a9ca7679774759f008e34a0f3a283778d85b0410849d370298", size = 7832, upload-time = "2026-05-23T14:08:08.553Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8e/5a/7fd1b784a87e96e0078f49a0a13a98b4c5f644ba5597a4a3b70a2ba3e613/py3dmol-2.5.5-py2.py3-none-any.whl", hash = "sha256:9717ea9a899ec641b458f53de538e5bae758281f5053be78bc2db0706ae60bcb", size = 7153, upload-time = "2026-05-23T14:08:07.733Z" },
+]
+
+[[package]]
 name = "pycparser"
 version = "3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1219,6 +1253,21 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/e4/11/b213bebff182584360cb8d17c72c1677fec5c5c228de439e63bcf8ab1c8f/pyparsing-3.3.3.tar.gz", hash = "sha256:928ae7e20211f3b6f3915a72f06a0cfd29ab9d24279dd6346b6b1a7146397d36", size = 1050487, upload-time = "2026-09-20T20:59:05.609Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/38/bb/d215ee7c73b61497b28a5503f9f53523f294fcc936762b7caf90e0c1c2b5/pyparsing-3.3.3-py3-none-any.whl", hash = "sha256:ece8c00a69cf01b45d0b1dedabb469c90d8caf996d4fda40f147627a122849a4", size = 126420, upload-time = "2026-09-20T20:59:04.025Z" },
+]
+
+[[package]]
+name = "pyside6-essentials"
+version = "6.11.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "shiboken6" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6f/16/0b7ecf89ebada82ed0430be33809ff325761ece83104f8635b1bd101fcd0/pyside6_essentials-6.11.2-cp310-abi3-macosx_13_0_universal2.whl", hash = "sha256:77795c145202e65a78d88f7cd409d186e3ba23d159bdb3ba2dcd159ae5e5f0d9", size = 110800753, upload-time = "2026-08-18T06:36:33.674Z" },
+    { url = "https://files.pythonhosted.org/packages/0e/1a/84a84bbc75835ee88abdcb66eb875b8e1a21834af9b833bc1893f2c1bfaf/pyside6_essentials-6.11.2-cp310-abi3-manylinux_2_34_x86_64.whl", hash = "sha256:aaf9f25f0f324874085fa5b26a610318db8a8e243cf85bb3e5400595191c7778", size = 80108947, upload-time = "2026-08-18T06:36:40.637Z" },
+    { url = "https://files.pythonhosted.org/packages/60/4c/d92b08a2151d095b9a3725fa0e71b215ec686d40bbd5d8b702d21a9b5eaa/pyside6_essentials-6.11.2-cp310-abi3-manylinux_2_39_aarch64.whl", hash = "sha256:d3ec6e1885c46e57f16364f38ea8040ffc5dc0b18341058f608fede3ba930567", size = 79575497, upload-time = "2026-08-18T06:36:46.97Z" },
+    { url = "https://files.pythonhosted.org/packages/dc/09/d2662684aee4d3f027ff9b1e965f22301bc28ffc5b7f167658508e4475dc/pyside6_essentials-6.11.2-cp310-abi3-win_amd64.whl", hash = "sha256:c8a29def77032773a30879f7f24415b5395ad08592d147c170824ef4c735dfc1", size = 76913043, upload-time = "2026-08-18T06:36:54.038Z" },
+    { url = "https://files.pythonhosted.org/packages/cd/87/4dd2a6468cea600da1fcf9c7f02bc248eeaa98cdc75658e48e669d95326a/pyside6_essentials-6.11.2-cp310-abi3-win_arm64.whl", hash = "sha256:fadd75c5c20800d64dd0a586ea8cb337c5e630aa2246df0e5105738afa46e02c", size = 58125520, upload-time = "2026-08-18T06:36:59.073Z" },
 ]
 
 [[package]]
@@ -1449,6 +1498,18 @@ wheels = [
 ]
 
 [[package]]
+name = "shiboken6"
+version = "6.11.2"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/47/44/11bf71c36e71936ab4e923e5dd23599dab527c4488b01860b0f689ce9947/shiboken6-6.11.2-cp310-abi3-macosx_13_0_universal2.whl", hash = "sha256:53659683b1f7a08e9f87eff9b1065f1ceb7110cd7a4bc09fdf5efe43d286604d", size = 476674, upload-time = "2026-08-18T06:37:11.526Z" },
+    { url = "https://files.pythonhosted.org/packages/a5/9a/f41bea4316d0c1bec4800842dcb4bd8fd3e29d6a79c496bc32e1aec42583/shiboken6-6.11.2-cp310-abi3-manylinux_2_34_x86_64.whl", hash = "sha256:7a7a0a72a9ed26c9bf77d42246b1c736486befb8f31aa2fb29957ea4cdd1c1c2", size = 272435, upload-time = "2026-08-18T06:37:13.397Z" },
+    { url = "https://files.pythonhosted.org/packages/56/05/79ed0697515d4fc7435459e4ed4c4a3b5621a55b7c91d0f3f2cc3d617aa0/shiboken6-6.11.2-cp310-abi3-manylinux_2_39_aarch64.whl", hash = "sha256:4bbbd6fa4d7cff5ec5e12bc4c10e1d845fa30c89457ecb13cc64f7bddb77f6f9", size = 270668, upload-time = "2026-08-18T06:37:15.025Z" },
+    { url = "https://files.pythonhosted.org/packages/ce/6b/fee1b4814317e4664e318644c9c007676c65a71e5b2b9d3ac4121a94dc0a/shiboken6-6.11.2-cp310-abi3-win_amd64.whl", hash = "sha256:6ab0eba1c904455df621f9a6df3ca2bb896bab8670572d2bc4e37804ae91f19a", size = 1226578, upload-time = "2026-08-18T06:37:18.002Z" },
+    { url = "https://files.pythonhosted.org/packages/4d/b5/80c4e5aafeb8ac777cf5a1becfe87ac7197c35051df00b5f7819787e09d5/shiboken6-6.11.2-cp310-abi3-win_arm64.whl", hash = "sha256:97c49432488df958f0308736f3d15b6915d8826fc380af17bb4b9ec5c4a5e81b", size = 1784669, upload-time = "2026-08-18T06:37:21.046Z" },
+]
+
+[[package]]
 name = "six"
 version = "1.17.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1542,6 +1603,20 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/2c/2e/a7fbfe268c8a3b32546930c0297c101d65a4a14c304ad5790a9f478f0e4e/traitlets-5.16.1.tar.gz", hash = "sha256:ed900c2b631aa3a112811139fa97b8d2c3bad5e989656bba4b7e52c7852c18c1", size = 166137, upload-time = "2026-08-03T08:32:36.848Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ad/66/0d785f0bc5e4315a96c989bb476d0fc07ea4f85132550c7b156ca2035d52/traitlets-5.16.1-py3-none-any.whl", hash = "sha256:f775618166caa0396c8e337099240f2bd3e5e917d203b2e6fbe21a58d3cb1f6b", size = 86211, upload-time = "2026-08-03T08:32:34.48Z" },
+]
+
+[[package]]
+name = "traits"
+version = "7.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/3b/ee/38d31a77156997039b31442b676dbb65382ceb333345016d05d9a0a6979b/traits-7.2.0.tar.gz", hash = "sha256:77e2203f2bebc06fada6139475a974dc96cf2e99991e4fe4ffd29e346ca0fc13", size = 9537056, upload-time = "2026-09-22T08:05:48.575Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/38/ce/bb249b7fcf077e721f1e3af46ad947294ca7f9cded47fd4a182a88987841/traits-7.2.0-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:105c74ebd62cdc02f1ec7fe44c27e6dc604465412aac240336435bb21c7c60a6", size = 5036144, upload-time = "2026-09-22T08:04:45.604Z" },
+    { url = "https://files.pythonhosted.org/packages/13/12/e3ad9c797764a048c329e922866d76fa7d63c8badc417f3e73c944b306e6/traits-7.2.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:4613fc5db59693bc29529772a9a1c83c1a94393feb807f3f4758d0d2ea19e036", size = 5037116, upload-time = "2026-09-22T08:04:47.417Z" },
+    { url = "https://files.pythonhosted.org/packages/1f/21/f3381bd80d962ffd3e42507822a4a421a4588f2cf06f409e54021490cd45/traits-7.2.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:db4baf18b2d7a9c6643b87849c2f9c980412409d4270528e3a0f755fd23c5198", size = 5134461, upload-time = "2026-09-22T08:04:49.095Z" },
+    { url = "https://files.pythonhosted.org/packages/a3/3a/d20db4b3a752cfda4f1763eeab01892139aea92b157879af0c604d63c10f/traits-7.2.0-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:8e668a12557489644f04d58f4e09920aac799a3c5badbe034b080ff9c7e6d4f1", size = 5132186, upload-time = "2026-09-22T08:04:50.698Z" },
+    { url = "https://files.pythonhosted.org/packages/a0/a8/585ebe55794e329e25de46bbd8a2c91d5e0ed823779a3f3a5a0da7f5d3e6/traits-7.2.0-cp312-cp312-win32.whl", hash = "sha256:f077eee82c173000a6737948cdf847ea53e920f5f132ea37908311d0f8636769", size = 5034420, upload-time = "2026-09-22T08:04:52.602Z" },
+    { url = "https://files.pythonhosted.org/packages/2b/c3/2b5193d37ad70bdd0f6c21cd1fedb3c28dd9b0317dff15eb31ae237eec5c/traits-7.2.0-cp312-cp312-win_amd64.whl", hash = "sha256:742ee753500e1f6ea4c18f80e756e3019c9821045f3195aa876b17241608d26a", size = 5036917, upload-time = "2026-09-22T08:04:54.336Z" },
 ]
 
 [[package]]

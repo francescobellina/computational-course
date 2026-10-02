@@ -19,6 +19,9 @@ VS Code -> Markdown / Notebook / Python -> test -> preview locale -> Git -> GitH
 
 Il capitolo sul [metodo di Newton](02_root_finding/newton.md) mostra il pattern completo.
 
+:jupyter book start 
+
+
 ## Programma del corso
 
 Il materiale seguirà principalmente questi argomenti:
