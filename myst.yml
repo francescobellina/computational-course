@@ -12,11 +12,12 @@ project:
   toc:
     - file: book/intro.md
     - pattern: book/**/*.md
-    - pattern: book/**/*.ipynb
     - pattern: notebooks/**/*.ipynb
 
   exclude:
     - README.md
+    - notebooks/04_handson_Ag_cutoff/analysis.ipynb
+    - notebooks/04_handson_Ag_cutoff/analysis9oct.ipynb
     - tests/**
     - src/**
     - scripts/**

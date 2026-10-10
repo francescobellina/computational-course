@@ -18,6 +18,9 @@ cache/
 .cache/
 node_modules/
 
+# Generated XYZ files from notebooks
+notebooks/**/generated/
+
 # Build / packaging
 build/
 dist/
