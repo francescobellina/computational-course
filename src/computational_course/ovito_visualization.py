@@ -298,9 +298,10 @@ def make_panel(
     plane: str,
     axis_html: str,
     camera_dir: tuple[float, float, float] | None = None,
+    camera: dict | None = None,
     width: str = "100%",
     height: str = "310px",
-) -> VBox:
+) -> tuple[VBox, Viewport]:
     """Create a viewport panel with header and footer.
 
     Parameters
@@ -314,21 +315,31 @@ def make_panel(
     axis_html:
         HTML string for axis legend.
     camera_dir:
-        Camera direction for perspective view.
+        Initial camera direction for the perspective view.
+    camera:
+        Full camera state from :func:`viewport_cameras`. When given, it
+        overrides ``camera_dir`` and no automatic framing is applied, so the
+        saved view is reproduced exactly.
     width, height:
         Panel dimensions.
 
     Returns
     -------
-    VBox
-        Jupyter widget containing the panel.
+    tuple[VBox, Viewport]
+        The Jupyter widget and the linked OVITO viewport. The widget is
+        permanently linked to the viewport: user interaction updates it and
+        vice versa.
     """
-    kwargs = {"type": view_type}
-    if camera_dir is not None:
-        kwargs["camera_dir"] = camera_dir
-
-    vp = Viewport(**kwargs)
-    vp.zoom_all()
+    vp = Viewport(type=view_type)
+    if camera is not None:
+        vp.camera_dir = tuple(camera["camera_dir"])
+        vp.camera_pos = tuple(camera["camera_pos"])
+        vp.camera_up = tuple(camera["camera_up"])
+        vp.fov = camera["fov"]
+    else:
+        if camera_dir is not None:
+            vp.camera_dir = camera_dir
+        vp.zoom_all()
 
     viewer = create_ipywidget(
         vp,
@@ -375,11 +386,20 @@ def make_panel(
     """
     )
 
-    return VBox(
+    panel = VBox(
         [header, viewer, footer],
         layout=Layout(width=width, border="1px solid #444", overflow="hidden"),
     )
+    return panel, vp
 
+
+# Grid cell rectangles in normalized coordinates: Top, Front, Left, Perspective.
+GRID_CELLS = [
+    (0.0, 0.0, 0.5, 0.5),
+    (0.5, 0.0, 0.5, 0.5),
+    (0.0, 0.5, 0.5, 0.5),
+    (0.5, 0.5, 0.5, 0.5),
+]
 
 # Axis legend templates
 TOP_AXES = """<span style="color:#ff5555;">x →</span> <span style="color:#55cc55;">y ↑</span> <span style="color:#888;">view −z</span>"""
@@ -393,8 +413,13 @@ def create_viewport_grid(
     r_max: float,
     reference_atom: int,
     show_context: bool = True,
-) -> GridBox:
-    """Create a 2×2 grid of viewport panels.
+    cameras: list[dict] | None = None,
+) -> tuple[GridBox, list[Viewport]]:
+    """Create a 2×2 grid of viewport panels (Top, Front, Left, Perspective).
+
+    The four viewports are returned alongside the widget so the same camera
+    objects can later be rendered with :func:`render_viewport_grid`. User
+    interactions in the widget update these viewport objects live.
 
     Parameters
     ----------
@@ -404,33 +429,59 @@ def create_viewport_grid(
         Reference atom number (for legend).
     show_context:
         Whether to show "context" in legend.
+    cameras:
+        Optional list of 4 camera states from :func:`viewport_cameras`, applied
+        in panel order. Use this to freeze the views chosen interactively so
+        the static render (and the built book) reproduces them.
 
     Returns
     -------
-    GridBox
-        Jupyter widget with 4 viewport panels.
+    tuple[GridBox, list[Viewport]]
+        The Jupyter grid widget and the four linked OVITO viewports.
     """
     del show_context  # Parameter for future use
 
     # Note: Do not remove pipelines here. The notebook manages the pipeline lifecycle:
-    # - Cella 12 adds the pipeline to the scene
-    # - Cella 14 calls this function to display the pipeline
+    # - the pipeline is added to the scene before this function is called
     # Removing pipelines here would leave the viewports empty.
 
-    panels = [
-        make_panel(Viewport.Type.Top, "Top", "XY", TOP_AXES),
-        make_panel(Viewport.Type.Front, "Front", "XZ", FRONT_AXES),
-        make_panel(Viewport.Type.Left, "Left", "YZ", LEFT_AXES),
-        make_panel(
-            Viewport.Type.Perspective,
-            "Perspective",
-            "XYZ",
-            PERSPECTIVE_AXES,
-            camera_dir=(1.0, 1.0, -0.8),
-        ),
+    specs = [
+        {
+            "view_type": Viewport.Type.Top,
+            "title": "Top",
+            "plane": "XY",
+            "axis_html": TOP_AXES,
+        },
+        {
+            "view_type": Viewport.Type.Front,
+            "title": "Front",
+            "plane": "XZ",
+            "axis_html": FRONT_AXES,
+        },
+        {
+            "view_type": Viewport.Type.Left,
+            "title": "Left",
+            "plane": "YZ",
+            "axis_html": LEFT_AXES,
+        },
+        {
+            "view_type": Viewport.Type.Perspective,
+            "title": "Perspective",
+            "plane": "XYZ",
+            "axis_html": PERSPECTIVE_AXES,
+            "camera_dir": (1.0, 1.0, -0.8),
+        },
     ]
+    cameras = cameras if cameras is not None else [None] * len(specs)
 
-    return GridBox(
+    panels = []
+    viewports = []
+    for spec, camera in zip(specs, cameras):
+        panel, vp = make_panel(**spec, camera=camera)
+        panels.append(panel)
+        viewports.append(vp)
+
+    grid = GridBox(
         panels,
         layout=Layout(
             width="100%",
@@ -438,6 +489,69 @@ def create_viewport_grid(
             grid_gap="8px",
         ),
     )
+    return grid, viewports
+
+
+def viewport_cameras(viewports: list[Viewport]) -> list[dict]:
+    """Export the camera state of each viewport as plain Python data.
+
+    The result can be pasted back into the notebook and passed to
+    :func:`create_viewport_grid` (``cameras=...``) to reproduce the views the
+    user picked interactively. ``camera_dir``, ``camera_pos``, ``camera_up``
+    and ``fov`` fully determine a viewport's camera.
+    """
+    return [
+        {
+            "camera_dir": [float(v) for v in vp.camera_dir],
+            "camera_pos": [float(v) for v in vp.camera_pos],
+            "camera_up": [float(v) for v in vp.camera_up],
+            "fov": float(vp.fov),
+        }
+        for vp in viewports
+    ]
+
+
+def render_viewport_grid(
+    viewports: list[Viewport],
+    output_path: Path,
+    *,
+    size: tuple[int, int] = (720, 720),
+    background: tuple[float, float, float] = (1.0, 1.0, 1.0),
+) -> Path:
+    """Render four viewports as a single 2×2 PNG for Jupyter Book.
+
+    Static counterpart of :func:`create_viewport_grid`: pass the viewports
+    returned by that function so the image reflects the current camera state
+    (including any interactive changes made in the widget). The scene pipeline
+    must already be attached (see :func:`create_ovito_pipeline`).
+
+    Parameters
+    ----------
+    viewports:
+        The four viewports in Top, Front, Left, Perspective order.
+    output_path:
+        Destination PNG path; parent directories are created if missing.
+    size:
+        Total image size in pixels; each of the four panels gets half.
+    background:
+        RGB background color in ``[0, 1]``.
+
+    Returns
+    -------
+    Path
+        The path of the written PNG file.
+    """
+    layout = list(zip(viewports, GRID_CELLS))
+
+    output_path = Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    viewports[0].render_image(
+        size=size,
+        layout=layout,
+        background=background,
+        filename=str(output_path),
+    )
+    return output_path
 
 
 # =========================================================
@@ -551,7 +665,9 @@ def create_py3dmol_view(
     elif style == "stick":
         view.setStyle({}, {"stick": {"radius": 0.15, "colorscheme": colorscheme}})
     else:
-        raise ValueError(f"Unknown style: {style}. Use 'cartoon', 'sphere', or 'stick'.")
+        raise ValueError(
+            f"Unknown style: {style}. Use 'cartoon', 'sphere', or 'stick'."
+        )
 
     view.zoomTo()
     return view
@@ -608,12 +724,15 @@ def create_py3dmol_view_with_highlight(
     # Highlight neighbors (red)
     if neighbor_indices is not None:
         for idx in np.atleast_1d(neighbor_indices):
-            view.setStyle({"serial": int(idx) + 1}, {"sphere": {"color": "red", "scale": 0.5}})
+            view.setStyle(
+                {"serial": int(idx) + 1}, {"sphere": {"color": "red", "scale": 0.5}}
+            )
 
     # Highlight reference (yellow)
     if reference_index is not None:
         view.setStyle(
-            {"serial": reference_index + 1}, {"sphere": {"color": "yellow", "scale": 0.5}}
+            {"serial": reference_index + 1},
+            {"sphere": {"color": "yellow", "scale": 0.5}},
         )
 
     view.zoomTo()
@@ -623,6 +742,7 @@ def create_py3dmol_view_with_highlight(
 # Export public API
 __all__ = [
     "FRONT_AXES",
+    "GRID_CELLS",
     "LEFT_AXES",
     "PERSPECTIVE_AXES",
     "TOP_AXES",
@@ -636,4 +756,6 @@ __all__ = [
     "load_structure",
     "make_panel",
     "print_analysis_report",
+    "render_viewport_grid",
+    "viewport_cameras",
 ]

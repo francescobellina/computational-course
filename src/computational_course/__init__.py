@@ -13,6 +13,8 @@ from .ovito_visualization import (
     find_project_root,
     load_structure,
     print_analysis_report,
+    render_viewport_grid,
+    viewport_cameras,
 )
 from .root_finding import newton
 
@@ -28,4 +30,6 @@ __all__ = [
     "load_structure",
     "newton",
     "print_analysis_report",
+    "render_viewport_grid",
+    "viewport_cameras",
 ]
