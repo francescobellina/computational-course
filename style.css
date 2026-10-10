@@ -58,3 +58,19 @@ pre {
 .heading-anchor {
   display: none !important;
 }
+
+/* Nomi speciali cerchiati nel titolo "Come leggere nnbrs e whichnbr" */
+#come-leggere-nnbrs-e-whichnbr code {
+  border: 1.5px solid var(--accent);
+  border-radius: 999px;
+  padding: 0.05em 0.5em;
+  background: #e8eaed;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85em;
+}
+
+/* Voce del sottoindice evidenziata in rosso */
+a[href="#come-leggere-nnbrs-e-whichnbr"] {
+  color: #d32f2f !important;
+}

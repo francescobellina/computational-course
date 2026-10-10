@@ -1,5 +1,7 @@
 """Visualization utilities for OVITO in Jupyter notebooks."""
 
+import os
+from contextlib import contextmanager
 from pathlib import Path
 
 import numpy as np
@@ -545,13 +547,32 @@ def render_viewport_grid(
 
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    viewports[0].render_image(
-        size=size,
-        layout=layout,
-        background=background,
-        filename=str(output_path),
-    )
+    with _silenced_stderr():
+        viewports[0].render_image(
+            size=size,
+            layout=layout,
+            background=background,
+            filename=str(output_path),
+        )
     return output_path
+
+
+@contextmanager
+def _silenced_stderr():
+    """Silence C-level stderr during a call.
+
+    The Vulkan loader writes warnings straight to file descriptor 2, so Python's
+    ``redirect_stderr`` cannot catch them. This redirects the descriptor itself.
+    """
+    saved = os.dup(2)
+    devnull = os.open(os.devnull, os.O_WRONLY)
+    try:
+        os.dup2(devnull, 2)
+        yield
+    finally:
+        os.dup2(saved, 2)
+        os.close(devnull)
+        os.close(saved)
 
 
 # =========================================================
