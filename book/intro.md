@@ -1,4 +1,11 @@
-# Computational Course
+:::{image} ../figures/hero.png
+:class: intro-hero
+:alt: Computational Material Science
+:::
+
+### Course of 
+# Computational Material Science 
+
 
 Questo Jupyter Book raccoglie teoria, formule, risultati e interpretazioni del corso.
 Gli esperimenti rimangono nei notebook, mentre gli algoritmi riutilizzabili vivono nel
@@ -47,10 +54,10 @@ Il materiale seguirà principalmente questi argomenti:
    - neighbor lists
 ---------------------------------------------------------------------------
 1. **Scientific coding**
-   - implementazione numerica degli algoritmi del corso
+   - [implementazione numerica degli algoritmi del corso](../notebooks/04_handson_Ag_cutoff/coordinazione_e_lennard_jones.ipynb)
    - esempi in MATLAB(no matlab quest'anno)
-   - calcolo dell'energia di un cristallo
-   - costruzione delle liste dei vicini
+   - [calcolo dell'energia di un cristallo](../notebooks/04_handson_Ag_cutoff/coordinazione_e_lennard_jones.ipynb#id-7-energia-di-lennard-jones-con-cutoff)
+   - [costruzione delle liste dei vicini](../notebooks/04_handson_Ag_cutoff/coordinazione_e_lennard_jones.ipynb#id-6-lista-dei-vicini-entro-il-cutoff)
 
 2. **Molecular Dynamics**
    - Verlet configurazionale e velocity Verlet

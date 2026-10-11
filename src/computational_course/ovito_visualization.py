@@ -229,6 +229,7 @@ def create_ovito_pipeline(
     atomic_radius: float,
     background_radius_scale: float = 0.38,
     background_transparency: float = 0.85,
+    highlight_radius_scale: float = 1.0,
 ):
     """Create an OVITO pipeline with colored and sized atoms.
 
@@ -248,6 +249,10 @@ def create_ovito_pipeline(
         Scale factor for background atom visual radius.
     background_transparency:
         Transparency for background atoms (0=opaque, 1=transparent).
+    highlight_radius_scale:
+        Scale factor for the visual radius of the highlighted (red neighbor and
+        yellow reference) atoms. Use a value below 1.0 to shrink them without
+        affecting the background atoms.
 
     Returns
     -------
@@ -265,9 +270,10 @@ def create_ovito_pipeline(
             raise ValueError(f"OVITO contains {n} particles, expected {natoms}.")
 
         # Visual radii
+        highlight_radius = atomic_radius * highlight_radius_scale
         radii = np.full(n, atomic_radius * background_radius_scale, dtype=np.float32)
-        radii[neighbor_mask] = atomic_radius
-        radii[reference_index] = atomic_radius
+        radii[neighbor_mask] = highlight_radius
+        radii[reference_index] = highlight_radius
 
         # Colors: gray background, red neighbors, yellow reference
         colors = np.full((n, 3), [0.72, 0.72, 0.72], dtype=np.float32)
@@ -287,6 +293,107 @@ def create_ovito_pipeline(
     pipeline.compute()
 
     return pipeline
+
+
+def create_fcc_structure_view(
+    coords: np.ndarray,
+    bonds: np.ndarray | None = None,
+    *,
+    radius: float = 1.0,
+    color: tuple[float, float, float] = (0.30, 0.60, 0.90),
+    cell: np.ndarray | None = None,
+    cell_color: tuple[float, float, float] = (0.0, 0.0, 0.0),
+    bond_width: float = 0.25,
+    output_name: str = "fcc_structure",
+    element: str = "Ag",
+):
+    """Create a pipeline that renders a structure with uniform spheres and bonds.
+
+    The structure is written to a temporary XYZ file (via :func:`convert_to_xyz`)
+    and styled by a modifier: one radius and one color for every atom, optional
+    first-neighbor bonds, and an optional periodic cell drawn as a thin outline.
+    The simulation cell outline is drawn only when ``cell`` is given, so it
+    always matches the actual box of the structure.
+
+    Parameters
+    ----------
+    coords:
+        Atomic positions (N, 3) in Å.
+    bonds:
+        Optional (M, 2) array of bond pairs.
+    radius:
+        Visual sphere radius in Å.
+    color:
+        Uniform RGB color in ``[0, 1]``.
+    cell:
+        Optional 3x3 periodic cell matrix; draws the box outline and enables PBC.
+    cell_color:
+        RGB color of the cell outline.
+    bond_width:
+        Visual bond cylinder width in Å.
+    output_name:
+        Base name for the temporary XYZ file.
+    element:
+        Element symbol for the XYZ file.
+
+    Returns
+    -------
+    pipeline
+        Configured OVITO pipeline (not added to the scene).
+    """
+    xyz_path = convert_to_xyz(coords, output_name, element=element)
+    pipeline = import_file(str(xyz_path))
+    bonds = bonds if bonds is not None else np.empty((0, 2), dtype=np.int64)
+
+    def style(_frame, data):
+        n = data.particles.count
+        data.particles_.create_property("Radius", data=np.full(n, radius))
+        data.particles_.create_property("Color", data=np.full((n, 3), color))
+        if len(bonds):
+            bonds_data = data.particles_.create_bonds()
+            bonds_data.create_property("Topology", data=bonds)
+            bonds_data.vis.width = bond_width
+        if cell is not None:
+            if data.cell_ is None:
+                data.create_cell(np.asarray(cell, dtype=float))
+            data.cell_.pbc = (True, True, True)
+            data.cell_.vis.enabled = True
+            data.cell_.vis.rendering_color = cell_color
+            data.cell_.vis.line_width = 2.0
+
+    pipeline.modifiers.append(PythonScriptModifier(function=style))
+    pipeline.compute()
+    return pipeline
+
+
+def render_structure_grid(
+    pipeline,
+    output_path: Path,
+    *,
+    size: tuple[int, int] = (1200, 1200),
+    background: tuple[float, float, float] = (1.0, 1.0, 1.0),
+) -> Path:
+    """Render a single pipeline as a 2×2 PNG (Top, Front, Left, Perspective).
+
+    Adds the pipeline to the scene for the duration of the render, then removes
+    it, so several structures can be exported without polluting the scene.
+
+    Returns
+    -------
+    Path
+        The written PNG file.
+    """
+    pipeline.add_to_scene()
+    try:
+        viewports = []
+        for view_type in (Viewport.Type.Top, Viewport.Type.Front, Viewport.Type.Left, Viewport.Type.Perspective):
+            vp = Viewport()
+            vp.type = view_type
+            vp.zoom_all()
+            viewports.append(vp)
+        return render_viewport_grid(viewports, output_path, size=size, background=background)
+    finally:
+        pipeline.remove_from_scene()
 
 
 # =========================================================

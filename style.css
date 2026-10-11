@@ -13,6 +13,29 @@ body {
   line-height: 1.6;
 }
 
+/* Landing page (book/intro.md): niente blocco titolo, così l'immagine va per prima */
+body:has(.intro-hero) .myst-fm-block-title {
+  display: none;
+}
+
+.intro-hero {
+  margin: 0 0 1.5rem;
+  width: 100%;
+}
+
+.intro-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Titolo landing: non grassetto, grigio chiaro */
+#computational-course {
+  font-weight: 400;
+  color: #9aa0a6;
+}
+
 /* Titoli più simili al vecchio Jupyter Book */
 main h1 {
   font-size: 2.15rem;
