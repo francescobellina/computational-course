@@ -31,7 +31,7 @@ site:
   description: Notes, numerical experiments and simulations in CMS.
 
   options:
-    logo_text: CMS
+    logo: imm4book/logoo.png
     hide_toc: false
     hide_outline: false
     hide_footer_links: false

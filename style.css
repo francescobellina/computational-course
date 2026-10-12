@@ -13,6 +13,12 @@ body {
   line-height: 1.6;
 }
 
+/* Logo header: override della h-9 del tema (2.25rem) -> 3.53rem */
+.myst-home-link-logo img {
+  height: 3.53194rem;
+  width: auto;
+}
+
 /* Landing page (book/intro.md): niente blocco titolo, così l'immagine va per prima */
 body:has(.intro-hero) .myst-fm-block-title {
   display: none;
