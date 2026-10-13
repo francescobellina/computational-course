@@ -10,6 +10,7 @@ from .fcc_lattice import (
 from .lennard_jones import (
     build_neighbor_list,
     lennard_jones_energy,
+    lennard_jones_forces,
     lennard_jones_pair,
 )
 from .ovito_visualization import (
@@ -38,6 +39,7 @@ __all__ = [
     "fcc_unit_cell",
     "find_project_root",
     "lennard_jones_energy",
+    "lennard_jones_forces",
     "lennard_jones_pair",
     "load_structure",
     "newton",

@@ -66,3 +66,32 @@ def lennard_jones_energy(
             r = float(np.linalg.norm(positions[i] - positions[j]))
             epot += 0.5 * lennard_jones_pair(r, sigma, epsilon)
     return epot
+
+
+def lennard_jones_forces(
+    positions: NDArray[np.floating],
+    sigma: float,
+    epsilon: float,
+    nnbrs: NDArray[np.int_],
+    whichnbr: NDArray[np.int_],
+) -> NDArray[np.floating]:
+    """Net Lennard-Jones force on each atom from a neighbour list.
+
+    For a pair ``(i, j)`` the force on ``i`` is
+
+    ``24*eps/r**2 * (2*(sigma/r)**12 - (sigma/r)**6) * (r_i - r_j)``.
+
+    Returns
+    -------
+    force
+        Array of shape ``(N, 3)``; ``force[i]`` is the net force on atom ``i``.
+    """
+    force = np.zeros_like(positions, dtype=float)
+    for i in range(positions.shape[0]):
+        for k in range(nnbrs[i]):
+            j = whichnbr[i, k]
+            rij = positions[i] - positions[j]
+            r2 = float(rij @ rij)
+            sr6 = (sigma * sigma / r2) ** 3
+            force[i] += 24.0 * epsilon * (2.0 * sr6 * sr6 - sr6) / r2 * rij
+    return force

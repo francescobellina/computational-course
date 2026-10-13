@@ -16,6 +16,15 @@ I concetti di base necessari per l'esercizio sono:
 
 Come calcolare le quantità dell'esercizio (procedura operativa).
 
-## 3. Continuazione (09/oct)
+## 3. Continuazione
 
-Prosecuzione del lavoro: si procede con le attività successive dell'esercitazione.
+Prosecuzione del lavoro, in sintesi:
+
+- Lista dei vicini (`nnbrs`, `whichnbr`) costruita una volta e riusata per energia e forze.
+- Energia di Lennard-Jones con cutoff.
+- **Forze** per atomo: $\vec F_i = \sum_j K_{ij}(\vec r_i - \vec r_j)$, con $K_{ij} = 24\varepsilon\,(2s_6^2 - s_6)/r_{ij}^2$ e $s_6 = (\sigma/r_{ij})^6$.
+- Forza netta **nulla** nel bulk (ambiente simmetrico), **non nulla** su superficie, spigoli e angoli.
+- Forze raggruppate per numero di primi vicini (NNBR), scomposte in $|f|$ (coppia) e $|\sum \hat u|$ (geometrico): $|\vec F| = |f|\,|\sum \hat u|$.
+
+
+## TEORIA DELLA STRUTTURA CRISTALLINA (...)

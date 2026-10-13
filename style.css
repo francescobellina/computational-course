@@ -13,9 +13,9 @@ body {
   line-height: 1.6;
 }
 
-/* Logo header: override della h-9 del tema (2.25rem) -> 3.53rem */
+/* Logo header: override della h-9 del tema (2.25rem) -> 3.89rem */
 .myst-home-link-logo img {
-  height: 3.53194rem;
+  height: 3.88513rem;
   width: auto;
 }
 
