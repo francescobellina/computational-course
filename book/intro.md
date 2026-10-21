@@ -60,6 +60,7 @@ Il materiale seguirà principalmente questi argomenti:
    - [costruzione delle liste dei vicini](../notebooks/04_handson_Ag_cutoff/coordinazione_e_lennard_jones.ipynb#id-6-lista-dei-vicini-entro-il-cutoff)
 
 2. **Molecular Dynamics**
+   - [integrazione delle equazioni del moto](../notebooks/05_molecular_dynamics/equazioni_del_moto.ipynb)
    - Verlet configurazionale e velocity Verlet
    - velocità iniziali e scelta del timestep
    - calcolo delle forze

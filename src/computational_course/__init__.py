@@ -12,6 +12,14 @@ from .lennard_jones import (
     lennard_jones_energy,
     lennard_jones_forces,
     lennard_jones_pair,
+    lennard_jones_pair_derivative,
+)
+from .md import (
+    assign_vel,
+    instantaneous_T,
+    kinetic_energy,
+    radial_distribution,
+    run_md,
 )
 from .ovito_visualization import (
     compute_neighbor_distances,
@@ -27,6 +35,7 @@ from .ovito_visualization import (
 from .root_finding import newton
 
 __all__ = [
+    "assign_vel",
     "build_neighbor_list",
     "check_fcc",
     "compute_neighbor_distances",
@@ -38,12 +47,17 @@ __all__ = [
     "fcc_supercell",
     "fcc_unit_cell",
     "find_project_root",
+    "instantaneous_T",
+    "kinetic_energy",
     "lennard_jones_energy",
     "lennard_jones_forces",
     "lennard_jones_pair",
+    "lennard_jones_pair_derivative",
     "load_structure",
     "newton",
     "print_analysis_report",
+    "radial_distribution",
     "render_viewport_grid",
+    "run_md",
     "viewport_cameras",
 ]
