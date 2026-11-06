@@ -1,0 +1,53 @@
+version: 1
+
+project:
+  title: Computational Material Science
+  description: Notes, numerical experiments and simulations in statistical mechanics.
+  github: francescobellina/computational-course
+  license: MIT
+
+  bibliography:
+    - book/references.bib
+
+  toc:
+    - file: book/intro.md
+    # Elenco esplicito: serve a mettere 05_md_pbc e i suoi esercizi dopo le note.
+    - file: book/01_workflow.md
+    - file: book/02_basi_di_teoria/intro_teoria1.md
+    - file: book/02_basi_di_teoria/teoria2.md
+    - file: book/04_handson_Ag_cutoff/intro.md
+    - file: notebooks/04_handson_Ag_cutoff/coordinazione_e_lennard_jones.ipynb
+    - file: notebooks/04_handson_Ag_cutoff/forze_e_statica_molecolare.ipynb
+    - file: notebooks/05_molecular_dynamics/00_molecular_dynamics.ipynb
+    - file: notebooks/05_molecular_dynamics/equazioni_del_moto.ipynb
+    - file: book/05_md_pbc.md
+    - file: notebooks/05_molecular_dynamics/esercizi_cms6.ipynb
+
+  exclude:
+    - README.md
+    - notebooks/04_handson_Ag_cutoff/analysis.ipynb
+    - notebooks/04_handson_Ag_cutoff/analysis9oct.ipynb
+    - tests/**
+    - src/**
+    - scripts/**
+    - data/**
+    - .github/**
+    - .vscode/**
+
+site:
+  template: book-theme
+  title: Computational Material Science
+  description: Notes, numerical experiments and simulations in CMS.
+
+  options:
+    logo: imm4book/logoo.png
+    hide_toc: false
+    hide_outline: false
+    hide_footer_links: false
+    hide_title_block: false
+    hide_authors: true
+    hide_search: false
+    outline_maxdepth: 3
+    numbered_references: true
+    folders: true
+    style: ./style.css

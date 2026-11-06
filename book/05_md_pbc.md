@@ -1,10 +1,10 @@
-# Simulazioni MD: dal potenziale alla statistica
+# Simulazioni MD: dal potenziale alla statistica (CMS 6)
 
 Questa sezione segue il materiale di CMS_6. Si va dal ciclo operativo di una simulazione di dinamica molecolare (MD) alla lettura statistica dei risultati, al raccordo del potenziale di Lennard-Jones, alla minimizzazione (*steepest descent*) e alle condizioni periodiche al contorno (PBC) per passare da un cluster isolato al cristallo bulk.
 
 ## 1. Il ciclo di una simulazione MD
 
-:::{figure} ../../figures/CMS6_immagini/01_workflow_md.png
+:::{figure} ../figures/CMS6_immagini/01_workflow_md.png
 :name: fig:md-workflow
 :width: 90%
 
@@ -27,18 +27,15 @@ Una volta pronte le condizioni iniziali, si integra l'equazione del moto finché
 
 $$
 \mathbf{x}_i(t+\Delta t)=\mathbf{x}_i(t)+\mathbf{v}_i(t)\,\Delta t+\frac{1}{2m}\mathbf{F}_i(t)\,\Delta t^2 \,.
-\tag{eq:vv-x}
-$$
+$$ (eq:vv-x)
 
 $$
 \mathbf{F}_i(t+\Delta t)= -\sum_{j\neq i}\nabla_i\,\phi(r_{ij}) \,.
-\tag{eq:vv-f}
-$$
+$$ (eq:vv-f)
 
 $$
 \mathbf{v}_i(t+\Delta t)=\mathbf{v}_i(t)+\frac{\Delta t}{2m}\left(\mathbf{F}_i(t)+\mathbf{F}_i(t+\Delta t)\right) \,.
-\tag{eq:vv-v}
-$$
+$$ (eq:vv-v)
 
 :::{warning}
 **Ordine fondamentale.** Si aggiornano le posizioni con {eq}`eq:vv-x`, si calcolano le **nuove** forze {eq}`eq:vv-f` **senza sovrascrivere** $\mathbf{F}(t)$ (serve per {eq}`eq:vv-v`), infine si aggiornano le velocità {eq}`eq:vv-v`. Solo a questo punto $\mathbf{F}(t+\Delta t)$ diventa $\mathbf{F}(t)$ del passo successivo (le forze vanno calcolate una sola volta per passo temporale).
@@ -48,14 +45,13 @@ Ad ogni passo (o con cadenza prefissata) si registrano energia potenziale $\phi(
 
 $$
 K=\frac{1}{2}\sum_i m v_i^2,\qquad T=\frac{2K}{3N k_B}\,,
-\tag{eq:T-from-K}
-$$
+$$ (eq:T-from-K)
 
 essendo i gradi di libertà effettivi $3N-3$ trascurabili per $N$ grande.
 
 ## 2. Cosa produce una MD: g(r) e fasi della materia
 
-Una simulazione MD produce essenzialmente due tipi di informazioni: **configurazioni** $\{\mathbf{x}_i(t), \mathbf{v}_i(t)\}$ e **grandezze scalari** nel tempo ($\phi, K, E, T$). Dal post-processing si ottengono transizioni, spostamento quadratico medio, pressione, funzioni di correlazione, ecc.
+Una simulazione MD produce essenzialmente due tipi di informazioni: **configurazioni** $\{\mathbf{x}_i(t), \mathbf{v}_i(t)\}$ e **grandezze scalari** nel tempo ($\phi, K, E, T$: rispettivamente energia potenziale totale $\sum_{i<j}\phi(r_{ij})$, energia cinetica totale $\frac{1}{2}\sum_i m v_i^2$, energia totale $E=K+\phi$ e temperatura istantanea $T=2K/(3Nk_B)$, un valore per ogni passo temporale). Dal post-processing si ottengono transizioni, spostamento quadratico medio, pressione, funzioni di correlazione, ecc.
 
 :::{tip}
 **Regola d'oro.** È costoso analizzare direttamente durante la simulazione: conviene salvare su file tutto ciò che serve e analizzare **dopo** con script indipendenti, così da poter cambiare l'analisi senza rifare la MD.
@@ -67,15 +63,13 @@ Fissato un atomo di riferimento, sia $N(R)$ il numero medio di atomi entro dista
 
 $$
 N(R)=\rho_0 \int_0^R 4\pi r^2\, g(r)\,dr,\qquad \rho_0=\frac{N}{V}\,.
-\tag{eq:N-R-g}
-$$
+$$ (eq:N-R-g)
 
 Derivando,
 
 $$
 dN = \rho_0\, g(r)\, 4\pi r^2 dr \implies g(r)=\frac{1}{\rho_0}\frac{dN/dr}{4\pi r^2}\,.
-\tag{eq:g-def}
-$$
+$$ (eq:g-def)
 
 In pratica $g(r)$ è il **rapporto tra densità locale a distanza $r$ e densità media**: $g(r)\to 1$ indica assenza di struttura (gas ideale in limite opportuno), mentre picchi con $g(r)>1$ corrispondono a distanze interatomiche favorite.
 
@@ -83,24 +77,23 @@ Stima numerica (istogramma con passo $\Delta r$), mediata su più configurazioni
 
 $$
 g(r_k)\simeq \frac{n_k}{N\, \rho_0\, 4\pi r_k^2\, \Delta r}\,.
-\tag{eq:g-histo}
-$$
+$$ (eq:g-histo)
 
-:::{figure} ../../figures/CMS6_immagini/02_gr_definizione_cristallo.png
+:::{figure} ../figures/CMS6_immagini/02_gr_definizione_cristallo.png
 :name: fig:gr-def
 :width: 80%
 
 Definizione di $g(r)$ e sua forma per un cristallo ideale (ogni picco corrisponde ad una shell di vicini successivi).
 :::
 
-:::{figure} ../../figures/CMS6_immagini/03_vibrazioni_reticolo.png
+:::{figure} ../figures/CMS6_immagini/03_vibrazioni_reticolo.png
 :name: fig:gr-vib
 :width: 80%
 
 Si a 500 K e 1500 K: gli atomi vibrano attorno ai siti del reticolo (fononi).
 :::
 
-:::{figure} ../../figures/CMS6_immagini/04_liquido_gr_temperature.png
+:::{figure} ../figures/CMS6_immagini/04_liquido_gr_temperature.png
 :name: fig:gr-liq
 :width: 80%
 
@@ -117,7 +110,7 @@ Una distinzione quantitativa tra vibrazione e diffusione si può ottenere dallo 
 
 ## 3. Medie, ergodicità, termalizzazione e fluttuazioni
 
-:::{figure} ../../figures/CMS6_immagini/05_media_temporale_ergodicita.png
+:::{figure} ../figures/CMS6_immagini/05_media_temporale_ergodicita.png
 :name: fig:ergodicity
 :width: 80%
 
@@ -128,8 +121,7 @@ In NVE la traiettoria resta sull'ipersuperficie isoenergetica $H(\mathbf{x},\mat
 
 $$
 \langle A\rangle_{MD}\approx \langle A\rangle_t=\lim_{t\to\infty}\frac{1}{t}\int_{0}^{t} A(\mathbf{x}(t'),\mathbf{p}(t'))dt' \;\;\overset{\text{ergodicità}}{\longleftrightarrow}\;\; \langle A\rangle_{NVE}=\frac{\int_{E<H<E+dE}A\,d\mathbf{x}d\mathbf{p}}{\int_{E<H<E+dE}d\mathbf{x}d\mathbf{p}} \,.
-\tag{eq:ergodic}
-$$
+$$ (eq:ergodic)
 
 Se il sistema è ergodico e la simulazione è sufficientemente lunga, **media temporale = media microcanonica**.
 
@@ -141,13 +133,11 @@ Dopo la termalizzazione, con $N$ passi nella finestra di analisi,
 
 $$
 \langle A\rangle_t = \frac{1}{t-t_\text{th}}\int_{t_\text{th}}^{t} A(t')dt' \approx \frac{1}{N}\sum_{i=i_\text{th}}^{N} A_i \,,
-\tag{eq:time-avg}
-$$
+$$ (eq:time-avg)
 
 $$
 \delta A = \sqrt{\langle (A-\langle A\rangle)^2\rangle_t} = \sqrt{\frac{1}{N}\sum_{i=i_\text{th}}^{N} (A_i-\langle A\rangle)^2} = \sqrt{\langle A^2\rangle_t - \langle A\rangle_t^2}\,.
-\tag{eq:fluct}
-$$
+$$ (eq:fluct)
 
 :::{warning}
 La temperatura misurata all'equilibrio $\langle T\rangle \pm \delta T$ **non** coincide in generale con $T_\text{ini}$ usata per assegnare le velocità iniziali.
@@ -159,14 +149,14 @@ La temperatura misurata all'equilibrio $\langle T\rangle \pm \delta T$ **non** c
 
 ## 4. Fluttuazioni fisiche vs errori numerici; scelta del passo temporale
 
-:::{figure} ../../figures/CMS6_immagini/06_termalizzazione_timestep.png
+:::{figure} ../figures/CMS6_immagini/06_termalizzazione_timestep.png
 :name: fig:dt-term
 :width: 80%
 
 $E_\text{tot}(t)$ per diversi $\Delta t$: transiente di termalizzazione (da scartare) e ampiezza delle fluttuazioni.
 :::
 
-:::{figure} ../../figures/CMS6_immagini/07_timestep_ottimale.png
+:::{figure} ../figures/CMS6_immagini/07_timestep_ottimale.png
 :name: fig:dt-opt
 :width: 80%
 
@@ -186,8 +176,7 @@ Per grandi $N$ le fluttuazioni relative dell'energia cinetica (e quindi di $T$) 
 
 $$
 \frac{\delta T}{\langle T\rangle} \approx \frac{1}{\sqrt{N}}\,.
-\tag{eq:deltaT-scaling}
-$$
+$$ (eq:deltaT-scaling)
 
 Per $N=256$ questo dà circa il 6%; nel limite termodinamico $N\to\infty$ le fluttuazioni relative svaniscono e gli ensemble diventano equivalenti.
 
@@ -197,8 +186,7 @@ Si cerca il **massimo** $\Delta t$ compatibile con una buona conservazione dell'
 
 $$
 \frac{\delta E}{\left|\langle E\rangle\right|} \le 10^{-5}\,.
-\tag{eq:dt-criterion}
-$$
+$$ (eq:dt-criterion)
 
 Come mostra {numref}`fig:dt-opt`, $\delta E/|\langle E\rangle|$ cresce al crescere di $\Delta t$ e **anche con la temperatura** (a temperatura più alta gli atomi sono più veloci, servono quindi passi temporali più piccoli). Nella pratica si eseguono brevi run NVE per diversi $\Delta t$, si calcola {eq}`eq:dt-criterion` nella finestra dopo termalizzazione e si sceglie il più grande $\Delta t$ che rispetti il criterio.
 
@@ -241,7 +229,7 @@ Nella forma scritta sopra si usa `comments=''` per evitare che `np.savetxt` ante
 
 Per rileggere: `pos = np.loadtxt(fname, skiprows=2)`. Per una verifica rapida si può usare uno scatter 3D in Matplotlib; per animazioni sono più comodi OVITO o VMD.
 
-:::{figure} ../../figures/CMS6_immagini/08_ovito_xyz.png
+:::{figure} ../figures/CMS6_immagini/08_ovito_xyz.png
 :name: fig:ovito-xyz
 :width: 80%
 
@@ -274,7 +262,7 @@ Per la finestra di analisi si usa `mean()`/`std()` su tutto l'intervallo $[t_\te
 
 ## 6. Il potenziale di Lennard-Jones con raccordo polinomiale
 
-:::{figure} ../../figures/CMS6_immagini/09_lj_cutoff_netto.png
+:::{figure} ../figures/CMS6_immagini/09_lj_cutoff_netto.png
 :name: fig:lj-cutoff
 :width: 80%
 
@@ -285,8 +273,7 @@ Per l'Argento si usa il potenziale di Lennard-Jones
 
 $$
 \phi_{LJ}(r)=4\varepsilon\left[\left(\frac{\sigma}{r}\right)^{12}-\left(\frac{\sigma}{r}\right)^{6}\right],\qquad \varepsilon=0.345\,\text{eV},\qquad \sigma=2.644\,\text{Å}\,.
-\tag{eq:lj}
-$$
+$$ (eq:lj)
 
 Il minimo si trova a $r_\text{min}=2^{1/6}\sigma \approx 2.97\,\text{Å}$. Per una cella fcc di Ag ($a\approx4.16\,\text{Å}$) i primi vicini sono a $r_1=\frac{a\sqrt{2}}{2}\approx2.94\,\text{Å}$, i secondi a $r_2=a\approx4.16\,\text{Å}$, i terzi a $r_3=a\sqrt{3/2}\approx5.09\,\text{Å}$.
 
@@ -304,15 +291,13 @@ $$
 P_7(r)=\sum_{n=0}^{7} c_n r^n = A + B r + C r^2 + D r^3 + E r^4 + F r^5 + G r^6 + H r^7,& r_p < r \le r_c,\\[12pt]
 0,& r > r_c\,.
 \end{cases}
-\tag{eq:lj-poly}
-$$
+$$ (eq:lj-poly)
 
 Gli 8 coefficienti sono determinati da 8 condizioni (continuità di energia, forza e prime due derivate della forza) in $r_p$ e in $r_c$:
 
 $$
 P_7^{(k)}(r_p)=\phi_{LJ}^{(k)}(r_p),\qquad P_7^{(k)}(r_c)=0,\qquad k=0,1,2,3\,.
-\tag{eq:poly-conds}
-$$
+$$ (eq:poly-conds)
 
 Questo dà un sistema lineare $8\times8$:
 
@@ -337,7 +322,7 @@ def poly7_coeffs(phi_derivs_rp, rp, rc):
 Il sistema può essere **mal condizionato**. È buona norma verificare numericamente che $P_7, P_7', P_7'', P_7'''$ riproducano le condizioni {eq}`eq:poly-conds` in $r_p$ e $r_c$. In alternativa si può lavorare con la variabile traslata $r-r_p$. Se il corso fornisce già `poly7.py` si consiglia di usarlo.
 :::
 
-:::{figure} ../../figures/CMS6_immagini/10_lj_raccordo_polinomiale.png
+:::{figure} ../figures/CMS6_immagini/10_lj_raccordo_polinomiale.png
 :name: fig:lj-poly
 :width: 80%
 
@@ -354,10 +339,9 @@ f(r)=\begin{cases}
 -P_7'(r)= -\left(B + 2C r + 3D r^2 + 4E r^3 + 5F r^4 + 6G r^5 + 7H r^6\right),& r_p < r \le r_c,\\[14pt]
 0,& r>r_c\,.
 \end{cases}
-\tag{eq:lj-force}
-$$
+$$ (eq:lj-force)
 
-:::{figure} ../../figures/CMS6_immagini/11_forza_raccordo_polinomiale.png
+:::{figure} ../figures/CMS6_immagini/11_forza_raccordo_polinomiale.png
 :name: fig:lj-force-poly
 :width: 80%
 
@@ -368,15 +352,13 @@ Per un sistema 3D, la forza sull'atomo $k$ è
 
 $$
 \mathbf{F}(k)=\sum_{j\neq k} f(r_{kj})\frac{\mathbf{r}_k - \mathbf{r}_j}{r_{kj}},\qquad r_{kj}=\sqrt{(x_k-x_j)^2 + (y_k-y_j)^2 + (z_k-z_j)^2}\,.
-\tag{eq:force-3d}
-$$
+$$ (eq:force-3d)
 
 Nelle componenti,
 
 $$
 F_x(k)=\sum_{j\neq k} f(r_{kj})\frac{x_k - x_j}{r_{kj}}\,,
-\tag{eq:force-x}
-$$
+$$ (eq:force-x)
 
 e analogamente per $y,z$. È importante notare: **se** in fase di calcolo si usa già $f(r)/r$ conviene passarlo direttamente; in ogni caso va usato il vettore che congiunge correttamente i due atomi.
 
@@ -388,9 +370,10 @@ e analogamente per $y,z$. È importante notare: **se** in fase di calcolo si usa
 - **Efficienza.** Calcolare `dx*dx+dy*dy+dz*dz` e poi `sqrt` (o confrontare i quadrati quando possibile) è spesso più efficiente che funzioni più generiche.
 :::
 
+(sec:md-steepest)=
 ## 7. Partire da una configurazione sensata: *steepest descent*
 
-:::{figure} ../../figures/CMS6_immagini/12_steepest_superficie_energia.png
+:::{figure} ../figures/CMS6_immagini/12_steepest_superficie_energia.png
 :name: fig:steepest-surf
 :width: 80%
 
@@ -405,12 +388,11 @@ L'energia potenziale $\phi(\{\mathbf{r}_i\})$ è una funzione in $3N$ dimensioni
 
 $$
 \delta \mathbf{r}_i = C\, \mathbf{F}_i,\qquad \mathbf{r}_i \leftarrow \mathbf{r}_i + C\, \mathbf{F}_i \,,
-\tag{eq:sd-step}
-$$
+$$ (eq:sd-step)
 
 con $C>0$ opportunamente scelto (ha dimensioni Å²/eV).
 
-:::{figure} ../../figures/CMS6_immagini/13_steepest_passo_convergenza.png
+:::{figure} ../figures/CMS6_immagini/13_steepest_passo_convergenza.png
 :name: fig:steepest-step
 :width: 80%
 
@@ -425,8 +407,7 @@ Il criterio di arresto è tipicamente sulla forza massima:
 
 $$
 F_\text{max} = \max_{i=1,\ldots,N} \sqrt{F_{x,i}^2 + F_{y,i}^2 + F_{z,i}^2} \le F_\text{tol}\,.
-\tag{eq:ftol}
-$$
+$$ (eq:ftol)
 
 Un valore ragionevole per il corso può essere $F_\text{tol}\sim 10^{-3}\,\text{eV/Å}$ (più stringente se serve maggiore accuratezza). Nello schema di convergenza è importante notare: **minimizzare l'energia non implica necessariamente monotonicità stretta di $F_\text{max}$**, anche se spesso decresce.
 
@@ -443,7 +424,7 @@ for iStep in range(maxStep):
     pos = pos + Csteep * forces
 ```
 
-:::{figure} ../../figures/CMS6_immagini/14_steepest_esempio_864_atomi.png
+:::{figure} ../figures/CMS6_immagini/14_steepest_esempio_864_atomi.png
 :name: fig:steepest-864
 :width: 80%
 
@@ -459,7 +440,7 @@ Cluster Ag da 864 atomi: $E(\text{iter})$ e $F_\text{max}(\text{iter})$ per $C=0
 
 ### 8.1 Perché un cluster non basta
 
-:::{figure} ../../figures/CMS6_immagini/16_mu_vs_N_cluster.png
+:::{figure} ../figures/CMS6_immagini/16_mu_vs_N_cluster.png
 :name: fig:mu-cluster
 :width: 80%
 
@@ -479,12 +460,11 @@ Per evitare il doppio conteggio di ogni coppia,
 
 $$
 \mu_\text{bulk} = \frac{1}{2}\left(12\,\phi_{LJ}(r_1) + 6\,\phi_{LJ}(r_2)\right)\,.
-\tag{eq:mu-bulk}
-$$
+$$ (eq:mu-bulk)
 
 Con i parametri usati nel corso si ottiene $\mu_\text{bulk}\approx -2.32\,\text{eV}$. Per $r_2 < r_p$ il raccordo polinomiale non interviene. Vale la pena verificare numericamente questo valore e riportarlo come linea orizzontale nel grafico $\mu(N)$.
 
-:::{figure} ../../figures/CMS6_immagini/15_fcc_vicini_mu_bulk.png
+:::{figure} ../figures/CMS6_immagini/15_fcc_vicini_mu_bulk.png
 :name: fig:fcc-vicini
 :width: 80%
 
@@ -493,7 +473,7 @@ Cella fcc, primi/secondi vicini e calcolo di $\mu_\text{bulk}$.
 
 ### 8.2 L'idea delle PBC
 
-:::{figure} ../../figures/CMS6_immagini/17_pbc_immagini_cutoff.png
+:::{figure} ../figures/CMS6_immagini/17_pbc_immagini_cutoff.png
 :name: fig:pbc-img
 :width: 80%
 
@@ -504,12 +484,11 @@ Si replica la cella di simulazione periodicamente nello spazio:
 
 $$
 (x,y,z) \mapsto (x + n_x L_x, y + n_y L_y, z + n_z L_z),\qquad n_x,n_y,n_z \in \mathbb{Z}\,.
-\tag{eq:pbc-rep}
-$$
+$$ (eq:pbc-rep)
 
 L'idea è simulare una **porzione rappresentativa** di un sistema infinito: ciò che accade nella cella si ripete identicamente. Di conseguenza, per calcolare distanze e interazioni si deve usare la **distanza all'immagine più vicina**.
 
-:::{figure} ../../figures/CMS6_immagini/18_pbc_distanza_1D.png
+:::{figure} ../figures/CMS6_immagini/18_pbc_distanza_1D.png
 :name: fig:pbc-1d
 :width: 70%
 
@@ -520,15 +499,13 @@ In 1D, data la distanza $\Delta x = x_k - x_j$, le immagini sono $\Delta x, \Del
 
 $$
 \Delta x^\text{pbc} = \Delta x - L_x\,\operatorname{round}\!\left(\frac{\Delta x}{L_x}\right)\,.
-\tag{eq:pbc-min}
-$$
+$$ (eq:pbc-min)
 
 ($\operatorname{round}$ restituisce l'intero più vicino a 0, +1 o -1 a seconda del caso). In 3D si applica componente per componente:
 
 $$
 r_{kj}^\text{pbc} = \sqrt{(\Delta x_{kj}^\text{pbc})^2 + (\Delta y_{kj}^\text{pbc})^2 + (\Delta z_{kj}^\text{pbc})^2}\,.
-\tag{eq:pbc-r3d}
-$$
+$$ (eq:pbc-r3d)
 
 ```python
 dx = pos[k,0] - pos[j,0]
@@ -544,10 +521,9 @@ Per garantire che ogni coppia interagisca **al massimo una volta** (con la propr
 
 $$
 L_\text{min} > 2r_c\,.
-\tag{eq:pbc-lmin}
-$$
+$$ (eq:pbc-lmin)
 
-:::{figure} ../../figures/CMS6_immagini/19_pbc_cella_minima_2rc.png
+:::{figure} ../figures/CMS6_immagini/19_pbc_cella_minima_2rc.png
 :name: fig:pbc-2rc
 :width: 80%
 
@@ -558,7 +534,7 @@ Per Ag con $r_c=4.5\,\text{Å}$ serve $L > 9\,\text{Å}$. Una cella fcc $2\times
 
 ### Seguire le traiettorie con PBC
 
-:::{figure} ../../figures/CMS6_immagini/21_pbc_traiettorie.png
+:::{figure} ../figures/CMS6_immagini/21_pbc_traiettorie.png
 :name: fig:pbc-traj
 :width: 80%
 
@@ -572,8 +548,7 @@ Quando un atomo esce da un lato della cella entra da quello opposto. A seconda d
 
 $$
 x^\text{pbc} = x - L_x \lfloor x/L_x \rfloor \in [0, L_x)\,,
-\tag{eq:pbc-wrap}
-$$
+$$ (eq:pbc-wrap)
 
 (idem per $y,z$, con $\lfloor \cdot \rfloor$ = parte intera inferiore): utili per visualizzare la configurazione e capire quali atomi interagiscono, ma **perdono l'informazione sul percorso reale**.
 
@@ -583,21 +558,21 @@ $$
 
 ### Aspetti pratici delle PBC
 
-:::{figure} ../../figures/CMS6_immagini/20_pbc_array_di_difetti.png
+:::{figure} ../figures/CMS6_immagini/20_pbc_array_di_difetti.png
 :name: fig:pbc-defect
 :width: 80%
 
 Un difetto in PBC corrisponde ad un array periodico di difetti identici.
 :::
 
-:::{figure} ../../figures/CMS6_immagini/22_pbc_particelle_interagenti.png
+:::{figure} ../figures/CMS6_immagini/22_pbc_particelle_interagenti.png
 :name: fig:pbc-collision
 :width: 80%
 
 In cella finita con PBC aumenta la probabilità d'incontro tra particelle che diffondono.
 :::
 
-:::{figure} ../../figures/CMS6_immagini/23_pbc_vuoto_superfici.png
+:::{figure} ../figures/CMS6_immagini/23_pbc_vuoto_superfici.png
 :name: fig:pbc-surface
 :width: 80%
 
@@ -669,7 +644,7 @@ def calc_forces(natoms, pos, nNbrs, whichNbrs, coeff_poly, rp, rc, eps, sig, Lx,
 
 ## 10. Workflow completo, esempio guidato ed esercizi
 
-:::{figure} ../../figures/CMS6_immagini/24_wrapup_file_python.png
+:::{figure} ../figures/CMS6_immagini/24_wrapup_file_python.png
 :name: fig:workflow-files
 :width: 90%
 
