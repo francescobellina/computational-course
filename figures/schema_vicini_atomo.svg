@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120">
+<defs>
+ <style>
+  .bg{fill:#f3f6fb}.card{fill:#fff;stroke:#d9e2ee;stroke-width:2}.title{font:700 38px Arial,sans-serif;fill:#17283d}.lead{font:20px Arial,sans-serif;fill:#52647a}.head{font:700 24px Arial,sans-serif;fill:#20344d}.body{font:19px Arial,sans-serif;fill:#30445c}.small{font:16px Arial,sans-serif;fill:#5d6d81}.code{font:700 22px 'SFMono-Regular',Consolas,monospace;fill:#183c6b}.atom{font:700 19px Arial,sans-serif;fill:#fff}.edge{stroke:#90a4bc;stroke-width:5}.grid{stroke:#b9c8d9;stroke-width:2}.step{font:700 17px Arial,sans-serif;fill:#fff}.num{font:700 18px Arial,sans-serif;fill:#fff}.table{font:20px Arial,sans-serif;fill:#23364e}.mono{font:700 19px 'SFMono-Regular',Consolas,monospace;fill:#183c6b}
+ </style>
+</defs>
+<rect width="1600" height="1120" class="bg"/>
+<text x="60" y="66" class="title">Come rappresentare i vicini di ogni atomo</text>
+<text x="60" y="102" class="lead">Un esempio completo: il grafo determina prima il conteggio, poi l’elenco ordinato dei vicini.</text>
+
+<!-- step 1: graph -->
+<rect x="50" y="135" width="520" height="610" rx="20" class="card"/>
+<circle cx="85" cy="175" r="17" fill="#365f9d"/><text x="85" y="181" text-anchor="middle" class="step">1</text>
+<text x="115" y="183" class="head">Parti dal grafo</text>
+<text x="85" y="219" class="small">Ogni linea indica una relazione di vicinanza.</text>
+<!-- undirected edges: 1-2, 1-3, 2-4 -->
+<line x1="260" y1="400" x2="160" y2="295" class="edge"/><line x1="260" y1="400" x2="360" y2="295" class="edge"/><line x1="160" y1="505" x2="360" y2="505" class="edge"/>
+<circle cx="260" cy="400" r="49" fill="#e87822"/><text x="260" y="407" text-anchor="middle" class="atom">AT 1</text>
+<circle cx="160" cy="295" r="43" fill="#3579bd"/><text x="160" y="302" text-anchor="middle" class="atom">AT 2</text>
+<circle cx="360" cy="295" r="43" fill="#45a36a"/><text x="360" y="302" text-anchor="middle" class="atom">AT 3</text>
+<circle cx="160" cy="505" r="43" fill="#7756a6"/><text x="160" y="512" text-anchor="middle" class="atom">AT 4</text>
+<text x="85" y="590" class="head">Vicini osservati</text>
+<text x="85" y="625" class="body">Atomo 1 → atomi 2 e 3</text>
+<text x="85" y="657" class="body">Atomo 2 → atomi 1 e 4</text>
+<text x="85" y="689" class="body">Atomo 3 → atomo 1 · Atomo 4 → atomo 2</text>
+
+<!-- step 2: vector -->
+<rect x="595" y="135" width="430" height="610" rx="20" class="card"/>
+<circle cx="630" cy="175" r="17" fill="#365f9d"/><text x="630" y="181" text-anchor="middle" class="step">2</text>
+<text x="660" y="183" class="head">Conta: vettore nbrs</text>
+<text x="630" y="225" class="body">Per ogni atomo <tspan font-weight="700">i</tspan>, scrivi quanti vicini ha:</text>
+<rect x="635" y="260" width="350" height="88" rx="14" fill="#edf4fc"/>
+<text x="660" y="296" class="code">nbrs(i)</text><text x="660" y="328" class="body">= numero di vicini dell’atomo i</text>
+<text x="635" y="397" class="small">Indice dell’atomo i</text>
+<g class="grid"><rect x="635" y="415" width="350" height="65" fill="#f8fafc"/><path d="M745 415v260 M805 415v260 M865 415v260 M925 415v260 M635 480h350 M635 545h350 M635 610h350 M635 675h350" fill="none"/></g>
+<text x="690" y="455" text-anchor="middle" class="table">i</text><text x="775" y="455" text-anchor="middle" class="table">1</text><text x="835" y="455" text-anchor="middle" class="table">2</text><text x="895" y="455" text-anchor="middle" class="table">3</text><text x="955" y="455" text-anchor="middle" class="table">4</text>
+<text x="690" y="520" text-anchor="middle" class="table">nbrs(i)</text><text x="775" y="520" text-anchor="middle" class="table">2</text><text x="835" y="520" text-anchor="middle" class="table">2</text><text x="895" y="520" text-anchor="middle" class="table">1</text><text x="955" y="520" text-anchor="middle" class="table">1</text>
+<text x="635" y="725" class="small">Esempio: AT 1 ha 2 linee → nbrs(1) = 2.</text>
+
+<!-- step 3: matrix -->
+<rect x="1050" y="135" width="500" height="610" rx="20" class="card"/>
+<circle cx="1085" cy="175" r="17" fill="#365f9d"/><text x="1085" y="181" text-anchor="middle" class="step">3</text>
+<text x="1115" y="183" class="head">Elenca: matrice whichnbr</text>
+<text x="1085" y="225" class="body">whichnbr(i,j) = indice del j-esimo vicino di i</text>
+<text x="1085" y="261" class="small">i = riga (atomo) · j = colonna (posizione nella lista)</text>
+<g class="grid"><rect x="1120" y="290" width="360" height="325" fill="#f8fafc"/><path d="M1180 290v325 M1280 290v325 M1380 290v325 M1120 355h360 M1120 420h360 M1120 485h360 M1120 550h360 M1120 615h360" fill="none"/></g>
+<text x="1150" y="330" text-anchor="middle" class="table">i \ j</text><text x="1230" y="330" text-anchor="middle" class="table">1</text><text x="1330" y="330" text-anchor="middle" class="table">2</text><text x="1430" y="330" text-anchor="middle" class="table">3</text>
+<text x="1150" y="398" text-anchor="middle" class="table">1</text><text x="1230" y="398" text-anchor="middle" class="table">2</text><text x="1330" y="398" text-anchor="middle" class="table">3</text><text x="1430" y="398" text-anchor="middle" class="small">—</text>
+<text x="1150" y="463" text-anchor="middle" class="table">2</text><text x="1230" y="463" text-anchor="middle" class="table">1</text><text x="1330" y="463" text-anchor="middle" class="table">4</text><text x="1430" y="463" text-anchor="middle" class="small">—</text>
+<text x="1150" y="528" text-anchor="middle" class="table">3</text><text x="1230" y="528" text-anchor="middle" class="table">1</text><text x="1330" y="528" text-anchor="middle" class="small">—</text><text x="1430" y="528" text-anchor="middle" class="small">—</text>
+<text x="1150" y="593" text-anchor="middle" class="table">4</text><text x="1230" y="593" text-anchor="middle" class="table">2</text><text x="1330" y="593" text-anchor="middle" class="small">—</text><text x="1430" y="593" text-anchor="middle" class="small">—</text>
+<text x="1085" y="655" class="body">Le celle — sono posizioni senza vicino.</text>
+<text x="1085" y="690" class="small">Leggi la riga i da sinistra: j = 1, poi 2…</text>
+
+<!-- reading example -->
+<rect x="50" y="780" width="1500" height="275" rx="20" fill="#e8f0fa" stroke="#c9d8ea" stroke-width="2"/>
+<text x="85" y="827" class="head">Leggiamo insieme la riga dell’atomo 1</text>
+<rect x="85" y="852" width="270" height="68" rx="12" fill="#fff"/><text x="220" y="895" text-anchor="middle" class="code">nbrs(1) = 2</text>
+<text x="380" y="897" class="head">→</text>
+<rect x="430" y="852" width="390" height="68" rx="12" fill="#fff"/><text x="625" y="895" text-anchor="middle" class="code">whichnbr(1,1) = 2</text>
+<text x="850" y="897" class="head">e</text>
+<rect x="900" y="852" width="390" height="68" rx="12" fill="#fff"/><text x="1095" y="895" text-anchor="middle" class="code">whichnbr(1,2) = 3</text>
+<text x="85" y="970" class="body">Quindi l’atomo 1 ha 2 vicini: il primo è l’atomo 2, il secondo è l’atomo 3.</text>
+<text x="85" y="1012" class="small">Regola pratica: per ogni i, compila nbrs(i), poi riempi whichnbr(i,1…nbrs(i)).</text>
+</svg>

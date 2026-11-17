@@ -319,7 +319,7 @@ def poly7_coeffs(phi_derivs_rp, rp, rc):
 ```
 
 :::{warning}
-Il sistema può essere **mal condizionato**. È buona norma verificare numericamente che $P_7, P_7', P_7'', P_7'''$ riproducano le condizioni {eq}`eq:poly-conds` in $r_p$ e $r_c$. In alternativa si può lavorare con la variabile traslata $r-r_p$. Se il corso fornisce già `poly7.py` si consiglia di usarlo.
+Il sistema può essere **mal condizionato**. È buona norma verificare numericamente che $P_7, P_7', P_7'', P_7'''$ riproducano le condizioni {eq}`eq:poly-conds` in $r_p$ e $r_c$. In alternativa si può lavorare con la variabile traslata $r-r_p$. In pratica conviene usare i coefficienti già pronti in `poly7.py`, forniti dal corso (vedi l'esercizio a fine sezione).
 :::
 
 :::{figure} ../figures/CMS6_immagini/10_lj_raccordo_polinomiale.png
@@ -365,9 +365,33 @@ e analogamente per $y,z$. È importante notare: **se** in fase di calcolo si usa
 ### Piccoli accorgimenti implementativi
 
 :::{warning}
-- **Doppio conteggio.** Se si scorre tutte le coppie $(i,j)$ con $j>i$ l'energia va divisa per 2; se invece si somma su tutti $j\neq i$ va **evitato** il doppio conteggio (la forma {eq}`eq:force-3d` somma già correttamente $j\neq k$).
-- **JIT/Numba.** Per usare `@njit` i coefficienti del polinomio vanno passati come **argomenti** alle funzioni (non come attributi di oggetti), come suggerito in {eq}`eq:poly-conds`/{eq}`eq:lj-force`.
+- **Doppio conteggio.** Se si sommano solo le coppie $(i,j)$ con $j>i$, ogni coppia compare una volta e l'energia **non** va divisa per 2; se invece si somma su tutti i $j\neq i$ (come con le liste dei vicini complete), ogni coppia compare due volte e l'energia va **divisa per 2**. Per le forze la somma {eq}`eq:force-3d` su $j\neq k$ è già corretta così.
+- **JIT/Numba.** Per usare `@njit` i coefficienti del polinomio vanno passati come **argomenti** alle funzioni (non come attributi di oggetti).
 - **Efficienza.** Calcolare `dx*dx+dy*dy+dz*dz` e poi `sqrt` (o confrontare i quadrati quando possibile) è spesso più efficiente che funzioni più generiche.
+:::
+
+### Esercizio: implementazione del raccordo polinomiale
+
+Il corso fornisce gli 8 coefficienti già calcolati nel file `poly7.py`, come attributi della classe `poly7`. Si inizializza la classe con i parametri di LJ e poi si passano i coefficienti **come argomenti** alle funzioni di energia e forze (così restano compatibili con Numba):
+
+```python
+from poly7 import poly7
+
+LJpoly = poly7(eps, sig, rcut, rpoly)   # eps=0.345 eV, sig=2.644 Å, rcut=4.5 Å, rpoly=4.2 Å
+# ogni coefficiente è accessibile come LJpoly.A, LJpoly.B, ..., LJpoly.H
+
+ePot = calcEnergy(..., LJpoly.A, LJpoly.B, ..., LJpoly.H)
+```
+
+Nelle due funzioni basta distinguere i due tratti di {eq}`eq:lj-poly` e {eq}`eq:lj-force`: se `dist < rpoly` si usano $\phi_{LJ}$ e $f_{LJ}$, altrimenti $P_7$ e $-P_7'$ (le coppie con `dist > rcut` sono già escluse dalle liste dei vicini).
+
+:::{exercise}
+**Raccordo polinomiale con `poly7.py`: bassa e alta temperatura**
+
+1. Aggiungere il raccordo polinomiale alle funzioni che calcolano l'energia potenziale e le forze, usando i coefficienti della classe `poly7` ($r_p=4.2\,\text{Å}$, $r_c=4.5\,\text{Å}$). Verificare numericamente le condizioni {eq}`eq:poly-conds`: in $r_p$ il polinomio deve coincidere con LJ, in $r_c$ deve annullarsi insieme alle sue derivate.
+2. Eseguire la MD in NVE a **due temperature iniziali, $T_\text{ini}=30\,\text{K}$ e $T_\text{ini}=2500\,\text{K}$**, una volta **con** il raccordo polinomiale e una volta **senza** (taglio netto in $r_c$). Per ciascun caso usare **8 passi temporali** ben distanziati, fino a $\Delta t=25\,\text{fs}$ (ad esempio 1, 2, 5, 8, 10, 15, 20, 25 fs). La durata totale della simulazione deve essere la stessa per tutti i $\Delta t$.
+3. Scartare il transiente di termalizzazione, fissando $t_\text{th}=3\,\text{ps}$, e calcolare nella finestra successiva $\langle E_\text{tot}\rangle$ e $\delta E/|\langle E\rangle|$.
+4. Confrontare $\delta E/|\langle E\rangle|$ in funzione di $\Delta t$ nei quattro casi. È vero che a $T_\text{ini}=30\,\text{K}$ il comportamento è lo stesso che si avrebbe senza raccordo polinomiale? Cosa cambia a $2500\,\text{K}$? Qual è il più grande $\Delta t$ che rispetta il criterio {eq}`eq:dt-criterion` in ciascun caso? Suggerimento: durante la simulazione registrare la distanza massima raggiunta dai secondi vicini e quella minima dei terzi vicini. Ci sono coppie che entrano nell'intervallo $[r_p, r_c]$? Ce ne sono che attraversano $r_c$?
 :::
 
 (sec:md-steepest)=
