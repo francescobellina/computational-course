@@ -40,7 +40,6 @@ from .ovito_visualization import (
     render_viewport_grid,
     viewport_cameras,
 )
-from .root_finding import newton
 
 __all__ = [
     "assign_vel",
@@ -64,7 +63,6 @@ __all__ = [
     "lj_p7_model",
     "load_structure",
     "max_force",
-    "newton",
     "print_analysis_report",
     "production_stats",
     "radial_distribution",

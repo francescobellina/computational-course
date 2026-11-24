@@ -200,15 +200,6 @@ Poiché un potenziale di coppia favorisce un alto numero di vicini, il modello L
 
 
 
-### NELLA PRATICA:
-
-
-
-## 4: LENNARD JONES --- IGNORE ---
-
-
-## 5: CUTOFF METHOD --- IGNORE ---
-
 ---
 
 ## 6: Struttura cristallina

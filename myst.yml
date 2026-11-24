@@ -31,16 +31,16 @@ project:
         - file: book/06_esercizio1_md/steepest_descent.md
         - file: notebooks/06_esercizio1_md/steepest_descent.ipynb
         - file: book/06_esercizio1_md/approfondimento.md
+    - file: book/orale_domande.md
 
   exclude:
     - README.md
-    - notebooks/04_handson_Ag_cutoff/analysis.ipynb
-    - notebooks/04_handson_Ag_cutoff/analysis9oct.ipynb
     - tests/**
     - src/**
     - scripts/**
     - data/**
     - .github/**
+    - docs/**
     - .vscode/**
 
 site:

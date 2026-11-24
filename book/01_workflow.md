@@ -6,7 +6,7 @@ Il progetto è un vero package Python con layout `src`. Dopo `uv sync`, il packa
 installato nell'ambiente `.venv`, quindi notebook e test possono usare import normali:
 
 ```python
-from computational_course.root_finding import newton
+from computational_course.md_p7 import lj_p7_model, run_nve
 ```
 
 Non è necessario modificare `sys.path`.

@@ -20,10 +20,10 @@ def main() -> None:
         version = getattr(module, "__version__", "installed")
         print(f"{name:12s} {version}")
 
-    from computational_course import newton
+    from computational_course import lennard_jones_pair
 
-    root, _ = newton(lambda x: x**2 - 2, lambda x: 2 * x, 1.5)
-    print(f"package import OK; sqrt(2) ≈ {root:.12f}")
+    phi_min = lennard_jones_pair(2 ** (1 / 6), 1.0, 1.0)
+    print(f"package import OK; phi_LJ at the minimum = {phi_min:.6f} eps (expected -1)")
 
 
 if __name__ == "__main__":

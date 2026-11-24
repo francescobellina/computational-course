@@ -24,9 +24,6 @@ VS Code -> Markdown / Notebook / Python -> test -> preview locale -> Git -> GitH
 - `src/computational_course/`: algoritmi e funzioni riutilizzabili.
 - `tests/`: test automatici del codice Python.
 
-Il capitolo sul [metodo di Newton](02_root_finding/newton.md) mostra il pattern completo.
-
-:jupyter book start 
 
 
 ## Programma del corso

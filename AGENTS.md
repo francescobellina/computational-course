@@ -26,7 +26,7 @@ source .venv/bin/activate       # activate env
 uv run jupyter book start --execute   # build + serve book at http://localhost:8000
 uv run jupyter-book build .           # build for deployment -> _build/html/
 uv run pytest                         # run all tests (testpaths=tests)
-uv run pytest tests/test_root_finding.py   # single test file
+uv run pytest tests/test_md_p7.py        # single test file
 uv run ruff check src/ tests/         # lint
 uv run ruff format src/ tests/        # format
 ```
@@ -45,12 +45,15 @@ book/                       # Theory chapters and exercises (Markdown/Jupyter)
 ├── 05_esercizio1.ipynb
 └── references.bib
 notebooks/                  # Standalone Jupyter notebooks with simulations
-├── 02_root_finding/
-└── 04_handson_Ag_cutoff/
+├── 04_handson_Ag_cutoff/
+├── 05_molecular_dynamics/
+└── 06_esercizio1_md/
 src/computational_course/   # Reusable Python modules (import root)
-├── root_finding.py
-├── ovito_visualization.py
-└── run_Ag_cutoff.py
+├── fcc_lattice.py
+├── lennard_jones.py
+├── md.py
+├── md_p7.py
+└── ovito_visualization.py
 tests/                      # Unit tests for src/
 data/raw/                   # Original datasets (do not modify)
 data/processed/             # Derived datasets
@@ -62,7 +65,7 @@ myst.yml                    # Jupyter Book config (TOC, bibliography, styling)
 
 - **Config:** `myst.yml` controls TOC, bibliography, styling, and include/exclude.
 - **Imports:** Notebooks and code import from `computational_course`, e.g.
-  `from computational_course.root_finding import newton`.
+  `from computational_course.md_p7 import lj_p7_model`.
 - **Bibliography:** entries in `book/references.bib`, cited with MyST citation syntax.
 - **Adding a theory chapter:** create `book/{number}_{topic}/intro.md`, add to `myst.yml` toc.
 - **Adding a notebook:** create `notebooks/{number}_{topic}/{name}.ipynb`, reference in `myst.yml`.
@@ -79,15 +82,15 @@ myst.yml                    # Jupyter Book config (TOC, bibliography, styling)
 Example signature style:
 
 ```python
-def newton(
-    f: Callable[[float], float],
-    df: Callable[[float], float],
-    x0: float,
+def steepest_descent(
+    pos: NDArray[np.floating],
+    energy_forces: EnergyForces,
     *,
-    tol: float = 1e-12,
-    max_iter: int = 50,
-) -> tuple[float, list[float]]:
-    """Solve ``f(x) = 0`` with Newton's method."""
+    c: float = 0.005,
+    ftol: float = 1e-3,
+    max_iter: int = 20_000,
+) -> dict:
+    """Local minimization ``r(k) <- r(k) + C F(k)`` until ``max|F| < ftol``."""
 ```
 
 ## OVITO Visualization Module

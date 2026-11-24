@@ -18,8 +18,9 @@ cache/
 .cache/
 node_modules/
 
-# Generated XYZ files from notebooks
+# Generated XYZ files (notebooks and convert_to_xyz run from the root)
 notebooks/**/generated/
+/generated/
 
 # Static render produced by the Ag cutoff notebook
 figures/coordinazione_grid.png
@@ -49,3 +50,6 @@ Desktop.ini
 .env
 .env.*
 !.env.example
+
+# Course slides and exam assignments: kept locally, never published
+materials/*.pdf
