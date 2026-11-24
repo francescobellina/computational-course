@@ -43,7 +43,7 @@ nello stesso modo.
   cancellazione, diviso per $h$, domina.
 - **Curvatura.** Il $P_7$ deve annullare energia e tre derivate in 0.3 Å, quindi è
   molto curvo: fino a 5.9 eV/Å², contro 0.16 eV/Å² di LJ in $r_p$
-  ([Esercizi CMS 6](../../../notebooks/laboratori/cms6/esercizi_cms6.ipynb)).
+  ([PART 1 + 2](../../../notebooks/esame/esercizio1_part1_2.ipynb), §4.4).
   È la causa dell'eccesso di $\langle T\rangle$ tra 100 e 900 K nel punto 2.
 
 ## 3. Che cosa misura il criterio sul passo
@@ -113,6 +113,5 @@ si riscalano a $T_\text{ini}$.
 
 Il calcolo di energia e forze scorre tutte le $N(N-1)/2$ coppie ($O(N^2)$),
 compilato con Numba. Per 256 atomi costa circa 0.1 ms per chiamata, 10 volte
-meno della versione NumPy
-([Esercizi CMS 6](../../../notebooks/laboratori/cms6/esercizi_cms6.ipynb),
-Parte 3). L'intero notebook PART 1 + 2 gira in circa 2 minuti.
+meno della versione NumPy (appendice
+[Efficienza del codice](../../../notebooks/appendici/efficienza_codice.ipynb)). L'intero notebook PART 1 + 2 gira in circa 2 minuti.

@@ -112,19 +112,32 @@ notebooks/archivio/       esercizio1_soluzione, punti_1_2_passo_temporale
 
 ## Fase 4 — Teoria senza duplicati
 
-- [ ] `teoria2.md`: unire le due sezioni sulle strutture cristalline (§2 e §6).
-- [ ] `intro_teoria1.md`: separare meccanica statistica e approssimazione adiabatica; titoli
-      non in maiuscolo.
-- [ ] `00_molecular_dynamics.ipynb` → pagina Markdown.
-- [ ] `05_md_pbc.md`: §7 (steepest descent) ridotta a un rimando; §9 (Numba) spostata in
-      appendice.
-- [ ] Una sola spiegazione di ⟨T⟩ = T_ini/2 (in `intro_teoria1`); altrove una riga di rimando.
-- [ ] `book/04_handson_Ag_cutoff/intro.md`: riempire o togliere i segnaposto.
-- [ ] `equazioni_del_moto`: numerazione delle sezioni (oggi salta da §3 a §12).
-- [ ] `esercizi_cms6`: togliere la Parte 2 (P7 con PBC, superata dalla versione sul cluster;
-      tenere una tabella sul confronto PBC/cluster) e la Parte 3 (Numba, in appendice).
-- [ ] Tabelle lunghe (scansioni Δt × T, 112 run) ridotte a un riassunto, con la tabella completa
-      in un riquadro a scomparsa.
+- [x] `03_potenziali_e_cristalli.md`: le due sezioni sulle strutture cristalline unite (tenuta la
+      più completa; distanza tra primi vicini e PF del diamante portati dentro); sezioni numerate
+      1–4; via il riquadro e la frase in maiuscolo.
+- [x] `02_approssimazione_adiabatica.md`: appunti in maiuscolo («B.O.A.», «PANORAMICA», «NELLA
+      PRATICA») riscritti in prosa, senza cambiare il contenuto. La separazione dei due capitoli
+      era già fatta nella fase 3.
+- [x] `04_dinamica_molecolare`: da notebook a pagina Markdown (`book/teoria/`). L'unica cella di
+      codice stampava unità e costanti, già riportate nel testo; non va più eseguita in CI.
+- [x] `05_simulazioni_md.md` (725 → 631 righe): §7 (steepest descent) ridotta a un rimando al
+      capitolo dedicato; §9 (Numba) spostata nella nuova appendice; etichette tenute.
+- [x] Una sola spiegazione di ⟨T⟩ = T_ini/2 (`sec:tini-mezzi`): la nota del capitolo 5 e il §6 del
+      notebook della steepest descent ora rimandano lì.
+- [x] `cms4_intro.md`: segnaposto sostituiti da una procedura in 5 passi e dai link ai notebook.
+- [x] CMS 5: sezioni rinumerate (12→4, 13→5, 14→6) e 17 rimandi interni corretti, compresi quelli
+      al vecchio «notebook Molecular Dynamics», ora capitolo.
+- [x] `esercizi_cms6`: tolte la Parte 2 (P7 con PBC, la cella da 7 minuti) e la Parte 3 (Numba),
+      con una nota che dice dove sono finite:
+      - confronto cluster/cristallo periodico **ricalcolato** nel §1 di PART 1 + 2 (300 K: 46
+        attraversamenti nel cluster, nessuno nel cristallo; 1200 K: 4939 contro 410);
+      - curvatura del P7 ricalcolata nel §4.4 di PART 1 + 2 (5.87 eV/Å²);
+      - prove di velocità nella nuova appendice `notebooks/appendici/efficienza_codice.ipynb`,
+        insieme al testo della vecchia §9 (eseguita: ~10× sulle forze, ~6× sulla MD).
+- [x] Rimandi aggiornati in consegna, domande d'orale (A6, F4), note tecniche, mappa dei concetti,
+      introduzione e indice.
+- [x] Tabelle lunghe: tolta quella da 112 run di CMS 6; l'unica rimasta (110 righe, CMS 4) è già in
+      un riquadro a scomparsa.
 
 ## Fase 5 — Codice
 

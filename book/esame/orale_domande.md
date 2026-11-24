@@ -139,11 +139,12 @@ escono dal bacino di partenza.
 :::{dropdown} Risposta
 - Il testo parla di centro del cluster e di vertici del cubo: è un oggetto
   finito, con le superfici.
-- Con le PBC non ci sarebbero superfici. In un cristallo periodico a 500 K,
-  con il taglio netto, nessuna coppia attraversa $r_c$ e il criterio si
-  rispetta fino a 6 fs. Nel cluster sono gli atomi di superficie, meno
-  legati, a portare le coppie oltre $r_c$.
-- *Dove:* [Esercizi CMS 6](../../notebooks/laboratori/cms6/esercizi_cms6.ipynb), Parte 2.
+- Con le PBC non ci sarebbero superfici. Con il taglio netto a 300 K e 1 fs,
+  nel cluster 46 coppie attraversano $r_c$ ($\delta E/|\langle E\rangle|=6.7\times10^{-5}$),
+  nel cristallo periodico nessuna ($1.3\times10^{-7}$). Sono gli atomi di
+  superficie, meno legati, a portare le coppie oltre $r_c$. A 1200 K anche il
+  cristallo ha attraversamenti (410), e il taglio netto fallisce comunque.
+- *Dove:* [PART 1 + 2](../../notebooks/esame/esercizio1_part1_2.ipynb), §1 (cluster contro cristallo periodico).
 :::
 
 **A7. Perché nella cella solo 4 degli 8 vertici del cubo sono occupati?**
@@ -535,7 +536,8 @@ con quella compilata.
 
 :::{dropdown} Risposta
 Il calcolo delle forze scorre tutte le coppie, quindi costa $O(N^2)$: per 256
-atomi, circa 0.1 ms per passo con Numba (10 volte più veloce di NumPy). Per
+atomi, circa 0.1 ms per passo con Numba, 10 volte più veloce di NumPy
+(appendice [Efficienza del codice](../../notebooks/appendici/efficienza_codice.ipynb)). Per
 sistemi grandi si usano liste di celle ($O(N)$) e, in parallelo, la
 decomposizione in domini con un «halo» di spessore $r_c$ (vedi HPC4AI,
 capitolo MPI, nell'[approfondimento](../appendici/approfondimento_proteine_hpc4ai.md)).

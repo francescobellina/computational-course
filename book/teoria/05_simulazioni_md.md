@@ -146,7 +146,7 @@ La temperatura misurata all'equilibrio $\langle T\rangle \pm \delta T$ **non** c
 :::
 
 :::{note}
-**Equipartizione (idea pratica).** Partendo dai siti di minima potenziale con energia cinetica corrispondente a $T_\text{ini}$, in un potenziale approssimativamente armonico circa metà dell'energia cinetica iniziale si trasferisce in energia potenziale: $\langle T\rangle \approx T_\text{ini}/2$. Per ottenere $\langle T\rangle \simeq T_\text{target}$ conviene spesso inizializzare a $T_\text{ini}\approx 2T_\text{target}$ (da verificare caso per caso).
+**Equipartizione (idea pratica).** Partendo da un minimo, in un potenziale circa armonico metà dell'energia cinetica iniziale passa all'energia potenziale: $\langle T\rangle\approx T_\text{ini}/2$, quindi per avere $T_\text{target}$ si parte da $T_\text{ini}\approx2T_\text{target}$. Condizioni e casi in cui non vale: [quando vale $T_f=T(0)/2$](#sec:tini-mezzi).
 :::
 
 (sec:md-passo)=
@@ -401,67 +401,16 @@ Nelle due funzioni basta distinguere i due tratti di {eq}`eq:lj-poly` e {eq}`eq:
 (sec:md-steepest)=
 ## 7. Partire da una configurazione sensata: *steepest descent*
 
-:::{figure} ../../figures/CMS6_immagini/12_steepest_superficie_energia.png
-:name: fig:steepest-surf
-:width: 80%
+Lanciare una MD da un reticolo «grezzo» è sbagliato: se gli atomi sono lontani dal
+loro minimo, le forze sono grandi e l'energia potenziale in eccesso si trasforma in
+energia cinetica spuria, cioè in un riscaldamento artificiale. Prima della MD si
+**minimizza** l'energia potenziale con la *steepest descent*: ogni atomo si sposta
+lungo la propria forza, $\mathbf r_i\leftarrow\mathbf r_i+C\,\mathbf F_i$, finché
+$F_\text{max}<F_\text{tol}$.
 
-Superficie di energia potenziale e discesa lungo il gradiente (*steepest descent*) verso il minimo locale.
-:::
-
-Lanciare direttamente una MD da una configurazione generata casualmente o da un reticolo "grezzo" è sbagliato: se gli atomi sono lontani dal loro minimo, le forze sono grandi e l'energia potenziale verrebbe convertita in energia cinetica spuria (surriscaldamento artificiale). Prima della MD conviene quindi **minimizzare** l'energia potenziale con *steepest descent* fino a ottenere forze prossime a zero.
-
-### Algoritmo
-
-L'energia potenziale $\phi(\{\mathbf{r}_i\})$ è una funzione in $3N$ dimensioni. La forza è $-\nabla\phi$, cioè diretta lungo la discesa più ripida. Si spostano gli atomi di poco lungo $\mathbf{F}$:
-
-$$
-\delta \mathbf{r}_i = C\, \mathbf{F}_i,\qquad \mathbf{r}_i \leftarrow \mathbf{r}_i + C\, \mathbf{F}_i \,,
-$$ (eq:sd-step)
-
-con $C>0$ opportunamente scelto (ha dimensioni Å²/eV).
-
-:::{figure} ../../figures/CMS6_immagini/13_steepest_passo_convergenza.png
-:name: fig:steepest-step
-:width: 80%
-
-Effetto di $C$ troppo piccolo/grande e criterio di convergenza.
-:::
-
-- **$C$ troppo piccolo**: convergenza lenta (tante iterazioni).
-- **$C$ troppo grande**: si "rimbalza" attorno al minimo o si diverge.
-- **$C$ adattivo (pragmatico)**: se $\phi$ **diminuisce** si può aumentare leggermente $C$; se $\phi$ **aumenta** si rifiuta il passo e si dimezza $C$.
-
-Il criterio di arresto è tipicamente sulla forza massima:
-
-$$
-F_\text{max} = \max_{i=1,\ldots,N} \sqrt{F_{x,i}^2 + F_{y,i}^2 + F_{z,i}^2} \le F_\text{tol}\,.
-$$ (eq:ftol)
-
-Un valore ragionevole per il corso può essere $F_\text{tol}\sim 10^{-3}\,\text{eV/Å}$ (più stringente se serve maggiore accuratezza). Nello schema di convergenza è importante notare: **minimizzare l'energia non implica necessariamente monotonicità stretta di $F_\text{max}$**, anche se spesso decresce.
-
-Esempio minimale:
-
-```python
-for iStep in range(maxStep):
-    # aggiorna liste di vicini se necessario (posizioni cambiate)
-    nNbrs, whichNbrs = calc_nbrs(pos, box_or_pbc, rc)
-    forces = calc_forces(pos, nNbrs, whichNbrs, coeff_poly, ...)
-    Fmax = np.max(np.linalg.norm(forces, axis=1))
-    if Fmax < ftol:
-        break
-    pos = pos + Csteep * forces
-```
-
-:::{figure} ../../figures/CMS6_immagini/14_steepest_esempio_864_atomi.png
-:name: fig:steepest-864
-:width: 80%
-
-Cluster Ag da 864 atomi: $E(\text{iter})$ e $F_\text{max}(\text{iter})$ per $C=0.003$ e $C=0.01$.
-:::
-
-:::{note}
-*Steepest descent* converge **solo al minimo locale più vicino** alla configurazione di partenza. Per esplorare minimi diversi serve variare le condizioni iniziali. Esistono metodi più efficienti (*conjugate gradients*, etc.), ma per il corso questo approccio è più che sufficiente.
-:::
+Teoria completa (scelta di $C$, criterio di arresto, verifiche, limiti) nel capitolo
+[Steepest descent](#sec:es1-sd-teoria); implementazione e verifiche nel notebook
+[Steepest descent](../../notebooks/laboratori/steepest_descent.ipynb).
 
 (sec:md-pbc)=
 ## 8. Dal cluster al bulk: condizioni periodiche al contorno (PBC)
@@ -619,57 +568,9 @@ Alcuni punti da tenere a mente:
 (sec:md-efficienza)=
 ## 9. Efficienza del codice
 
-### Vettorizzazione con NumPy
-
-Quando possibile conviene evitare cicli espliciti su grandi array e usare operazioni vettoriali:
-
-```python
-# meno efficiente in generale su molti elementi (dipende dal caso)
-for i in range(natoms):
-    for j in range(3):
-        pos[i,j] = pos[i,j] + vel[i,j]*dt + 0.5*force[i,j]/mass*dt**2
-
-# più efficiente (vettorializzato)
-pos = pos + vel*dt + 0.5*force/mass*dt**2
-```
-
-Per il calcolo scalare di una singola distanza, però, l'aritmetica esplicita a 3 componenti risulta spesso più veloce di costruzioni puramente vettorializzate:
-
-```python
-dx = pos[i,0]-pos[j,0]; dy = pos[i,1]-pos[j,1]; dz = pos[i,2]-pos[j,2]
-dis = (dx*dx + dy*dy + dz*dz)**0.5
-```
-
-### JIT con Numba
-
-Python è interpretato: cicli doppi su $N$ atomi sono lenti. Con [Numba](https://numba.pydata.org/) è possibile compilare *just-in-time* (JIT) le funzioni più pesanti con il decoratore `@njit` (*nopython mode*):
-
-```python
-from numba import njit
-
-@njit
-def calc_nbrs(natoms, pos, rc, Lx,Ly,Lz, use_pbc=True):
-    ...
-    return nNbrs, whichNbrs
-
-@njit
-def calc_energy(natoms, pos, nNbrs, whichNbrs, coeff_poly, rp, rc, eps, sig, Lx,Ly,Lz):
-    ...
-    return ePot
-
-@njit
-def calc_forces(natoms, pos, nNbrs, whichNbrs, coeff_poly, rp, rc, eps, sig, Lx,Ly,Lz):
-    ...
-    return forces
-```
-
-:::{note}
-- **Prima chiamata**: compilazione (lenta). **Chiamate successive**: codice macchina veloce → misurare i tempi **dopo** il riscaldamento.
-- **Vincoli nopython**: usare solo array NumPy, scalari, tuple. Per questo i **coefficienzi del polinomio** vanno passati direttamente come argomenti (sezione 6).
-- **Candidato ideale**: `calc_nbrs` con doppio ciclo $N^2$.
-:::
-
-È utile includere una breve cella di *benchmark* confrontando `calc_forces` con e senza `@njit` per valori crescenti di $N$.
+Il calcolo di energia e forze su tutte le coppie domina il costo di una MD. Le regole
+pratiche (vettorizzazione con NumPy, compilazione *just-in-time* con Numba) e le prove
+misurate sono nell'appendice [Efficienza del codice](#sec:app-efficienza).
 
 ## 10. Workflow completo, esempio guidato ed esercizi
 

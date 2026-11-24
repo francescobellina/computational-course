@@ -15,10 +15,10 @@ notebook, il codice riutilizzabile nel pacchetto Python `computational_course`.
 | Parte | Contenuto |
 |---|---|
 | **[Mappa dei concetti](mappa_concetti.md)** | per ogni concetto, dove sono la teoria, la verifica numerica e la domanda d'orale |
-| **Parte I — Teoria** | [meccanica statistica](teoria/01_meccanica_statistica.md), [approssimazione adiabatica e $T_f=T(0)/2$](teoria/02_approssimazione_adiabatica.md), [potenziali e cristalli](teoria/03_potenziali_e_cristalli.md), [dinamica molecolare](../notebooks/teoria/04_dinamica_molecolare.ipynb), [simulazioni MD](teoria/05_simulazioni_md.md), [steepest descent](teoria/06_steepest_descent.md) |
+| **Parte I — Teoria** | [meccanica statistica](teoria/01_meccanica_statistica.md), [approssimazione adiabatica e $T_f=T(0)/2$](teoria/02_approssimazione_adiabatica.md), [potenziali e cristalli](teoria/03_potenziali_e_cristalli.md), [dinamica molecolare](teoria/04_dinamica_molecolare.md), [simulazioni MD](teoria/05_simulazioni_md.md), [steepest descent](teoria/06_steepest_descent.md) |
 | **Parte II — Laboratori del corso** | [CMS 4](laboratori/cms4_intro.md) (argento: coordinazione, cutoff e forze), [CMS 5](../notebooks/laboratori/cms5/equazioni_del_moto.ipynb) (equazioni del moto), [CMS 6](../notebooks/laboratori/cms6/esercizi_cms6.ipynb) (esercizi), [steepest descent](../notebooks/laboratori/steepest_descent.ipynb) |
 | **Parte III — Esame** | [Esercizio 1](esame/esercizio1/consegna.md) (MD di LJ-Ag), [domande per l'orale](esame/orale_domande.md); esercizi 2 e 3 quando saranno assegnati |
-| **Appendici** | [MD di proteine e HPC4AI](appendici/approfondimento_proteine_hpc4ai.md), [workflow del repository](appendici/workflow.md), [archivio](appendici/archivio_esercizio1_5_punti.md) |
+| **Appendici** | [efficienza del codice](../notebooks/appendici/efficienza_codice.ipynb), [MD di proteine e HPC4AI](appendici/approfondimento_proteine_hpc4ai.md), [workflow del repository](appendici/workflow.md), [archivio](appendici/archivio_esercizio1_5_punti.md) |
 
 ## Programma del corso
 
@@ -45,7 +45,7 @@ notebook, il codice riutilizzabile nel pacchetto Python `computational_course`.
    - [liste dei vicini](../notebooks/laboratori/cms4/coordinazione_e_lennard_jones.ipynb#id-6-lista-dei-vicini-entro-il-cutoff)
    - esempi in MATLAB (quest'anno non in programma)
 5. **Dinamica molecolare**
-   - [teoria e algoritmo di Verlet](../notebooks/teoria/04_dinamica_molecolare.ipynb)
+   - [teoria e algoritmo di Verlet](teoria/04_dinamica_molecolare.md)
    - [integrazione delle equazioni del moto](../notebooks/laboratori/cms5/equazioni_del_moto.ipynb)
    - Verlet configurazionale e velocity Verlet
    - velocità iniziali e scelta del passo temporale

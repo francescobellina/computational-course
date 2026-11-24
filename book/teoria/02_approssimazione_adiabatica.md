@@ -7,24 +7,36 @@ restano nello stato fondamentale per ogni configurazione dei nuclei, che si muov
 in un potenziale interatomico. Il capitolo si chiude con la regola $T_f=T(0)/2$ e le
 condizioni in cui vale.
 
-B.O.A.
-GS of electrons (...)
-quindi ELECTRONIC HAMITLONIAN AND WAVEFUNCTION AT GS + KNOWN GUESS OF POTENTIAL (INTERTOMIC)
+## Elettroni e nuclei
 
-PANORAMICA:
-1) SOLVING SCHRODINGER EQUATION FOR ELECTRONS (GS)--> DFT (difficile)
-2) NEWTON EQUATION FOR NUCLEI (classical)--> MOLECULAR DYNAMICS (piu facile, ma molte simulazioni richiedono molto tempo, molte particelle ecc)
-3) AB INIT IO MOLECULAR DYNAMICS (AIMD)-->  CAR-PARRINELLO ( 1+2 .molto accurato) 
+L'Hamiltoniana elettronica e la sua funzione d'onda nello stato fondamentale
+determinano l'energia in funzione delle posizioni dei nuclei, cioè il **potenziale
+interatomico**. In questo corso il potenziale non si calcola: se ne assume una forma
+approssimata (*guess*). Ci sono tre livelli di descrizione:
 
-## NELLA PRATICA: 
-scegliere un potenziale interatomico, risolvere NUMERICAMENTE le equazioni di Newton per i nuclei (moto atomico), campionare la traiettoria e calcolare le medie temporali delle osservabili di interesse, traiettorie ecc.
+1. **equazione di Schrödinger per gli elettroni** nello stato fondamentale, ad
+   esempio con la DFT: è il livello più difficile;
+2. **equazioni di Newton per i nuclei**, classiche, con un potenziale dato: è la
+   **dinamica molecolare**, più semplice, anche se molte simulazioni richiedono
+   tempi lunghi e molte particelle;
+3. **dinamica molecolare *ab initio*** (AIMD), ad esempio Car-Parrinello: unisce i
+   due livelli precedenti ed è molto accurata.
 
-### TEMPERATURA E POTENZIALE
-- t=0. suppongo che la posizione iniziale q(0) sia un minimo locale del mio (guess) potenziale V(q). Ho fissato l'energia totale a t=0.
-- Al tempo t=tau, la traiettoria hamiltoniana esplora la superficie di energia. La temperatura è legata all'energia cinetica media dei nuclei.
+## Nella pratica
 
-se mi metto vicino al minimo: parabola approx, harmonic potential). 
-L'energia totale è sempre conservata, avrò quindi:
+Si sceglie un potenziale interatomico, si risolvono **numericamente** le equazioni
+di Newton per i nuclei, si campiona la traiettoria e si calcolano le medie temporali
+delle osservabili di interesse.
+
+### Temperatura e potenziale
+
+- A $t=0$ si suppone che la posizione iniziale $q(0)$ sia un minimo locale del
+  potenziale $V(q)$; l'energia totale è fissata.
+- Al tempo $t=\tau$ la traiettoria hamiltoniana esplora la superficie di energia, e
+  la temperatura è legata all'energia cinetica media dei nuclei.
+
+Vicino al minimo il potenziale è approssimativamente una parabola (potenziale
+armonico). L'energia totale si conserva sempre, quindi:
 
 ## Energia totale costante
 

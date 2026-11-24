@@ -68,10 +68,10 @@ la forza massima scende sotto $0.001$ eV/Å).*
 Il punto 1 parla di «centro del cluster» e di «vertici del cubo»: i 256 atomi
 formano un **cluster isolato**, senza condizioni periodiche. La differenza
 conta. Con il taglio netto, già a 300 K le coppie attraversano $r_c$, perché gli
-atomi di superficie sono meno legati, e il criterio fallisce. In un cristallo
-periodico, senza superfici, a 500 K il taglio netto dava invece un passo valido
-di 6 fs ([Esercizi CMS 6](../../../notebooks/laboratori/cms6/esercizi_cms6.ipynb),
-Parte 2).
+atomi di superficie sono meno legati, e il criterio fallisce. Con gli stessi atomi
+resi un cristallo periodico, senza superfici, a 300 K nessuna coppia attraversa
+$r_c$ e il taglio netto rispetta il criterio
+([PART 1 + 2](../../../notebooks/esame/esercizio1_part1_2.ipynb), §1).
 :::
 
 - **«Compare with point 2».** Il punto 2 chiede di confrontare «con i

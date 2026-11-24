@@ -1,16 +1,13 @@
 
 # Potenziali interatomici e strutture cristalline
 
-<div style="background-color:#00a6ff2e; border-left:2px solid #00a6ff2e; padding:12px 16px; border-radius:6px;">
-qui si introducono concetti di base della teoria dei solidi, come potenziali interatomici, packing fraction, nearest neighbors, strutture cristalline e potenziali di coppia, lennard-jones, ecc.
-E sopratutto metodo di CUTOFF RADIUS sul potenziale per il calcolo efficiente delle interazioni.
+Questo capitolo introduce i concetti di base della teoria dei solidi che servono
+nelle simulazioni: potenziali interatomici, potenziali di coppia e Lennard-Jones,
+numero di coordinazione, *packing fraction* e strutture cristalline. Il raggio di
+taglio e il raccordo polinomiale sono trattati nel capitolo
+[Simulazioni MD](#sec:md-raccordo).
 
-</div>
-
-
-
-
-## 1: Potenziali interatomici
+## 1. Potenziali interatomici
 
 L'energia potenziale di un sistema di \(N\) atomi può essere sviluppata come somma di contributi a uno, due, tre o più corpi:
 
@@ -30,111 +27,13 @@ $$
 
 Questi modelli funzionano bene quando l'interazione è poco direzionale, mentre diventano insufficienti quando sono importanti gli angoli di legame o effetti many-body.
 
-QUANDO POSSO USARE IL PAIR POTENTAIL? devo guardare il PACKING FRACTION (PF) e il numero di coordinazione Z. Se PF è alto e Z è alto, allora posso usare il pair potential. Se PF è basso e Z è basso, allora devo usare un potenziale many-body.
+**Quando basta un potenziale di coppia?** Si guardano il *packing fraction* (PF) e il numero di coordinazione $Z$. Se PF e $Z$ sono alti, un potenziale di coppia è sufficiente; se sono bassi, serve un potenziale many-body.
 
 **NOTA**: Tenere a mente il concetto di **Nearest Neighbors**: per ogni atomo, il numero di atomi più vicini (primi vicini) è il numero di coordinazione Z. Il **packing fraction** PF è la frazione di volume occupata dagli atomi rispetto al volume della cella.
 
 ---
 
-## 2: Strutture cristalline
-
-Per confrontare la compattezza dei reticoli si usa il **packing fraction**
-
-$$
-PF = \frac{V_{\mathrm{atomi}}}{V_{\mathrm{cella}}}.
-$$
-
-Assumendo gli atomi come sfere rigide tangenti:
-
-$$
-r = \frac{d_{nn}}{2}.
-$$
-
-### Simple Cubic (SC)
-
-- Atomi per cella: \(1\)
-- Primi vicini: \(Z=6\)
-- Distanza tra primi vicini:
-
-$$
-d_{nn}=a
-$$
-
-- Packing fraction:
-
-$$
-PF_{SC}=\frac{\pi}{6}\approx 0.52
-$$
-
-La struttura è relativamente poco compatta.
-
-### Body-Centered Cubic (BCC)
-
-- Atomi per cella: \(2\)
-- Primi vicini: \(Z=8\)
-
-$$
-d_{nn}=\frac{\sqrt{3}}{2}a
-$$
-
-$$
-PF_{BCC}=\frac{\sqrt{3}\pi}{8}\approx 0.68
-$$
-
-È più compatta della struttura SC.
-
-### Face-Centered Cubic (FCC)
-
-- Atomi per cella: \(4\)
-- Primi vicini: \(Z=12\)
-
-$$
-d_{nn}=\frac{\sqrt{2}}{2}a
-$$
-
-$$
-PF_{FCC}=\frac{\sqrt{2}\pi}{6}\approx 0.74
-$$
-
-L'FCC è una struttura **close-packed**: ogni atomo ha il massimo numero di primi vicini possibile per un impacchettamento di sfere identiche.
-
-### Struttura del diamante
-
-La struttura del diamante può essere vista come due reticoli FCC traslati di
-
-$$
-\frac{1}{4}(1,1,1).
-$$
-
-- Atomi per cella convenzionale: \(8\)
-- Primi vicini: \(Z=4\)
-
-$$
-d_{nn}=\frac{\sqrt{3}}{4}a
-$$
-
-$$
-PF_{dia}=\frac{\sqrt{3}\pi}{16}\approx 0.34
-$$
-
-Ogni atomo forma quattro legami tetraedrici con angolo circa
-
-$$
-\theta \approx 109.5^\circ.
-$$
-
-Il diamante è quindi molto meno compatto dell'FCC, ma possiede legami covalenti fortemente direzionali.
-
-| Struttura | Coordinazione \(Z\) | Packing fraction |
-|---|---:|---:|
-| SC | 6 | 0.52 |
-| BCC | 8 | 0.68 |
-| FCC | 12 | 0.74 |
-| Diamante | 4 | 0.34 |
-
----
-
-## Potenziali di coppia e struttura cristallina
+## 2. Potenziali di coppia e struttura cristallina
 
 Un potenziale di coppia assegna energia favorevole a ogni vicino posto vicino alla distanza di equilibrio. Di conseguenza tende a favorire strutture con elevato numero di coordinazione, come l'FCC.
 
@@ -148,7 +47,7 @@ Per materiali covalenti occorrono quindi termini angolari a tre corpi, come nel 
 
 ---
 
-## Potenziale di Lennard-Jones
+## 3. Il potenziale di Lennard-Jones
 
 Il modello più noto di potenziale di coppia è il **Lennard-Jones 12-6**:
 
@@ -202,7 +101,7 @@ Poiché un potenziale di coppia favorisce un alto numero di vicini, il modello L
 
 ---
 
-## 6: Struttura cristallina
+## 4. Strutture cristalline
 
 *Basato sulle note del corso di Struttura della Materia (Prof. M. Bernasconi, Univ. Milano-Bicocca) {cite}`bonetti2022struttura`, Parte 4 (Fisica dello Stato Cristallino), §2 Reticoli.*
 
@@ -346,7 +245,7 @@ Con basi di atomi diversi si ottengono strutture composte, leggibili come sottor
 | NaCl | due FCC traslati di $a/2$ | 8 | 6 | alogenuri alcalini |
 | CsCl | due cubici semplici | 2 | 8 | CsCl, CsBr, CsI |
 
-Nel diamante i due vettori di base sono $\mathbf{0}$ e $\frac{a}{4}(1,1,1)$ (eq. 4.4): due FCC compenetrati, legami $sp^3$ tetraedrici $\theta\approx109.5^\circ$ (dettagli in §2). Il rapporto $r_+/r_-$ sceglie la struttura: NaCl per $0.414 < r_+/r_- < 0.732$, CsCl per ioni di taglia simile.
+Nel diamante i due vettori di base sono $\mathbf{0}$ e $\frac{a}{4}(1,1,1)$ (eq. 4.4): due FCC compenetrati, con legami $sp^3$ tetraedrici a $\theta\approx109.5^\circ$. I primi vicini sono a $d_{nn}=\sqrt{3}\,a/4$ e $\mathrm{PF}_{dia}=\sqrt{3}\,\pi/16\approx0.34$: molto meno compatto dell'FCC, ma con legami covalenti fortemente direzionali. Il rapporto $r_+/r_-$ sceglie la struttura: NaCl per $0.414 < r_+/r_- < 0.732$, CsCl per ioni di taglia simile.
 
 ### Simmetrie e cella di Wigner-Seitz
 
