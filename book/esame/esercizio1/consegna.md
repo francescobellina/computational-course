@@ -118,7 +118,8 @@ Per i dettagli numerici (unità del codice, numerica del raccordo, energia
   - `steepest_descent`.
 
   I test sono in `tests/test_md_p7.py`.
-- `materials/poly7.py` è il file dei coefficienti del corso, usato così com'è.
+- `src/computational_course/poly7.py` è il file dei coefficienti del corso, usato così com'è
+  (`from computational_course.poly7 import poly7`).
 - Le consegne in PDF stanno solo in locale (`materials/*.pdf` è nel
   `.gitignore`).
 

@@ -54,7 +54,9 @@ def test_bonds_only_first_neighbors():
         frac = v @ inv
         return (frac - np.round(frac)) @ cell
 
-    dist = np.array([np.linalg.norm(min_image(coords[i] - coords[j])) for i, j in bonds])
+    dist = np.array(
+        [np.linalg.norm(min_image(coords[i] - coords[j])) for i, j in bonds]
+    )
     assert np.allclose(dist, A / np.sqrt(2), atol=0.05)
 
 

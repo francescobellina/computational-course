@@ -23,6 +23,16 @@ uv run jupyter book build --html --execute --strict
 `--execute` riesegue il contenuto computazionale; `--strict` trasforma warning importanti
 (inclusi riferimenti mancanti) in errori della build.
 
+I notebook pesanti (CMS 5, CMS 6, Esercizio 1, archivio) e quelli con OVITO non vengono
+rieseguiti: hanno `"execute": {"skip": true}` nei metadati e il book mostra gli output
+salvati nel file. Dopo una modifica al codice che usano, si rieseguono in locale e si
+committano con i nuovi output:
+
+```bash
+uv run python scripts/riesegui_notebook.py --list   # quali sono
+uv run python scripts/riesegui_notebook.py cms5     # solo quelli che contengono "cms5"
+```
+
 ## Preview locale
 
 ```bash

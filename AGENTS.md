@@ -33,6 +33,15 @@ uv run ruff format src/ tests/        # format
 
 Always run `uv run pytest` and `uv run ruff check src/ tests/` after changing code.
 
+**Notebooks not executed in CI.** The heavy notebooks and the OVITO ones have
+`"execute": {"skip": true}` in their metadata, so the book shows their saved outputs.
+After changing code they import, re-run them locally and commit the new outputs:
+
+```bash
+uv run python scripts/riesegui_notebook.py --list   # which notebooks are skipped
+uv run python scripts/riesegui_notebook.py cms5     # re-run those matching "cms5"
+```
+
 ## Repository Structure
 
 ```
@@ -55,12 +64,14 @@ src/computational_course/     # Reusable Python modules (import root)
 ├── lennard_jones.py
 ├── md.py
 ├── md_p7.py
-└── ovito_visualization.py
+├── ovito_visualization.py
+├── paths.py                  # find_project_root (no heavy imports)
+└── poly7.py                  # course file, unchanged: excluded from ruff
 tests/                        # Unit tests for src/
 data/raw/                     # Original datasets (do not modify)
 data/processed/               # Derived datasets
 figures/                      # Saved figures and plots
-materials/                    # Course files (poly7.py); PDFs are git-ignored
+materials/                    # Course PDFs, git-ignored (poly7.py is in src/)
 docs/                         # Work notes and plans, excluded from the book
 myst.yml                      # Jupyter Book config (TOC, bibliography, styling)
 ```

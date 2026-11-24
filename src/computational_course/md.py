@@ -3,6 +3,10 @@
 Units: energies in eV, distances in Angstrom, time in s (fs/ps used in
 plots and output).  Masses are in code units ``eV*s^2/A^2`` (1 unit = 16 kg),
 temperatures in K with ``kB = 1/11603 eV/K``.
+
+``run_md`` is the didactic integrator of the CMS 5–6 labs (explicit loops, as
+in the slides, with the neighbour lists rebuilt every step).  For long or many
+runs use :func:`computational_course.md_p7.run_nve`, compiled with Numba.
 """
 
 from __future__ import annotations

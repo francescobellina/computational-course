@@ -6,6 +6,10 @@ minimum-image convention, and the optional polynomial shift
 (``rprime``, ``rc``) that makes ``phi`` and ``phi'`` continuous at ``rc``.
 With no optional argument the behaviour is the sharp-cutoff one used by the
 CMS 4 hands-on.
+
+This is the didactic version (explicit neighbour lists, cubic tail) used by the
+CMS 4–6 labs.  The fast all-pairs Numba version with the course P7 junction and
+per-direction periodicity is :mod:`computational_course.md_p7`.
 """
 
 from __future__ import annotations

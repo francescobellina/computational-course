@@ -1,6 +1,3 @@
-import importlib.util
-from pathlib import Path
-
 import numpy as np
 import pytest
 
@@ -20,6 +17,7 @@ from computational_course.md_p7 import (
     run_nve,
     steepest_descent,
 )
+from computational_course.poly7 import poly7
 
 SIGMA, EPSILON, RC, RP = 2.644, 0.345, 4.5, 4.2
 A_AG = 4.1604
@@ -27,11 +25,7 @@ MASS = 108.0 * 1.66e-27 / 16.0
 
 
 def _course_p7() -> np.ndarray:
-    path = Path(__file__).resolve().parents[1] / "materials" / "poly7.py"
-    spec = importlib.util.spec_from_file_location("poly7", path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    lp = module.poly7(EPSILON, SIGMA, RC, RP)
+    lp = poly7(EPSILON, SIGMA, RC, RP)
     return np.array([lp.A, lp.B, lp.C, lp.D, lp.E, lp.F, lp.G, lp.H])
 
 

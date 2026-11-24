@@ -28,7 +28,7 @@ computational-course/
 ├── tests/                     # test del codice
 ├── data/raw/, data/processed/ # dati originali e dati elaborati
 ├── figures/                   # figure usate dal book
-├── materials/                 # file del corso (poly7.py); i PDF restano solo in locale
+├── materials/                 # PDF del corso, solo in locale (poly7.py è in src/)
 ├── docs/                      # note di lavoro e piano di riorganizzazione (fuori dal book)
 ├── myst.yml                   # indice e configurazione del book
 └── pyproject.toml             # ambiente Python e dipendenze
@@ -42,6 +42,7 @@ uv run pytest                              # test
 uv run ruff check src/ tests/              # controllo dello stile
 uv run jupyter book start                  # anteprima locale del book
 uv run jupyter book build --html --execute --strict   # build come in CI
+uv run python scripts/riesegui_notebook.py            # riesegue i notebook esclusi dalla CI
 ```
 
 ## Dove mettere cosa
@@ -56,6 +57,11 @@ uv run jupyter book build --html --execute --strict   # build come in CI
 
 ## Pubblicazione
 
-Il `push` su `main` avvia GitHub Actions, che esegue i test, riesegue i notebook,
+Il `push` su `main` avvia GitHub Actions, che esegue i test, riesegue i notebook leggeri,
 ricostruisce il book e lo pubblica su GitHub Pages. Il workflow completo è nell'appendice
 del book «Workflow del repository».
+
+I notebook pesanti e quelli con OVITO hanno `"execute": {"skip": true}` nei metadati: la CI
+non li esegue e il book mostra gli output salvati nel file. Dopo una modifica al codice che
+usano, vanno rieseguiti in locale con `scripts/riesegui_notebook.py` e committati con i nuovi
+output.

@@ -141,18 +141,52 @@ notebooks/archivio/       esercizio1_soluzione, punti_1_2_passo_temporale
 
 ## Fase 5 — Codice
 
-- [ ] Un solo modulo per il potenziale LJ, con la coda a scelta (nessuna, cubica, P7) e PBC per
-      direzione; `lennard_jones.py` e `md_p7.py` uniti, test aggiornati.
-- [ ] Un solo integratore: `md.run_md` come involucro di `run_nve`.
-- [ ] Togliere `_setup_path` dai 9 notebook: il pacchetto è già installato in modalità editable.
-      Dare a `poly7.py` un posto stabile nel pacchetto, citando la fonte.
-- [ ] Modulo `esercizio1.py` per le funzioni oggi duplicate nei notebook (`calcForces`,
-      `calcEnergy`, `calcNbrs`, `prova`, `velocita`, `assi_dt`).
-- [ ] Correggere i 3 errori di ruff in `ovito_visualization.py`.
+- [x] `_setup_path` tolto dai 9 notebook: il pacchetto è installato in modalità editable (anche in
+      CI, con `uv sync --locked`). Al suo posto `find_project_root`, spostata nel nuovo modulo
+      leggero `paths.py` (prima stava in `ovito_visualization.py`, che importa OVITO), con test.
+      Celle iniziali dei 9 notebook eseguite dalla loro cartella: tutte OK.
+- [x] `poly7.py` spostato da `materials/` a `src/computational_course/` con `git mv`, identico
+      byte per byte al file del corso; escluso sia da `ruff check` sia da `ruff format`
+      (`pyproject.toml`). Import ovunque `from computational_course.poly7 import poly7`;
+      `test_md_p7.py`, consegna, `README.md` e `AGENTS.md` aggiornati.
+- [x] Errori di ruff in `ovito_visualization.py` corretti (`ovito` non usato, annotazioni
+      `py3Dmol` sotto `TYPE_CHECKING`); `ruff check` e `ruff format --check` su `src/` e
+      `tests/` puliti. Negli import dei notebook corretto solo l'ordine (`--select I`).
+- [x] **Non fatto, di proposito:** un solo modulo LJ e un solo integratore. `lennard_jones.py` e
+      `md.run_md` (liste dei vicini, coda cubica, cicli espliciti come nelle slide) servono ai
+      laboratori CMS 4–6, e i numeri citati nel loro testo vengono da lì: unirli a `md_p7.py`
+      vorrebbe dire rieseguire quei notebook e ricontrollare il testo. La divisione dei compiti
+      è scritta nelle docstring dei tre moduli.
+- [x] **Non fatto, di proposito:** modulo `esercizio1.py`. `calcNbrs`, `calcEnergy` e
+      `calcForces` sono le funzioni che l'esercizio chiede di scrivere e restano in chiaro nel
+      notebook PART 1 + 2 (le note tecniche lo dicono, §7); le altre copie sono solo nei notebook
+      d'archivio, che non si toccano più. `prova`, `velocita` e `assi_dt` hanno firme diverse
+      nelle tre versioni.
+- [ ] Avvisi di ruff rimasti nei notebook (32, quasi tutti `int(round(...))` e `dict()`): fuori
+      dal controllo del progetto (`src/`, `tests/`), lasciati.
 
 ## Fase 6 — Build e CI
 
-- [ ] Salvare gli output dei notebook pesanti (`esercizi_cms6`, `equazioni_del_moto`,
-      `esercizio1_part1_2`, notebook con OVITO) ed escluderli dall'esecuzione in CI: verificare
-      il meccanismo di MyST.
-- [ ] Misurare di nuovo il tempo della build dopo le fasi 4–6.
+- [x] Meccanismo di MyST verificato nel codice di `jupyter-book` 2.1.7: la chiave di pagina
+      `execute.skip` (la vecchia `skip_execution` è deprecata) si può mettere nei metadati del
+      notebook, che MyST legge come frontmatter. Con `skip` la build usa gli output salvati.
+- [x] Tutti i 9 notebook rieseguiti in locale (24 novembre) e confrontati con gli output salvati:
+      numeri identici, a parte i tempi misurati e un'ultima cifra a 1e-10 in CMS 4. Fa
+      eccezione `equazioni_del_moto`, i cui output salvati erano vecchi (un `NameError` nella
+      cella 4 e il percorso `notebooks/05_molecular_dynamics`): sostituiti con quelli nuovi.
+      Tempi in locale: `equazioni_del_moto` 849 s, `esercizio1_part1_2` 136 s,
+      `punti_1_2_passo_temporale` 85 s, `esercizi_cms6` 81 s, `esercizio1_soluzione` 34 s,
+      gli altri meno di 10 s.
+- [x] `execute: {skip: true}` in 7 notebook: i quattro pesanti, l'altro d'archivio e i due di
+      CMS 4 con OVITO. In CI restano eseguiti `steepest_descent` e `efficienza_codice` (13 s),
+      come prova che il codice del pacchetto gira dentro un notebook.
+- [x] `scripts/riesegui_notebook.py` riesegue in locale i notebook esclusi (tutti o filtrati per
+      nome); documentato in `README.md`, `AGENTS.md` e nell'appendice «Workflow».
+- [x] Build locale con cache di esecuzione vuota (`jupyter book build --html --execute
+      --strict`): 12 s, nessun errore, output presenti in tutte le pagine dei notebook esclusi.
+      Prima: 21 min 16 s per il passo di build nell'ultima esecuzione su GitHub (`06bfca5`).
+      Il tempo su GitHub va rimisurato dopo il prossimo push.
+- [ ] Il passo che installa Vulkan in CI non serve più per i notebook (OVITO non viene più
+      eseguito); tenuto finché non si verifica che nessun test ne abbia bisogno.
+- [ ] Rischio da tenere presente: un notebook escluso non segnala più in CI se il codice
+      cambia sotto di lui. Va rieseguito a mano con lo script.

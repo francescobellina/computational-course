@@ -1,50 +1,27 @@
 """Visualization utilities for OVITO in Jupyter notebooks."""
 
+from __future__ import annotations
+
 import os
 from contextlib import contextmanager
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import numpy as np
-import ovito
 from ipywidgets import HTML, GridBox, Layout, VBox
 from ovito.gui import create_ipywidget
 from ovito.io import import_file
 from ovito.modifiers import PythonScriptModifier
 from ovito.vis import Viewport
 
+from .paths import find_project_root
+
+if TYPE_CHECKING:
+    import py3Dmol
+
 # =========================================================
 # Project utilities
 # =========================================================
-
-
-def find_project_root(start: Path | None = None) -> Path:
-    """Find the project root by searching for pyproject.toml.
-
-    Parameters
-    ----------
-    start:
-        Starting directory for the search. Defaults to current working directory.
-
-    Returns
-    -------
-    Path
-        The project root directory.
-
-    Raises
-    ------
-    FileNotFoundError
-        If pyproject.toml is not found in the directory tree.
-    """
-    if start is None:
-        start = Path.cwd()
-
-    for folder in [start, *start.parents]:
-        if (folder / "pyproject.toml").exists():
-            return folder
-
-    raise FileNotFoundError(
-        "Non riesco a trovare la root del progetto (cerco pyproject.toml)."
-    )
 
 
 def load_structure(
@@ -386,12 +363,19 @@ def render_structure_grid(
     pipeline.add_to_scene()
     try:
         viewports = []
-        for view_type in (Viewport.Type.Top, Viewport.Type.Front, Viewport.Type.Left, Viewport.Type.Perspective):
+        for view_type in (
+            Viewport.Type.Top,
+            Viewport.Type.Front,
+            Viewport.Type.Left,
+            Viewport.Type.Perspective,
+        ):
             vp = Viewport()
             vp.type = view_type
             vp.zoom_all()
             viewports.append(vp)
-        return render_viewport_grid(viewports, output_path, size=size, background=background)
+        return render_viewport_grid(
+            viewports, output_path, size=size, background=background
+        )
     finally:
         pipeline.remove_from_scene()
 
@@ -745,7 +729,7 @@ def create_py3dmol_view(
     height: int = 400,
     style: str = "cartoon",
     colorscheme: str = "Jmol",
-) -> "py3Dmol.view":
+) -> py3Dmol.view:
     """Create an interactive py3dmol viewer for static Jupyter Book.
 
     This function generates an interactive 3D visualization that works
@@ -807,7 +791,7 @@ def create_py3dmol_view_with_highlight(
     reference_index: int | None = None,
     width: int = 600,
     height: int = 400,
-) -> "py3Dmol.view":
+) -> py3Dmol.view:
     """Create a py3dmol viewer with highlighted reference and neighbor atoms.
 
     Mimics the OVITO visualization: gray background atoms, red neighbors,

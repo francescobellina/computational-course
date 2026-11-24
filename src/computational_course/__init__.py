@@ -34,12 +34,12 @@ from .ovito_visualization import (
     convert_to_xyz,
     create_ovito_pipeline,
     create_viewport_grid,
-    find_project_root,
     load_structure,
     print_analysis_report,
     render_viewport_grid,
     viewport_cameras,
 )
+from .paths import find_project_root
 
 __all__ = [
     "assign_vel",

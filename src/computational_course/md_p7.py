@@ -7,7 +7,13 @@ same code covers a free cluster (no PBC), a slab (PBC in x and y only) and a
 bulk cell (PBC in all directions).
 
 The P7 coefficients ``A, ..., H`` (degree 0, ..., 7) are not computed here:
-the exercise asks to use the ones of the course file ``materials/poly7.py``.
+the exercise asks to use the ones of the course file, kept unchanged in
+:mod:`computational_course.poly7`.
+
+This is the fast version used by the exam exercise.  The neighbour-list
+version in :mod:`computational_course.lennard_jones` and the didactic
+integrator :func:`computational_course.md.run_md` are kept as they are because
+the CMS 4–6 lab notebooks, and the numbers quoted in their text, rely on them.
 """
 
 from __future__ import annotations

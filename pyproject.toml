@@ -41,3 +41,11 @@ where = ["src"]
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-ra"
+
+[tool.ruff.lint.per-file-ignores]
+# course file (poly7.py from the e-learning page), kept exactly as provided
+"src/computational_course/poly7.py" = ["ALL"]
+
+[tool.ruff.format]
+# same file: `ruff format` must not rewrite it either
+exclude = ["src/computational_course/poly7.py"]

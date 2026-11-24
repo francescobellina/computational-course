@@ -39,7 +39,9 @@ def fcc_unit_cell(a: float) -> np.ndarray:
     Used only for drawing the conventional cell, never for building a periodic
     lattice: the border atoms are shared with the neighbouring cells.
     """
-    corners = np.array([(x, y, z) for x in (0.0, a) for y in (0.0, a) for z in (0.0, a)])
+    corners = np.array(
+        [(x, y, z) for x in (0.0, a) for y in (0.0, a) for z in (0.0, a)]
+    )
     faces = np.array(
         [
             (a / 2, a / 2, 0.0),
@@ -53,14 +55,18 @@ def fcc_unit_cell(a: float) -> np.ndarray:
     return np.vstack([corners, faces])
 
 
-def fcc_supercell(a: float, nx: int = 1, ny: int = 1, nz: int = 1) -> tuple[np.ndarray, np.ndarray]:
+def fcc_supercell(
+    a: float, nx: int = 1, ny: int = 1, nz: int = 1
+) -> tuple[np.ndarray, np.ndarray]:
     """Generate ``nx`` by ``ny`` by ``nz`` periodic FCC cells.
 
     Returns ``(coords, cell_matrix)``. Atoms are wrapped into the box, so there
     are exactly ``nx*ny*nz*4`` atoms and no duplicates on the borders.
     """
     basis = fcc_basis(a)
-    shifts = np.array([(i, j, k) for k in range(nz) for j in range(ny) for i in range(nx)], float)
+    shifts = np.array(
+        [(i, j, k) for k in range(nz) for j in range(ny) for i in range(nx)], float
+    )
     shifts_ang = shifts * a
     coords = (shifts_ang[:, None, :] + basis[None, :, :]).reshape(-1, 3)
     box = np.array([nx, ny, nz], float) * a
@@ -138,12 +144,20 @@ def check_fcc(
     coord = {int(v): int(c) for v, c in zip(*np.unique(cn, return_counts=True))}
     max_cn = int(max(coord)) if coord else 0
     center = np.argmax(cn)
-    d_nn = float(np.min(np.linalg.norm(coords - coords[center], axis=1)[np.linalg.norm(coords - coords[center], axis=1) > 1e-9]))
+    d_nn = float(
+        np.min(
+            np.linalg.norm(coords - coords[center], axis=1)[
+                np.linalg.norm(coords - coords[center], axis=1) > 1e-9
+            ]
+        )
+    )
 
     if max_cn == 12 and n >= 12:
         verdict = "FCC coerrente: bulk con 12 primi vicini a d_nn = a/sqrt(2)"
     elif max_cn >= 8:
-        verdict = "Compatibile con FCC(100): bulk assente o superfici dominate (CN max < 12)"
+        verdict = (
+            "Compatibile con FCC(100): bulk assente o superfici dominate (CN max < 12)"
+        )
     else:
         verdict = "Non compatibile con FCC: coordinazione massima troppo bassa"
 
