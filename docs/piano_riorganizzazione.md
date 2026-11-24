@@ -186,7 +186,9 @@ notebooks/archivio/       esercizio1_soluzione, punti_1_2_passo_temporale
       --strict`): 12 s, nessun errore, output presenti in tutte le pagine dei notebook esclusi.
       Prima: 21 min 16 s per il passo di build nell'ultima esecuzione su GitHub (`06bfca5`).
       Su GitHub, dopo il push di `0b74d3a`: 23 s per il passo di build, run riuscito.
-- [ ] Il passo che installa Vulkan in CI non serve più per i notebook (OVITO non viene più
-      eseguito); tenuto finché non si verifica che nessun test ne abbia bisogno.
+- [x] Tolto dal workflow il passo che installava Vulkan (`mesa-vulkan-drivers`): serviva solo a
+      OVITO per disegnare le immagini dei notebook di CMS 4, che non vengono più eseguiti in CI.
+      L'unico test che usa OVITO (`test_lennard_jones.py`) importa `load_structure`, che non
+      disegna. Se un notebook con OVITO torna a essere eseguito in CI, il passo va rimesso.
 - [ ] Rischio da tenere presente: un notebook escluso non segnala più in CI se il codice
       cambia sotto di lui. Va rieseguito a mano con lo script.
