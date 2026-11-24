@@ -44,18 +44,30 @@ Si spunta una casella quando il passo è fatto e verificato (test, build del boo
 
 ## Fase 2 — Esercizio 1
 
-- [ ] Nuova `book/06_esercizio1_md/intro.md` sul testo giusto (PART 1 + 2); il testo a 5 punti
-      (`Exercise-MD.pdf`) va in archivio.
-- [ ] Travasare in PART 1 + 2 (o in «Note tecniche») le parti utili delle pagine superate:
-      scalino del P7 in r_p (correzione di A), robustezza del passo con 4 semi, energia
-      «ombra» di Verlet, momento angolare.
-- [ ] Archiviare `esercizio1_soluzione.ipynb` e `punti_1_2_passo_temporale.ipynb` in una
-      sottosezione «Archivio: versione a 5 punti» (i punti 4–5 sull'adatomo potrebbero
-      servire per la PART 3).
-- [ ] PART 1 + 2, §4: lasciare tabella dei casi e dati, rimandare la teoria a
-      `intro_teoria1` (`sec:tini-mezzi`).
-- [ ] `orale_domande.md`: verificare i numeri dopo ogni riesecuzione; valutare di generarli
-      da un file di risultati scritto dai notebook.
+- [x] Nuova `book/06_esercizio1_md/intro.md` («Consegna e piano») sul testo giusto
+      (PART 1 + 2): testo tradotto, sotto-esercizi con risultati e stato, note di lettura.
+- [x] Testo a 5 punti (`Exercise-MD.pdf`) spostato in `archivio_5_punti.md`, con il suo
+      stato (punti 1–3 fatti, 4–5 da fare: potrebbero servire per una parte successiva).
+- [x] Parti utili travasate:
+      - robustezza del passo con 4 semi e energia «ombra» di Verlet **ricalcolate** per le
+        temperature della consegna, nel notebook PART 1 + 2 (§1, «Controlli sul passo»);
+      - spostamento dovuto alla sola rotazione stampato nel §1 (7.3 Å in 16 ps a 2500 K);
+      - nuova pagina `note_tecniche.md`: unità, numerica del P7 (scalino in r_p, correzione
+        di A), criterio ed energia ombra, robustezza, momento angolare, cella, test,
+        prestazioni.
+- [x] `esercizio1_soluzione.ipynb` e `punti_1_2_passo_temporale.ipynb` archiviati: avviso in
+      testa, link ripuntati all'archivio, sottosezione «Archivio» nell'indice. I file restano
+      nella cartella attuale fino alla rinomina della fase 3.
+- [x] PART 1 + 2, §4 alleggerita: riquadro delle condizioni più corto, derivazioni (caso 1 e
+      calcolo di A) sostituite da un rimando a `intro_teoria1` (`sec:tini-mezzi`); restano
+      tabella dei casi, dati e figure.
+- [x] Riferimenti alla versione a 5 punti tolti da `steepest_descent.md`, dal suo notebook e
+      da `approfondimento.md`.
+- [x] `orale_domande.md`: link ripuntati a PART 1 + 2 e alle note tecniche; numeri aggiornati
+      (energia ombra 4% di K₀ e −1.3% su ⟨T⟩ a 30 K; robustezza con 4 semi; rotazione 7.3 Å) e
+      verificati sugli output rieseguiti.
+- [ ] Generare i numeri delle domande d'orale da un file di risultati scritto dai notebook:
+      rimandato. Oggi il controllo è manuale, dopo ogni riesecuzione di PART 1 + 2.
 
 ## Fase 3 — Nuovo indice e cartelle
 
@@ -84,7 +96,7 @@ Parte III — Esame
   Esercizio 3 — Metropolis Monte Carlo              (da fare)
   Domande per l'orale
 Appendici
-  Note tecniche (unità, numerica del P7, energia ombra, momento angolare, test)
+  Note tecniche                                     (note_tecniche.md, già scritta)
   Efficienza del codice (NumPy e Numba)
   Approfondimento: MD di proteine e HPC4AI
   Workflow del repository                           (01_workflow)

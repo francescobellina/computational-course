@@ -114,7 +114,7 @@ escono dal bacino di partenza.
   in $r_p$. Correggendo solo il coefficiente A, il pavimento scende da
   $1.0\times10^{-7}$ a $3.0\times10^{-8}$. È comunque 100 volte sotto la
   soglia.
-- *Dove:* [punti 1–2](../notebooks/06_esercizio1_md/punti_1_2_passo_temporale.ipynb), §3.1.
+- *Dove:* [Note tecniche](06_esercizio1_md/note_tecniche.md), §2.
 :::
 
 **A5. Come calcola le forze? Come evita il doppio conteggio?**
@@ -183,11 +183,12 @@ passo, equipartizione), non per previsioni quantitative sull'Ag.
 - $\delta E/|\langle E\rangle|<10^{-5}$, con $\delta E$ la deviazione
   standard di $E_\text{tot}$ dopo $t_{th}$: misura le **fluttuazioni**
   dell'energia attorno alla sua media.
-- Non vede uno spostamento costante della media. A 50 K con 20 fs la media
-  è più alta di $E_0$ del 5% di $K_0$ (energia ombra, $\omega\Delta t\approx1$
-  per il modo più veloce), ma $\langle T\rangle$ cambia meno dello 0.2%
-  rispetto a 2 fs.
-- *Dove:* [soluzione 1–3](../notebooks/06_esercizio1_md/esercizio1_soluzione.ipynb), nota del §3.
+- Non vede uno spostamento costante della media. A 30 K con 20 fs il criterio
+  è rispettato ($6\times10^{-6}$), ma la media è più alta di $E_0$ del 4% di
+  $K_0$ (energia ombra, $\omega\Delta t\approx1$ per il modo più veloce).
+  Rispetto a 2 fs, $\langle T\rangle$ cambia dell'1.3%: poco, rispetto agli
+  effetti discussi nel punto 2.
+- *Dove:* [PART 1 + 2](../notebooks/06_esercizio1_md/esercizio1_part1_2.ipynb), §1 (controlli sul passo).
 :::
 
 **B3. Perché il passo ottimale scende con la temperatura?**
@@ -244,12 +245,12 @@ troppo poco tempo dopo la termalizzazione per una media affidabile.
 
 :::{dropdown} Risposta
 $\delta E$ viene da una sola traiettoria, quindi cambia di qualche punto
-percentuale con il seme delle velocità. L'ho controllato con 4 semi: i passi
-ottimali reggono, ma a volte con un margine di pochi punti percentuali sulla
-soglia. Dove il margine è stretto, il passo immediatamente più piccolo è la
-scelta prudente.
+percentuale con il seme delle velocità. Ho ripetuto il passo ottimale e il
+successivo con 4 semi: i passi ottimali (20, 8, 3, 2 fs) sono validi con tutti
+e 4, mentre il successivo fallisce con la maggior parte. A 1200 K, 4 fs passa
+con 2 semi su 4: è al limite, e 3 fs è la scelta sicura.
 
-*Dove:* [punti 1–2](../notebooks/06_esercizio1_md/punti_1_2_passo_temporale.ipynb), §4.
+*Dove:* [PART 1 + 2](../notebooks/06_esercizio1_md/esercizio1_part1_2.ipynb), §1 (controlli sul passo).
 :::
 
 **B9. Come ha scelto il passo per le temperature intermedie del punto 2?**
@@ -293,9 +294,9 @@ qualche centesimo di Å verso $+x,+y$, coincide con quello trovato dalla
 
 :::{dropdown} Risposta
 In un cluster isolato il momento angolare si conserva. Se non è nullo, il
-cluster **ruota rigidamente** per tutto il run: a 2500 K i vertici, a 12.6 Å
-dal centro, si sposterebbero di circa 4 Å in 10 ps per la sola rotazione, e
-la traiettoria non mostrerebbe più le vibrazioni. `assign_vel` toglie solo la
+cluster **ruota rigidamente** per tutto il run: a 2500 K il vertice, a 12.6 Å
+dal centro, si sposterebbe di 7.3 Å in 16 ps per la sola rotazione, e la
+traiettoria non mostrerebbe più le vibrazioni. `assign_vel` toglie solo la
 quantità di moto; poi le velocità si riscalano a $T_\text{ini}$.
 :::
 

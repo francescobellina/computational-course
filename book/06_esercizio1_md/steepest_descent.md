@@ -1,7 +1,7 @@
 (sec:es1-sd-teoria)=
 # Steepest descent: teoria
 
-Dal punto 3 dell'[Esercizio 1](intro.md) in poi ogni simulazione parte da un
+Nel punto 2 dell'[Esercizio 1](intro.md) ogni simulazione parte da un
 **minimo locale** dell'energia potenziale. Se si partisse dal reticolo ideale
 del file, gli atomi non sarebbero in equilibrio: in MD l'energia potenziale in
 eccesso diventerebbe energia cinetica e scalderebbe il sistema. Nel cluster
@@ -71,7 +71,7 @@ $$
 
 e lo spostamento $C\,\mathbf F(k)$ non contiene né traslazioni né rotazioni
 rigide. Il notebook lo verifica: centro di massa e rotazione restano fermi a
-meno di $10^{-12}$. Con le PBC, anche solo in $x$ e $y$ come nei punti 4–5,
+meno di $10^{-12}$. Con le PBC, anche solo in $x$ e $y$ come per una lastra,
 la cella rompe l'invarianza per rotazione e restano solo le 3 traslazioni.
 
 **«E a proposito delle posizioni iniziali? E quelle di equilibrio?»** Le
@@ -210,7 +210,7 @@ Dall'Hessiana calcolata nel minimo:
   $n\cdot C\approx3$ Å²/eV per tutti i $C$ provati.
 - **Legame con la MD:** la curvatura massima fissa anche la frequenza di
   vibrazione più alta, $7.6$ THz (periodo 131 fs). I passi temporali della
-  MD dei punti 1–2 ne sono una piccola frazione.
+  MD del punto 1 (2–20 fs) ne sono una piccola frazione.
 :::
 
 **$C$ adattivo.** Una ricetta pragmatica, evidenziata nella slide, è far
@@ -234,7 +234,7 @@ $$ (eq:es1-sd-ftol)
 
 Si usa il **massimo**, non la media, perché il criterio deve garantire che
 **ogni** atomo sia in equilibrio. Un solo atomo fuori posto, ad esempio
-l'adatomo dei punti 4–5, sparirebbe in una media su centinaia di atomi.
+un adatomo in superficie, sparirebbe in una media su centinaia di atomi.
 
 :::{warning} Quale $F_\text{tol}$?
 La slide 37 indica $F_\text{tol}\sim10^{-5}$ eV/Å, mentre il codice della

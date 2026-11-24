@@ -26,11 +26,14 @@ project:
       children:
         - file: book/06_esercizio1_md/intro.md
         - file: notebooks/06_esercizio1_md/esercizio1_part1_2.ipynb
-        - file: notebooks/06_esercizio1_md/esercizio1_soluzione.ipynb
-        - file: notebooks/06_esercizio1_md/punti_1_2_passo_temporale.ipynb
         - file: book/06_esercizio1_md/steepest_descent.md
         - file: notebooks/06_esercizio1_md/steepest_descent.ipynb
+        - file: book/06_esercizio1_md/note_tecniche.md
         - file: book/06_esercizio1_md/approfondimento.md
+        - file: book/06_esercizio1_md/archivio_5_punti.md
+          children:
+            - file: notebooks/06_esercizio1_md/esercizio1_soluzione.ipynb
+            - file: notebooks/06_esercizio1_md/punti_1_2_passo_temporale.ipynb
     - file: book/orale_domande.md
 
   exclude:

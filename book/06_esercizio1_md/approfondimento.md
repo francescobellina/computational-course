@@ -34,9 +34,9 @@ qui sotto vengono da `sim/01-minimizzazione/minim.mdp` e
 | Taglio delle interazioni | raccordo $P_7$ tra 4.2 e 4.5 Å ($\phi$ e tre derivate continue) | `vdw-modifier = force-switch` tra `rvdw-switch = 1.0` e `rvdw = 1.2` nm in NVT e produzione, PME per l'elettrostatica |
 | Passo temporale | dal criterio $\delta E/\lvert\langle E\rangle\rvert<10^{-5}$: 3–20 fs | 2 fs, con i legami con H vincolati (`constraints = h-bonds`, LINCS) |
 | Temperatura | NVE: velocità a $T_\text{ini}$, poi $\langle T\rangle\approx T_\text{ini}/2$ | NVT con termostato V-rescale, velocità generate alla temperatura bersaglio (`gen_temp = 298`) |
-| Condizioni al contorno | cluster (punti 1–3), lastra con PBC in $x$, $y$ (punti 4–5) | PBC in $x$, $y$, $z$; scatola cubica a 1.2 nm dal peptide |
+| Condizioni al contorno | cluster isolato, senza PBC | PBC in $x$, $y$, $z$; scatola cubica a 1.2 nm dal peptide |
 
-:::{important} La stessa fisica del punto 3, vista in GROMACS
+:::{important} La stessa fisica del punto 2, vista in GROMACS
 Nel registro dei run di `p2-simulazioni` (run L1, lisozima, riga «T, NVT») è
 annotato: «nel primo ps T scende a ~217 K (l'energia cinetica passa alla
 potenziale dopo la minimizzazione) e poi risale con τ_T = 1 ps».
@@ -147,7 +147,8 @@ corrispondenze sono strette.
 - [ ] **Decomposizione in domini per la MD.** Leggere la parte su
   decomposizione a blocchi e scambio degli halo del
   [capitolo 7 di HPC4AI](https://francescobellina.github.io/hpc4ai/content/teoria/mpi-programmazione/)
-  e stimare per la lastra dei punti 4–5 quanto sarebbe spesso l'halo ($r_c$)
+  e stimare per una lastra (come quella dei punti 4–5 della
+  [versione a 5 punti](archivio_5_punti.md)) quanto sarebbe spesso l'halo ($r_c$)
   rispetto a un dominio. Per 256 atomi non conviene, ma serve a capire perché
   i codici MD scalano.
 - [ ] **Parallelizzare il calcolo delle forze.** Il ciclo sulle coppie di
