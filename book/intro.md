@@ -3,83 +3,78 @@
 :alt: Computational Material Science
 :::
 
-### Course of 
-# Computational Material Science 
+# Computational Material Science
 
+Appunti, laboratori ed esercizi d'esame del corso di *Computational Material
+Science*: meccanica statistica, potenziali interatomici, dinamica molecolare e
+metodi Monte Carlo. La teoria sta nelle pagine del book, le simulazioni nei
+notebook, il codice riutilizzabile nel pacchetto Python `computational_course`.
 
-Questo Jupyter Book raccoglie teoria, formule, risultati e interpretazioni del corso.
-Gli esperimenti rimangono nei notebook, mentre gli algoritmi riutilizzabili vivono nel
-package Python `computational_course` sotto `src/`.
+## Come è organizzato
 
-Il flusso di lavoro è:
-
-```text
-VS Code -> Markdown / Notebook / Python -> test -> preview locale -> Git -> GitHub Actions -> GitHub Pages
-```
-
-## Separazione 
-
-- `book/`: narrazione didattica, teoria, formule, risultati e riferimenti.
-- `notebooks/`: esperimenti, simulazioni, visualizzazioni e analisi esplorative.
-- `src/computational_course/`: algoritmi e funzioni riutilizzabili.
-- `tests/`: test automatici del codice Python.
-
-
+| Parte | Contenuto |
+|---|---|
+| **[Mappa dei concetti](mappa_concetti.md)** | per ogni concetto, dove sono la teoria, la verifica numerica e la domanda d'orale |
+| **Parte I — Teoria** | [meccanica statistica](teoria/01_meccanica_statistica.md), [approssimazione adiabatica e $T_f=T(0)/2$](teoria/02_approssimazione_adiabatica.md), [potenziali e cristalli](teoria/03_potenziali_e_cristalli.md), [dinamica molecolare](../notebooks/teoria/04_dinamica_molecolare.ipynb), [simulazioni MD](teoria/05_simulazioni_md.md), [steepest descent](teoria/06_steepest_descent.md) |
+| **Parte II — Laboratori del corso** | [CMS 4](laboratori/cms4_intro.md) (argento: coordinazione, cutoff e forze), [CMS 5](../notebooks/laboratori/cms5/equazioni_del_moto.ipynb) (equazioni del moto), [CMS 6](../notebooks/laboratori/cms6/esercizi_cms6.ipynb) (esercizi), [steepest descent](../notebooks/laboratori/steepest_descent.ipynb) |
+| **Parte III — Esame** | [Esercizio 1](esame/esercizio1/consegna.md) (MD di LJ-Ag), [domande per l'orale](esame/orale_domande.md); esercizi 2 e 3 quando saranno assegnati |
+| **Appendici** | [MD di proteine e HPC4AI](appendici/approfondimento_proteine_hpc4ai.md), [workflow del repository](appendici/workflow.md), [archivio](appendici/archivio_esercizio1_5_punti.md) |
 
 ## Programma del corso
 
-Il materiale seguirà principalmente questi argomenti:
-
-1. **Classical Statistical Mechanics**
+1. **Meccanica statistica classica**
    - ensemble canonico e microcanonico
    - medie temporali e microcanoniche
    - teorema ergodico
    - limite termodinamico ed equivalenza degli ensemble
-
-2. **Adiabatic approximation e moto nucleare**
+2. **Approssimazione adiabatica e moto dei nuclei**
    - scale temporali elettroniche e nucleari
    - Hamiltoniana elettronica
    - approssimazione classica del moto dei nuclei
    - dinamica molecolare *ab initio* e classica
-
-3. **Interatomic potentials**
-   - numenclatura cristallina e simmetria
+3. **Potenziali interatomici**
+   - nomenclatura cristallina e simmetria
    - potenziali a coppie e many-body
    - packing fraction
-   - potenziale Lennard-Jones
-   - cutoff radius e dipendenza delle quantità fisiche dal cutoff
-   - neighbor lists
----------------------------------------------------------------------------
-1. **Scientific coding**
-   - [implementazione numerica degli algoritmi del corso](../notebooks/04_handson_Ag_cutoff/coordinazione_e_lennard_jones.ipynb)
-   - esempi in MATLAB(no matlab quest'anno)
-   - [calcolo dell'energia di un cristallo](../notebooks/04_handson_Ag_cutoff/coordinazione_e_lennard_jones.ipynb#id-7-energia-di-lennard-jones-con-cutoff)
-   - [costruzione delle liste dei vicini](../notebooks/04_handson_Ag_cutoff/coordinazione_e_lennard_jones.ipynb#id-6-lista-dei-vicini-entro-il-cutoff)
-
-2. **Molecular Dynamics**
-   - [MOLECULAR DYNAMICS: teoria e algoritmo](../notebooks/05_molecular_dynamics/00_molecular_dynamics.ipynb)
-   - [integrazione delle equazioni del moto](../notebooks/05_molecular_dynamics/equazioni_del_moto.ipynb)
+   - potenziale di Lennard-Jones
+   - raggio di taglio e dipendenza delle grandezze fisiche dal taglio
+   - liste dei vicini
+4. **Scientific coding**
+   - [implementazione numerica degli algoritmi del corso](../notebooks/laboratori/cms4/coordinazione_e_lennard_jones.ipynb)
+   - [energia di un cristallo](../notebooks/laboratori/cms4/coordinazione_e_lennard_jones.ipynb#id-7-energia-di-lennard-jones-con-cutoff)
+   - [liste dei vicini](../notebooks/laboratori/cms4/coordinazione_e_lennard_jones.ipynb#id-6-lista-dei-vicini-entro-il-cutoff)
+   - esempi in MATLAB (quest'anno non in programma)
+5. **Dinamica molecolare**
+   - [teoria e algoritmo di Verlet](../notebooks/teoria/04_dinamica_molecolare.ipynb)
+   - [integrazione delle equazioni del moto](../notebooks/laboratori/cms5/equazioni_del_moto.ipynb)
    - Verlet configurazionale e velocity Verlet
-   - velocità iniziali e scelta del timestep
+   - velocità iniziali e scelta del passo temporale
    - calcolo delle forze
-   - codice Molecular Dynamics completo con Lennard-Jones
-   - termostati e velocity rescaling
-   - thermal cycles / simulated annealing
-   - cenni ai codici linear-scaling
-   - esercizio d'esame 1/3
-
-3. **Kinetic Monte Carlo**
+   - codice MD completo con Lennard-Jones
+   - termostati e *velocity rescaling*
+   - cicli termici e *simulated annealing*
+   - cenni ai codici *linear-scaling*
+   - [esercizio d'esame 1/3](esame/esercizio1/consegna.md)
+6. **Monte Carlo cinetico**
    - problema delle scale temporali
-   - transition state theory
-   - first-escape times
-   - catene di Markov, Master equation e detailed balance
-   - algoritmo Bortz-Kalos-Lebowitz
+   - teoria dello stato di transizione
+   - tempi di prima fuga
+   - catene di Markov, equazione maestra e bilancio dettagliato
+   - algoritmo di Bortz-Kalos-Lebowitz
    - simulazione della crescita cristallina
    - esercizio d'esame 2/3
-
-4. **Metropolis Monte Carlo** (da discutersi durante esame)
-   - importance sampling
+7. **Metropolis Monte Carlo** (da discutere durante l'esame)
+   - *importance sampling*
    - proprietà di equilibrio
-   - algoritmo Metropolis
+   - algoritmo di Metropolis
    - implementazione di un codice Monte Carlo
    - esercizio d'esame 3/3
+
+## Il repository
+
+- `book/`: teoria, consegne, risultati e riferimenti;
+- `notebooks/`: simulazioni, figure e analisi;
+- `src/computational_course/`: algoritmi riutilizzabili, con i test in `tests/`.
+
+Comandi, anteprima locale e pubblicazione sono nell'appendice
+[Workflow del repository](appendici/workflow.md).

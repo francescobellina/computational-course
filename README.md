@@ -1,225 +1,61 @@
 # Computational Course
 
-cd ~/Desktop/computational-course
-git add .
-git commit -m "Aggiorna corso"
-git push
+Appunti, laboratori ed esercizi d'esame del corso di **Computational Material Science**
+(meccanica statistica, potenziali interatomici, dinamica molecolare, metodi Monte Carlo),
+organizzati come **Jupyter Book** e pubblicati automaticamente con GitHub Pages.
 
-# Computational Course
-
-Repository per gli appunti, gli esercizi e le simulazioni del corso di **statistical mechanics e computational methods**, organizzata come **Jupyter Book** e pubblicata automaticamente con GitHub Pages.
-
-🌐 **Book online:** https://francescobellina.github.io/computational-course/  
+🌐 **Book online:** https://francescobellina.github.io/computational-course/
 📦 **Repository:** https://github.com/francescobellina/computational-course
 
-## Programma del corso
+Il programma del corso e la struttura del book sono nella pagina iniziale del book
+(`book/intro.md`).
 
-Il materiale seguirà principalmente questi argomenti:
-
-1. **Classical Statistical Mechanics**
-   - ensemble canonico e microcanonico
-   - medie temporali e microcanoniche
-   - teorema ergodico
-   - limite termodinamico ed equivalenza degli ensemble
-
-2. **Adiabatic approximation e moto nucleare**
-   - scale temporali elettroniche e nucleari
-   - Hamiltoniana elettronica
-   - approssimazione classica del moto dei nuclei
-   - dinamica molecolare *ab initio* e classica
-
-3. **Interatomic potentials**
-   - potenziali a coppie e many-body
-   - packing fraction
-   - potenziale Lennard-Jones
-   - cutoff radius e dipendenza delle quantità fisiche dal cutoff
-   - neighbor lists
-
-4. **Scientific coding**
-   - implementazione numerica degli algoritmi del corso
-   - esempi in MATLAB
-   - calcolo dell'energia di un cristallo
-   - costruzione delle liste dei vicini
-
-5. **Molecular Dynamics**
-   - Verlet configurazionale e velocity Verlet
-   - velocità iniziali e scelta del timestep
-   - calcolo delle forze
-   - codice Molecular Dynamics completo con Lennard-Jones
-   - termostati e velocity rescaling
-   - thermal cycles / simulated annealing
-   - cenni ai codici linear-scaling
-   - esercizio d'esame 1/3
-
-6. **Kinetic Monte Carlo**
-   - problema delle scale temporali
-   - transition state theory
-   - first-escape times
-   - catene di Markov, Master equation e detailed balance
-   - algoritmo Bortz-Kalos-Lebowitz
-   - simulazione della crescita cristallina
-   - esercizio d'esame 2/3
-
-7. **Metropolis Monte Carlo**
-   - importance sampling
-   - proprietà di equilibrio
-   - algoritmo Metropolis
-   - implementazione di un codice Monte Carlo
-   - esercizio d'esame 3/3
-
-## Struttura del repository
+## Struttura
 
 ```text
 computational-course/
-├── book/                     # teoria e capitoli del Jupyter Book
-├── notebooks/                # simulazioni ed esperimenti numerici
-├── src/
-│   └── computational_course/ # codice Python riutilizzabile
-├── data/
-│   ├── raw/                  # dati originali
-│   └── processed/            # dati elaborati
-├── figures/                  # figure da conservare nel repository
-├── tests/                    # test del codice Python
-├── myst.yml                  # indice e configurazione del Jupyter Book
-└── pyproject.toml            # ambiente Python e dipendenze
+├── book/                      # pagine del book (Markdown)
+│   ├── intro.md, mappa_concetti.md
+│   ├── teoria/                # Parte I: capitoli di teoria
+│   ├── laboratori/            # Parte II: laboratori del corso (CMS 4, 5, 6)
+│   ├── esame/                 # Parte III: esercizi d'esame e domande per l'orale
+│   ├── appendici/             # workflow, approfondimenti, archivio
+│   └── references.bib
+├── notebooks/                 # notebook, con le stesse parti del book
+│   ├── teoria/, laboratori/, esame/
+│   └── archivio/              # versioni superate, conservate
+├── src/computational_course/  # codice Python riutilizzabile
+├── tests/                     # test del codice
+├── data/raw/, data/processed/ # dati originali e dati elaborati
+├── figures/                   # figure usate dal book
+├── materials/                 # file del corso (poly7.py); i PDF restano solo in locale
+├── docs/                      # note di lavoro e piano di riorganizzazione (fuori dal book)
+├── myst.yml                   # indice e configurazione del book
+└── pyproject.toml             # ambiente Python e dipendenze
 ```
 
-Una possibile organizzazione dei capitoli è:
+## Comandi
 
-```text
-book/
-├── 01_statistical_mechanics/
-├── 02_adiabatic_approximation/
-├── 03_interatomic_potentials/
-├── 04_scientific_coding/
-├── 05_molecular_dynamics/
-├── 06_kinetic_monte_carlo/
-└── 07_metropolis_monte_carlo/
+```bash
+uv sync                                    # ambiente e pacchetto (modalità editable)
+uv run pytest                              # test
+uv run ruff check src/ tests/              # controllo dello stile
+uv run jupyter book start                  # anteprima locale del book
+uv run jupyter book build --html --execute --strict   # build come in CI
 ```
-
-Lo stesso numero può essere usato in `notebooks/` per tenere teoria ed esperimenti facilmente associabili.
 
 ## Dove mettere cosa
 
-- **`book/`** → teoria, formule, derivazioni, spiegazioni, risultati e discussioni.
-- **`notebooks/`** → simulazioni, grafici, prove numeriche ed esperimenti.
-- **`src/computational_course/`** → funzioni e algoritmi Python riutilizzabili.
-- **`data/raw/`** → dati originali, da non modificare.
-- **`data/processed/`** → dati ottenuti elaborando quelli raw.
-- **`figures/`** → immagini o grafici da conservare.
-- **`tests/`** → test automatici del codice Python.
+- **Teoria:** una pagina in `book/teoria/`, aggiunta all'indice in `myst.yml`.
+- **Simulazioni:** un notebook in `notebooks/laboratori/` o `notebooks/esame/`; i notebook
+  importano il codice da `computational_course` senza modificare `sys.path`.
+- **Codice riutilizzabile:** un modulo in `src/computational_course/`, esportato in
+  `__init__.py`, con i test in `tests/`.
+- **Collegamenti tra pagine:** con le etichette (`[](#sec:md-pbc)`), che non si rompono se
+  un file cambia cartella.
 
-Per il codice MATLAB del corso si può aggiungere:
+## Pubblicazione
 
-```text
-matlab/
-```
-
-con file `.m` organizzati per argomento.
-
-## Aggiungere un nuovo capitolo
-
-Esempio: **Molecular Dynamics**.
-
-Crea:
-
-```text
-book/05_molecular_dynamics/
-└── intro.md
-```
-
-Poi aggiungi la pagina al `project.toc` di `myst.yml`:
-
-```yaml
-- title: Molecular Dynamics
-  children:
-    - file: book/05_molecular_dynamics/intro.md
-```
-
-## Aggiungere un notebook
-
-Crea il notebook nella cartella dello stesso argomento:
-
-```text
-notebooks/05_molecular_dynamics/
-└── verlet.ipynb
-```
-
-Se vuoi che compaia anche nel sito, aggiungilo a `myst.yml`:
-
-```yaml
-- title: Molecular Dynamics
-  children:
-    - file: book/05_molecular_dynamics/intro.md
-    - file: notebooks/05_molecular_dynamics/verlet.ipynb
-```
-
-Nel notebook puoi importare il codice riutilizzabile, ad esempio:
-
-```python
-from computational_course.qualcosa import funzione
-```
-
-## Aggiungere dati
-
-Metti i dati originali in:
-
-```text
-data/raw/
-```
-
-e i dati generati o ripuliti in:
-
-```text
-data/processed/
-```
-
-Evita di caricare direttamente su Git file molto grandi; per dataset pesanti usa storage esterno o Git LFS.
-
-## Lavorare sul progetto
-
-Per vedere il Book in locale:
-
-```bash
-uv run jupyter book start --execute
-```
-
-Per pubblicare le modifiche:
-
-```bash
-git add .
-git commit -m "Aggiorna corso"
-git push
-```
-
-Il `push` su `main` avvia GitHub Actions e aggiorna automaticamente il sito su GitHub Pages.
-
-
-
-
-## Comandi utili per aggiungere materiale
-
-```bash
-# nuovo capitolo
-mkdir -p book/08_nuovo_argomento
-touch book/08_nuovo_argomento/intro.md
-
-# nuovo esercizio
-touch book/08_nuovo_argomento/exercise_01.md
-
-# cartella notebook
-mkdir -p notebooks/08_nuovo_argomento
-
-# nuovo modulo Python
-touch src/computational_course/nuovo_argomento.py
-
-# nuovo test
-touch tests/test_nuovo_argomento.py
-
-# dati
-mkdir -p data/raw/nuovo_argomento
-mkdir -p data/processed/nuovo_argomento
-
-# figure
-mkdir -p figures/08_nuovo_argomento
-```
+Il `push` su `main` avvia GitHub Actions, che esegue i test, riesegue i notebook,
+ricostruisce il book e lo pubblica su GitHub Pages. Il workflow completo è nell'appendice
+del book «Workflow del repository».

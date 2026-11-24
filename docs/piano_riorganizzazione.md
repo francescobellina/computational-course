@@ -71,50 +71,44 @@ Si spunta una casella quando il passo è fatto e verificato (test, build del boo
 
 ## Fase 3 — Nuovo indice e cartelle
 
-- [ ] Riorganizzare `myst.yml` in parti:
+- [x] Indice in `myst.yml` diviso in parti: Introduzione e Mappa dei concetti; Parte I — Teoria;
+      Parte II — Laboratori del corso; Parte III — Esame; Appendici. Differenze dalla proposta:
+      le note tecniche restano dentro l'Esercizio 1 (sono specifiche), la mappa dei concetti è
+      subito dopo l'introduzione, gli esercizi 2 e 3 entrano quando saranno assegnati.
+- [x] Cartelle rinominate con `git mv` e link relativi ricalcolati da uno script (16 file):
 
 ```text
-Introduzione
-  Il corso, il programma e come usare il book       (intro.md, riscritto)
-Parte I — Teoria
-  1. Meccanica statistica classica                  (intro_teoria1 §1)
-  2. Approssimazione adiabatica; T_f = T(0)/2       (intro_teoria1 §2 + riquadro)
-  3. Potenziali interatomici e cristalli            (teoria2, senza duplicati)
-  4. Integrare le equazioni del moto                (00_molecular_dynamics → .md)
-  5. Simulazioni MD: dal potenziale alla statistica (05_md_pbc, senza §7 e §9)
-     5.1 Steepest descent: teoria                   (da 06_esercizio1_md)
-Parte II — Laboratori del corso
-  CMS 4 — Ag: coordinazione, forze, statica         (notebook 04 + intro completata)
-  CMS 5 — Equazioni del moto                        (equazioni_del_moto)
-  CMS 6 — Esercizi                                  (esercizi_cms6, solo Es. 1–5)
-  Steepest descent: implementazione e verifiche     (notebook)
-Parte III — Esame
-  Esercizio 1 — MD di LJ-Ag (PART 1 + 2)
-    Consegna e piano
-    Soluzione                                       (esercizio1_part1_2)
-  Esercizio 2 — Monte Carlo cinetico                (da fare)
-  Esercizio 3 — Metropolis Monte Carlo              (da fare)
-  Domande per l'orale
-Appendici
-  Note tecniche                                     (note_tecniche.md, già scritta)
-  Efficienza del codice (NumPy e Numba)
-  Approfondimento: MD di proteine e HPC4AI
-  Workflow del repository                           (01_workflow)
-  Archivio: Exercise-MD.pdf, versione a 5 punti
+book/teoria/              01_meccanica_statistica, 02_approssimazione_adiabatica,
+                          03_potenziali_e_cristalli, 05_simulazioni_md, 06_steepest_descent
+book/laboratori/          cms4_intro
+book/esame/               orale_domande; esercizio1/{consegna, note_tecniche}
+book/appendici/           workflow, approfondimento_proteine_hpc4ai, archivio_esercizio1_5_punti
+notebooks/teoria/         04_dinamica_molecolare (era 00_molecular_dynamics)
+notebooks/laboratori/     cms4/, cms5/equazioni_del_moto, cms6/esercizi_cms6, steepest_descent
+notebooks/esame/          esercizio1_part1_2
+notebooks/archivio/       esercizio1_soluzione, punti_1_2_passo_temporale
 ```
 
-- [ ] Rinominare le cartelle (`book/teoria/`, `book/laboratori/`, `book/esame/`, …) in un solo
-      passaggio, aggiornando tutti i link relativi.
-- [ ] Titoli descrittivi al posto di «TEORIA 1», «TEORIA 2», «MOLECULAR DYNAMICS»,
-      «Introduzione all'esercizio».
-- [ ] Riscrivere `book/intro.md` (ordine dei titoli, programma, come usare il book).
-- [ ] Spostare `01_workflow.md` in appendice; un solo schema, compresso (oggi 3 PNG da
-      1.4–2 MB; `schema3.png` fa scattare l'avviso «Image is too large»).
-- [ ] Aggiornare `README.md` (intestazione doppia, comandi git in cima) e `AGENTS.md`
-      (struttura delle cartelle).
-- [ ] Pagina «Mappa dei concetti»: per ogni concetto, dove sono teoria, verifica numerica e
-      domanda d'orale.
-- [ ] Etichette coerenti con un prefisso per capitolo (`sec:`, `eq:`, `fig:`).
+- [x] Percorsi nel codice aggiornati: cartelle `generated` di `04_dinamica_molecolare` e
+      `equazioni_del_moto`, radice di `fcc_pattern_ptm.py`. Entrambi i notebook rieseguiti in
+      una copia dalla nuova posizione.
+- [x] «TEORIA 1» divisa in due capitoli (meccanica statistica; approssimazione adiabatica e
+      $T_f=T(0)/2$); titoli descrittivi al posto di «TEORIA 2», «MOLECULAR DYNAMICS»,
+      «Introduzione all'esercizio», «forze e statica molecolare».
+- [x] `book/intro.md` riscritta: tabella delle parti con i link, programma numerato 1–7.
+- [x] `01_workflow.md` in appendice; un solo schema (`schema_workflow.jpg`, 320 KB, era 1.4 MB);
+      tolti `schema1.png` e `schema3.png` (descrivevano una struttura superata) e
+      `imm4book/1.png` (identica a `figures/hero.png`).
+- [x] `README.md` riscritto; `AGENTS.md` con la nuova struttura e la convenzione sulle etichette.
+- [x] Pagina `book/mappa_concetti.md`: per ogni concetto teoria, verifica numerica e domande.
+      Aggiunte le etichette `sec:md-gr`, `sec:md-medie`, `sec:md-passo`, `sec:md-raccordo`,
+      `sec:md-efficienza` e `sec:orale-*` per collegarla.
+- [x] Convenzione sulle etichette (`sec:`/`eq:`/`fig:` + prefisso di capitolo) scritta in
+      `AGENTS.md` e usata per le etichette nuove.
+- [ ] Rinominare le etichette esistenti non conformi (per esempio `eq:sd-step`, `eq:ftol`):
+      rimandato, perché vanno aggiornati tutti i rimandi e il guadagno è piccolo.
+- [ ] Gli URL del sito sono cambiati con le cartelle: eventuali link esterni alle pagine vecchie
+      non funzionano più.
 
 ## Fase 4 — Teoria senza duplicati
 

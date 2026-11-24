@@ -36,29 +36,33 @@ Always run `uv run pytest` and `uv run ruff check src/ tests/` after changing co
 ## Repository Structure
 
 ```
-book/                       # Theory chapters and exercises (Markdown/Jupyter)
-├── 01_workflow.md
-├── 02_basi_di_teoria/       # Foundational theory
-├── 03_guide_examplenotebook/
-├── 04_handson_Ag_cutoff/    # Hands-on simulations
-├── 04_handson_Ag_cutoff.ipynb
-├── 05_esercizio1.ipynb
+book/                         # Pages of the book (Markdown)
+├── intro.md                  # Home page
+├── mappa_concetti.md         # Concept map: theory / numerical check / oral question
+├── teoria/                   # Part I — theory chapters (01_..., 02_..., ...)
+├── laboratori/               # Part II — course labs (CMS 4, 5, 6)
+├── esame/                    # Part III — exam exercises and oral questions
+│   └── esercizio1/           # consegna.md, note_tecniche.md
+├── appendici/                # Appendices (workflow, HPC4AI, archive)
 └── references.bib
-notebooks/                  # Standalone Jupyter notebooks with simulations
-├── 04_handson_Ag_cutoff/
-├── 05_molecular_dynamics/
-└── 06_esercizio1_md/
-src/computational_course/   # Reusable Python modules (import root)
+notebooks/                    # Jupyter notebooks, same parts as book/
+├── teoria/
+├── laboratori/{cms4,cms5,cms6}/
+├── esame/
+└── archivio/                 # Superseded versions, kept for reference
+src/computational_course/     # Reusable Python modules (import root)
 ├── fcc_lattice.py
 ├── lennard_jones.py
 ├── md.py
 ├── md_p7.py
 └── ovito_visualization.py
-tests/                      # Unit tests for src/
-data/raw/                   # Original datasets (do not modify)
-data/processed/             # Derived datasets
-figures/                    # Saved figures and plots
-myst.yml                    # Jupyter Book config (TOC, bibliography, styling)
+tests/                        # Unit tests for src/
+data/raw/                     # Original datasets (do not modify)
+data/processed/               # Derived datasets
+figures/                      # Saved figures and plots
+materials/                    # Course files (poly7.py); PDFs are git-ignored
+docs/                         # Work notes and plans, excluded from the book
+myst.yml                      # Jupyter Book config (TOC, bibliography, styling)
 ```
 
 ## Key Conventions
@@ -67,11 +71,15 @@ myst.yml                    # Jupyter Book config (TOC, bibliography, styling)
 - **Imports:** Notebooks and code import from `computational_course`, e.g.
   `from computational_course.md_p7 import lj_p7_model`.
 - **Bibliography:** entries in `book/references.bib`, cited with MyST citation syntax.
-- **Adding a theory chapter:** create `book/{number}_{topic}/intro.md`, add to `myst.yml` toc.
-- **Adding a notebook:** create `notebooks/{number}_{topic}/{name}.ipynb`, reference in `myst.yml`.
+- **Where things go:** theory in `book/teoria/`, labs in `notebooks/laboratori/`, exam work in
+  `book/esame/` and `notebooks/esame/`; add every new page to the `myst.yml` toc.
+- **Labels:** `sec:`, `eq:`, `fig:` followed by a chapter prefix (`ms-` statistical mechanics,
+  `md-` molecular dynamics, `es1-` exam exercise 1, `orale-` oral questions), e.g.
+  `(sec:md-pbc)=`. Link with `[](#sec:md-pbc)`: labels survive file moves, relative paths do not.
 - **Adding reusable code:** create module in `src/computational_course/`, export in `__init__.py`,
   add tests in `tests/`.
 - **Deployment:** push to `main` triggers GitHub Actions to rebuild and publish.
+- **Plan:** the reorganization checklist is `docs/piano_riorganizzazione.md`.
 
 ## Code Style
 
@@ -114,4 +122,4 @@ results = compute_neighbor_distances(coords, reference_atom=200)
 grid = create_viewport_grid(r_min=2.0, r_max=3.0, reference_atom=200)
 ```
 
-See `notebooks/04_handson_Ag_cutoff/analysis.ipynb` for a complete example.
+See `notebooks/laboratori/cms4/coordinazione_e_lennard_jones.ipynb` for a complete example.

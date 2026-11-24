@@ -1,0 +1,475 @@
+(sec:ms-meccanica-statistica)=
+# Meccanica statistica classica
+
+Questo capitolo introduce i concetti di base della meccanica statistica classica:
+gli ensemble microcanonico e canonico, le medie, l'ergodicità e il limite
+termodinamico. Il capitolo successivo tratta l'approssimazione adiabatica, il
+moto dei nuclei e la regola $T_f=T(0)/2$.
+
+## Ensemble NVE e formalismo microcanonico
+
+Nell'ensemble microcanonico l'energia totale del sistema è costante.
+
+```{figure} ../../figures/energy_surface.png
+:label: energy-surface
+:width: 80%
+:align: center
+
+Superficie di energia nello spazio delle fasi per un sistema a energia totale fissata.
+```
+
+L'ensemble microcanonico descrive un sistema isolato:
+
+- **Ensemble:** $(N,V,E)$
+- **Sistema:** isolato
+
+Indichiamo con $(q,p)$ un punto nello spazio delle fasi, con $H(q,p)$ l'Hamiltoniana e con $W$ il valore fissato dell'energia totale, cioè $E=W$.
+
+Per un sistema con $N$ particelle in tre dimensioni, tutti gli integrali nello spazio delle fasi sono $6N$-dimensionali. In particolare, $dq\,dp$ rappresenta l'elemento di volume nello spazio delle fasi.
+
+### Media di un'osservabile
+
+Data una densità di probabilità $\rho(q,p)$, la media di un'osservabile $A(q,p)$ è
+
+$$
+\langle A\rangle_{\rho}
+=
+C\iint A(q,p)\,\rho(q,p)\,dq\,dp,
+$$
+
+dove la costante di normalizzazione è
+
+$$
+C=
+\frac{1}{\displaystyle \iint \rho(q',p')\,dq'\,dp'}.
+$$
+
+Se $\rho$ è già normalizzata, allora $C=1$.
+
+### Distribuzione microcanonica
+
+Nell'ensemble microcanonico sono accessibili soltanto i microstati la cui energia appartiene a un piccolo intervallo attorno a $W$:
+
+$$
+\rho_{\mathrm{mc}}(q,p)=
+\begin{cases}
+C, & W\le H(q,p)\le W+\delta W,\\[4pt]
+0, & \text{altrimenti}.
+\end{cases}
+$$
+
+Nel limite in cui l'energia è fissata esattamente, la distribuzione può essere espressa mediante la delta di Dirac:
+
+$$
+\boxed{
+\rho_{\mathrm{mc}}(q,p)
+=
+C\,\delta\!\bigl(H(q,p)-W\bigr)
+}
+$$
+
+dove $C$ è la costante di normalizzazione, che può essere pensata uguale a $1$ quando la distribuzione è già normalizzata.
+
+### Media microcanonica
+
+Per uno strato energetico finito $W\le H\le W+\delta W$, la media microcanonica di un'osservabile è
+
+$$
+\boxed{
+\langle A(q,p)\rangle_{\mathrm{mc}}
+=
+\frac{
+\displaystyle \iint_{W\le H(q,p)\le W+\delta W}
+A(q,p)\,dq\,dp
+}{
+\displaystyle \iint_{W\le H(q,p)\le W+\delta W}
+dq\,dp
+}
+}
+$$
+
+Equivalentemente, imponendo il vincolo $H=W$ mediante la delta di Dirac,
+
+$$
+\boxed{
+\langle A\rangle_{\mathrm{mc}}
+=
+\frac{
+\displaystyle \iint
+A(q,p)\,\delta\!\bigl(H(q,p)-W\bigr)\,dq\,dp
+}{
+\displaystyle \iint
+\delta\!\bigl(H(q,p)-W\bigr)\,dq\,dp
+}
+}
+$$
+
+Anche in questo caso la costante di normalizzazione $C$ si semplifica nel rapporto.
+
+### Postulato di equiprobabilità di Gibbs
+
+La distribuzione microcanonica è un'espressione diretta del **postulato di equiprobabilità di Gibbs**:
+
+> Un sistema isolato all'equilibrio ha la stessa probabilità di trovarsi in ciascun microstato accessibile.
+
+Un microstato è *accessibile* se soddisfa il vincolo sull'energia totale, cioè $H(q,p)=W$, oppure, nella descrizione mediante uno strato energetico finito,
+
+$$
+W\le H(q,p)\le W+\delta W.
+$$
+
+La media microcanonica valuta quindi l'osservabile $A$ su tutti i microstati accessibili, ossia su tutti i modi in cui le particelle possono disporsi e muoversi nello spazio delle fasi mantenendo la stessa energia totale.
+
+In sintesi, la media d'ensemble nell'ensemble microcanonico è la media aritmetica o integrale dell'osservabile ristretta all'ipersuperficie dello spazio delle fasi sulla quale l'energia totale vale $W$.
+
+## Ensemble NVT e formalismo canonico
+
+Nell'ensemble canonico il sistema è a contatto termico con un bagno: $N$, $V$ e la temperatura $T$ sono fissati, mentre il sistema può scambiare energia con l'ambiente.
+
+La densità di probabilità è proporzionale al **fattore di Boltzmann**:
+
+$$
+\rho_{\mathrm{can}}(q,p)
+=
+C\,e^{-\beta H(q,p)}.
+$$
+
+Di conseguenza,
+
+$$
+\boxed{
+\langle A\rangle_{\mathrm{can}}
+=
+\frac{
+\displaystyle \iint A(q,p)e^{-\beta H(q,p)}\,dq\,dp
+}{
+\displaystyle \iint e^{-\beta H(q,p)}\,dq\,dp
+}
+}
+$$
+
+poiché la costante di normalizzazione si semplifica nel rapporto.
+
+Se gli stati sono discreti,
+
+$$
+\langle A\rangle_{\mathrm{can}}
+=
+\frac{
+\displaystyle\sum_i A_i e^{-\beta E_i}
+}{
+\displaystyle\sum_i e^{-\beta E_i}
+}.
+$$
+
+Se invece i livelli energetici possono essere trattati come continui, la somma viene sostituita dall'integrale sullo spazio delle fasi introdotto sopra.
+
+### Caso di particelle non interagenti
+
+Se l'Hamiltoniana dipende soltanto dagli impulsi ed è separabile,
+
+$$
+H(\mathbf q,\mathbf p)
+=
+H(\mathbf p)
+=
+\sum_{i=1}^{N}\frac{\mathbf p_i^2}{2m}
+=
+\sum_{i=1}^{N} h(\mathbf p_i),
+$$
+
+con
+
+$$
+\mathbf p_i=(p_{x_i},p_{y_i},p_{z_i}),
+\qquad
+h(\mathbf p_i)=\frac{\mathbf p_i^2}{2m},
+$$
+
+allora
+
+$$
+\langle H\rangle_{\mathrm{can}}
+=
+N\,
+\frac{
+\displaystyle\int d\mathbf p\;h(\mathbf p)e^{-\beta h(\mathbf p)}
+}{
+\displaystyle\int d\mathbf p'\;e^{-\beta h(\mathbf p')}
+}.
+$$
+
+Per un sistema di particelle **non interagenti**, il problema a $N$ particelle si riduce quindi allo studio del problema a singola particella:
+
+$$
+\boxed{
+\langle H\rangle_{\mathrm{can}}
+=
+N\langle h\rangle_{\mathrm{can}}
+}
+$$
+
+Nel seguito saranno invece di interesse soprattutto le **particelle interagenti**, che costituiscono la maggior parte dei sistemi reali.
+
+## Rappresentazione nello spazio delle fasi degli ensemble NVE e NVT
+
+Consideriamo un sistema classico di $N$ particelle, descritto nello spazio delle fasi dalle coordinate collettive
+
+$$
+(Q,P)
+=
+(q_1,\ldots,q_{3N},p_1,\ldots,p_{3N}),
+$$
+
+e quindi da uno spazio di dimensione $6N$.
+
+### Ensemble microcanonico
+
+L'ensemble **microcanonico** descrive un **sistema isolato**: il numero di particelle $N$, il volume $V$ e l'energia $E$ sono fissati.
+
+I microstati accessibili appartengono a un sottile strato energetico dello spazio delle fasi:
+
+$$
+W \le H(Q,P) \le W+\delta W.
+$$
+
+METTERE IMMAGINE
+
+Per il postulato di equiprobabilità, tutti i microstati accessibili hanno lo stesso peso. La media microcanonica di un'osservabile $A(Q,P)$ è quindi
+
+$$
+\langle A\rangle_{\mathrm{mc}}
+=
+\frac{
+\displaystyle \int_{W\le H(Q,P)\le W+\delta W}
+A(Q,P)\,dQ\,dP
+}{
+\displaystyle \int_{W\le H(Q,P)\le W+\delta W}
+dQ\,dP
+}.
+$$
+
+In questo ensemble l'**energia è fissata**, mentre grandezze derivate come la temperatura possono mostrare fluttuazioni microscopiche.
+
+### Ensemble canonico
+
+Nell'ensemble **canonico**, poiché il sistema può scambiare energia con il bagno termico, i microstati possono avere energie differenti e non sono equiprobabili. (Si parla di microstati perchè in teoria si formalizza il tutto partendo da un sistema S e un grande resevoir R (o termostato) per cui il sistema totale è isolato, per cui globalmente il sistema è microcanonico quindi si parla di microstati e si usa il formalismo microcanonico studiando però la ripartizione dell'energia in S ecc.) 
+
+Il loro peso è determinato dal **fattore di Boltzmann**
+
+$$
+e^{-\beta H(Q,P)},
+\qquad
+\beta=\frac{1}{k_B T}.
+$$
+
+METTERE IMMAGINE
+
+La media canonica di $A$ è
+
+$$
+\boxed{
+\langle A\rangle_{\mathrm{can}}
+=
+\frac{
+\displaystyle \int A(Q,P)e^{-\beta H(Q,P)}\,dQ\,dP
+}{
+\displaystyle \int e^{-\beta H(Q,P)}\,dQ\,dP
+}
+}
+$$
+
+Il denominatore coincide, a eventuali fattori di normalizzazione vicino, con la funzione di partizione classica:
+
+$$
+Z
+=
+\int e^{-\beta H(Q,P)}\,dQ\,dP.
+$$
+
+A temperatura fissata, gli stati a energia minore hanno peso maggiore e l'**energia del sistema fluttua** attorno al proprio valore medio.
+
+### Differenza essenziale
+
+| Ensemble | Grandezze fissate | Energia | Peso dei microstati |
+|---|---|---|---|
+| Microcanonico | $N,V,E$ | fissata | uniforme nella regione accessibile |
+| Canonico | $N,V,T$ | fluttua | $\propto e^{-\beta H(Q,P)}$ |
+
+
+```{figure} ../../figures/energy_temp_fluct.png
+:label: energy-temp-fluct
+:width: 80%
+:align: center
+
+Confronto qualitativo delle fluttuazioni di energia e temperatura.
+```
+
+Nel microcanonico $E$ è costante; nel canonico è invece $T$ a essere imposta dal bagno termico, mentre $E$ fluttua.
+
+## Ensemble statistici e limite termodinamico
+
+La scelta dell'ensemble dipende dai vincoli fisici imposti al sistema:
+
+- **microcanonico**: sistema isolato, con $N$, $V$ ed energia $E$ fissati;
+- **canonico**: sistema a contatto con un bagno termico, con $N$, $V$ e temperatura $T$ fissati; l'energia può fluttuare;
+- **gran canonico**: il sistema può scambiare sia energia sia particelle, quindi si fissano tipicamente $T$, $V$ e potenziale chimico $\mu$.
+
+### Limite termodinamico ed equivalenza degli ensemble
+
+Nel limite termodinamico
+
+$$
+N,V\to\infty,
+\qquad
+\frac{N}{V}=\text{costante},
+$$
+
+le fluttuazioni relative delle grandezze estensive diventano trascurabili. In particolare, per l'energia nell'ensemble canonico,
+
+$$
+\frac{\sigma_E}{\langle E\rangle_{\mathrm{can}}}
+\longrightarrow 0.
+$$
+
+Per quantità estensive, tipicamente,
+
+$$
+\frac{\sigma_E}{\langle E\rangle}
+\sim N^{-1/2}.
+$$
+
+Per questo motivo, sotto le usuali ipotesi di equivalenza degli ensemble, nel limite termodinamico le medie ottenute nei diversi ensemble coincidono e i diversi ensemble forniscono gli stessi risultati per le osservabili macroscopiche.
+
+<span style="color:red">-&gt;</span>Ciò permette di scegliere, a seconda del problema, il formalismo più conveniente. In particolare, per molti **calcoli analitici** è conveniente lavorare nell'ensemble canonico.
+
+<span style="color:red">-&gt;</span>Dal punto di vista dinamico, tuttavia, una traiettoria hamiltoniana di un sistema isolato conserva l'energia; per questo motivo la descrizione naturale della traiettoria è quella **microcanonica**.
+
+## Media microcanonica e superficie di energia
+
+Per un'osservabile $A(q,p)$, la media microcanonica può essere interpretata come una media uniforme sulla regione dello spazio delle fasi compatibile con una stretta finestra energetica:
+
+$$
+\langle A\rangle_{\mu\mathrm{can}}
+=
+\frac{1}{\Omega(E,\Delta E)}
+\int_{E\le H(q,p)\le E+\Delta E}
+dq\,dp\,A(q,p),
+$$
+
+dove $\Omega(E,\Delta E)$ è il volume della stessa regione energetica e serve a normalizzare la media.
+
+Per un sistema con $N$ particelle in tre dimensioni, lo spazio delle fasi ha dimensione $6N$. La condizione
+
+$$
+H(q,p)=E
+$$
+
+<div style="background-color:#fff3cd; border-left:2px solid #ff9900bb; padding:12px 16px; border-radius:6px;">vincola il moto alla superficie di energia, che ha dimensione 6N-1.
+</div>
+
+## Traiettoria e media temporale
+
+L'evoluzione dinamica genera una traiettoria sulla superficie di energia:
+
+$$
+(q(t),p(t)).
+$$
+
+Lungo questa traiettoria si può definire la media temporale dell'osservabile:
+
+$$
+\langle A\rangle_T
+=
+\lim_{T\to\infty}
+\frac{1}{T}
+\int_0^T
+A(q(t),p(t))\,dt.
+$$
+
+Dal punto di vista numerico, questa quantità viene approssimata seguendo la traiettoria per un tempo finito e campionandola a intervalli temporali discreti.
+
+## Ergodicità
+
+Il **postulato ergodico** collega la media d'ensemble alla media temporale. Se la dinamica esplora in modo rappresentativo tutti i microstati accessibili, allora
+
+$$
+\boxed{
+\langle A\rangle_{\mathrm{ens}}
+=
+\lim_{\tau\to\infty}
+\frac{1}{\tau}
+\int_0^\tau
+A(Q(t),P(t))\,dt
+}
+$$
+
+In particolare, se il sistema è **ergodico** sulla superficie di energia, una traiettoria sufficientemente lunga esplora in modo rappresentativo la regione accessibile dello spazio delle fasi. In tal caso, per quasi tutte le condizioni iniziali,
+
+$$
+\langle A\rangle_T
+=
+\langle A\rangle_{\mu\mathrm{can}}.
+$$
+
+Questa relazione collega una simulazione dinamica, basata su una singola traiettoria, alle medie statistiche dell'ensemble microcanonico.
+
+Le medie statistiche richiedono in generale integrali in uno spazio di dimensione $6N$ e, per sistemi realistici, non sono quasi mai calcolabili direttamente. Due strategie numeriche fondamentali sono:
+
+- **Molecular Dynamics (MD):** genera una traiettoria dinamica e stima una **media temporale**;
+- **Monte Carlo (MC):** campiona direttamente la distribuzione dell'ensemble e stima una **media d'ensemble**.
+
+In presenza di ergodicità e di un campionamento sufficientemente lungo, le due procedure devono fornire la stessa media di equilibrio.
+
+## Teorema KAM
+
+Il [teorema di Kolmogorov-Arnol'd-Moser (KAM)](https://it.wikipedia.org/wiki/Teorema_di_Kolmogorov-Arnol%27d-Moser) riguarda sistemi hamiltoniani quasi integrabili.
+
+Per perturbazioni sufficientemente piccole, molti tori invarianti del sistema integrabile sopravvivono. Su questi tori il moto può essere quasi-periodico e, nel caso di frequenze incommensurabili, la traiettoria può essere densa **sul toro invariante**, ma non necessariamente sull'intera superficie di energia.
+
+Il teorema KAM non garantisce quindi l'ergodicità globale; al contrario, mostra come possano esistere regioni invarianti dello spazio delle fasi che impediscono a una singola traiettoria di esplorare tutta la superficie microcanonica.
+
+<div style="background-color:#fff3cd; border-left:2px solid #ff9900bb; padding:12px 16px; border-radius:6px;">
+
+<b>IN BREVE:</b> la traiettoria <b>"is infinite dense on the energy phase-space surface"</b>.<br><br>
+
+<b>COMPUTAZIONALMENTE:</b> avremo dei <b>TIME STEP</b>, se la traiettoria è densa abbastanza.
+
+</div>
+
+## Quadro complessivo
+
+Il collegamento tra descrizione dinamica e statistica può essere riassunto come
+
+$$
+\text{traiettoria hamiltoniana}
+\;\xrightarrow[\text{se ergodica}]{}\;
+\langle A\rangle_T
+=
+\langle A\rangle_{\mu\mathrm{can}}
+$$
+
+e, nel limite termodinamico e sotto le usuali condizioni di equivalenza degli ensemble,
+
+$$
+\langle A\rangle_{\mu\mathrm{can}}
+\simeq
+\langle A\rangle_{\mathrm{can}}
+\simeq
+\langle A\rangle_{\mathrm{gran\,can}}.
+$$
+
+In sintesi,
+
+$$
+\boxed{
+\text{Microcanonico: } E\ \text{fissata}
+\qquad\Longleftrightarrow\qquad
+\text{Canonico: } T\ \text{fissata, }E\ \text{fluttua}
+}
+$$
+
+La differenza tra i due ensemble è importante a scala microscopica; per sistemi molto grandi, le fluttuazioni relative diventano piccole e gli ensemble risultano termodinamicamente equivalenti nelle condizioni usuali.
+
+In pratica: **la dinamica conserva l'energia e suggerisce il microcanonico; il limite termodinamico rende spesso equivalenti gli ensemble e consente di usare quello più conveniente per il calcolo.**
+In laboratorio spesso è piu facile avere T costante, quindi ensemble canonico, ma in simulazioni numeriche spesso si lavora con l'ensemble microcanonico ecc.
