@@ -22,6 +22,15 @@ project:
     - file: notebooks/05_molecular_dynamics/equazioni_del_moto.ipynb
     - file: book/05_md_pbc.md
     - file: notebooks/05_molecular_dynamics/esercizi_cms6.ipynb
+    - title: "ESERCIZIO 1 (MD simulations of LJ-Ag)"
+      children:
+        - file: book/06_esercizio1_md/intro.md
+        - file: notebooks/06_esercizio1_md/esercizio1_part1_2.ipynb
+        - file: notebooks/06_esercizio1_md/esercizio1_soluzione.ipynb
+        - file: notebooks/06_esercizio1_md/punti_1_2_passo_temporale.ipynb
+        - file: book/06_esercizio1_md/steepest_descent.md
+        - file: notebooks/06_esercizio1_md/steepest_descent.ipynb
+        - file: book/06_esercizio1_md/approfondimento.md
 
   exclude:
     - README.md
