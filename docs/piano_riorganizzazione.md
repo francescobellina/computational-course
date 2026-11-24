@@ -185,7 +185,7 @@ notebooks/archivio/       esercizio1_soluzione, punti_1_2_passo_temporale
 - [x] Build locale con cache di esecuzione vuota (`jupyter book build --html --execute
       --strict`): 12 s, nessun errore, output presenti in tutte le pagine dei notebook esclusi.
       Prima: 21 min 16 s per il passo di build nell'ultima esecuzione su GitHub (`06bfca5`).
-      Il tempo su GitHub va rimisurato dopo il prossimo push.
+      Su GitHub, dopo il push di `0b74d3a`: 23 s per il passo di build, run riuscito.
 - [ ] Il passo che installa Vulkan in CI non serve più per i notebook (OVITO non viene più
       eseguito); tenuto finché non si verifica che nessun test ne abbia bisogno.
 - [ ] Rischio da tenere presente: un notebook escluso non segnala più in CI se il codice
